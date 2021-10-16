@@ -1,11 +1,10 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Button, Paper, TextField, Typography } from '@material-ui/core';
-import { ClassNameMap } from '@material-ui/styles';
 import FileBase64 from 'react-file-base64';
 
-import { CategoryModel, NullableCategoryModel } from 'models';
-import { EmptyProps } from 'utilities/interfaces';
+import { EmptyProps } from 'utils';
+import { CategoryModel } from 'models';
 import { GlobalState } from 'reducers';
 import createCategory from 'actions/createCategory';
 import updateCategory from 'actions/updateCategory';
@@ -27,13 +26,13 @@ const CategoryForm: FC<EmptyProps> = () => {
     description: '',
     selectedFile: ''
   });
-  const currentCategory: NullableCategoryModel = useSelector(
+  const currentCategory = useSelector(
     (state: Readonly<GlobalState>) => state.currentCategory
   );
-  const dispatch = useDispatch();
-  const classes: ClassNameMap<string> = useStyles();
 
-  const clearForm = (): void => {
+  const dispatch = useDispatch();
+  const classes = useStyles();
+  const clearForm = () => {
     setFormData({
       name: '',
       title: '',
@@ -42,41 +41,73 @@ const CategoryForm: FC<EmptyProps> = () => {
     });
   };
 
-  useEffect((): void => {
+  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+  const onProcessingImgDone = useCallback((result: any) => {
+    if (result && 'base64' in result
+      && typeof result.base64 === 'string') {
+      setFormData({
+        ...formData,
+        selectedFile: result.base64
+      });
+    } else {
+      console.error('Error converting image to base64: ', result);
+    }
+  }, [formData]);
+
+  const handleClickClear = useCallback(() => {
     if (currentCategory) {
       setFormData({
-        name: currentCategory.name,
-        title: currentCategory.title,
-        description: currentCategory.description || '',
-        selectedFile: currentCategory.images[0]
+        ...formData,
+        title: '',
+        description: '',
+        selectedFile: ''
+      });
+    } else {
+      clearForm();
+    }
+  }, [currentCategory, formData]);
+
+  const handleSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const dataToSubmit: CategoryModel = {
+      attributes: {
+        name: formData.name,
+        title: formData.title,
+        description: formData.description,
+        images: [formData.selectedFile]
+      }
+    };
+
+    if (currentCategory) {
+      dispatch(
+        updateCategory({
+          name: currentCategory.attributes.name,
+          category: dataToSubmit,
+          onCompletion: () => dispatch(removeCurrentCategory())
+        })
+      );
+    } else {
+      dispatch(
+        createCategory({
+          category: dataToSubmit,
+          onCompletion: clearForm
+        })
+      );
+    }
+  }, [currentCategory, formData]);
+
+  useEffect(() => {
+    if (currentCategory) {
+      setFormData({
+        name: currentCategory.attributes.name,
+        title: currentCategory.attributes.title,
+        description: currentCategory.attributes.description || '',
+        selectedFile: currentCategory.attributes.images[0]
       });
     } else {
       clearForm();
     }
   }, [currentCategory]);
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
-    e.preventDefault();
-
-    const dataToSubmit: CategoryModel = {
-      name: formData.name,
-      title: formData.title,
-      description: formData.description,
-      images: [formData.selectedFile]
-    };
-
-    if (currentCategory) {
-      dispatch(
-        updateCategory(
-          () => dispatch(removeCurrentCategory()),
-          currentCategory.name,
-          dataToSubmit
-        )
-      );
-    } else {
-      dispatch(createCategory(clearForm, dataToSubmit));
-    }
-  };
 
   return (
     <Paper className={`${classes.root} ${classes.paper}`}>
@@ -96,7 +127,8 @@ const CategoryForm: FC<EmptyProps> = () => {
               align="center"
               style={{ marginBottom: '8px', width: '100%' }}
             >
-              Now editing <b>{`${currentCategory.name} (${currentCategory.title})`}</b>
+              Now editing
+              <b>{`${currentCategory.attributes.name} (${currentCategory.attributes.title})`}</b>
             </Typography>
             <Button
               variant="outlined"
@@ -111,31 +143,31 @@ const CategoryForm: FC<EmptyProps> = () => {
           : null
         }
         <TextField
+          fullWidth
           name="name"
           label="Category name (must be unique)"
           variant="outlined"
-          fullWidth
-          disabled={Boolean(currentCategory)}
+          disabled={currentCategory != null}
           value={formData.name}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setFormData({ ...formData, name: e.target.value });
           }}
         />
         <TextField
+          fullWidth
           name="title"
           label="Category title"
           variant="outlined"
-          fullWidth
           value={formData.title}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setFormData({ ...formData, title: e.target.value });
           }}
         />
         <TextField
+          fullWidth
           name="description"
           label="Description"
           variant="outlined"
-          fullWidth
           value={formData.description}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setFormData({ ...formData, description: e.target.value });
@@ -145,49 +177,25 @@ const CategoryForm: FC<EmptyProps> = () => {
           <FileBase64
             type="file"
             multiple={false}
-            /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-            onDone={(result: any) => {
-              if (result && 'base64' in result && typeof result.base64 === 'string') {
-                setFormData({
-                  ...formData,
-                  selectedFile: result.base64
-                });
-              } else {
-                console.error(
-                  'Error converting image to base64. Conversion result: ',
-                  result
-                );
-              }
-            }}
+            onDone={onProcessingImgDone}
           />
         </div>
         <Button
+          fullWidth
           type="submit"
           className={classes.buttonSubmit}
           variant="contained"
           color="primary"
           size="large"
-          fullWidth
         >
           Submit
         </Button>
         <Button
+          fullWidth
           variant="contained"
           color="secondary"
           size="small"
-          fullWidth
-          onClick={() => {
-            if (currentCategory) {
-              setFormData({
-                ...formData,
-                title: '',
-                description: '',
-                selectedFile: ''
-              });
-            } else {
-              clearForm();
-            }
-          }}
+          onClick={handleClickClear}
         >
           Clear
         </Button>

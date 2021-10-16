@@ -1,13 +1,19 @@
 import { Reducer } from 'redux';
 
-import { TestDataAction } from 'actions/declarations';
+import {
+  IncrementTestDataAction,
+  DecrementTestDataAction
+} from 'actions';
 import {
   INCREMENT_TEST_DATA,
   DECREMENT_TEST_DATA
 } from 'actions/types';
 
-const testDataReducer: Reducer<number, TestDataAction> =
-  (prevState = 0, action: TestDataAction): number => {
+type TestDataReducer =
+  Reducer<number, IncrementTestDataAction | DecrementTestDataAction>;
+
+const testDataReducer: TestDataReducer =
+  (prevState = 0, action): number => {
     switch (action.type) {
       case INCREMENT_TEST_DATA:
         return prevState + 1;

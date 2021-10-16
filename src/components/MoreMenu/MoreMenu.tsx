@@ -13,15 +13,15 @@ interface MoreMenuProps {
   color?: string;
 }
 
-const MoreMenu: FC<MoreMenuProps> = (props: MoreMenuProps) => {
+const MoreMenu: FC<MoreMenuProps> = ({ items, color = 'rgba(0, 0, 0, 1)' }) => {
   const [anchorElement, setAnchorElement] =
     useState<HTMLButtonElement | null>(null);
 
   const handleClick =
-    (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void =>
+    (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
       setAnchorElement(e.currentTarget);
 
-  const handleClose = (): void => setAnchorElement(null);
+  const handleClose = () => setAnchorElement(null);
 
   return (
     <>
@@ -30,7 +30,7 @@ const MoreMenu: FC<MoreMenuProps> = (props: MoreMenuProps) => {
         aria-controls="simple-more-menu"
         aria-haspopup="true"
         onClick={handleClick}
-        style={{ color: props.color || 'rgba(0, 0, 0, 1)' }}
+        style={{ color }}
       >
         <MoreHorizIcon />
       </IconButton>
@@ -38,12 +38,12 @@ const MoreMenu: FC<MoreMenuProps> = (props: MoreMenuProps) => {
         keepMounted
         id="simple-more-menu"
         anchorEl={anchorElement}
-        open={Boolean(anchorElement)}
+        open={!!anchorElement}
         onClose={handleClose}
       >
-        {Object.keys(props.items).map(
+        {Object.keys(items).map(
           (itemName: string, index: number) => {
-            const itemClickHandler: ItemClickHandler = props.items[itemName];
+            const itemClickHandler: ItemClickHandler = items[itemName];
             return (
               <MenuItem
                 key={`${index}_${itemName}`}

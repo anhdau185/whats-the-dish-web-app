@@ -1,11 +1,10 @@
-import {
-  ActionCreator,
-  TestDataAction
-} from 'actions/declarations';
+import { Action } from 'redux';
 
 import { DECREMENT_TEST_DATA } from './types';
 
-const decrementTestData: ActionCreator<TestDataAction> =
-  (): TestDataAction => ({ type: DECREMENT_TEST_DATA });
+export type DecrementTestDataAction = Action<'DECREMENT_TEST_DATA'>;
+
+const decrementTestData: () => DecrementTestDataAction =
+  () => ({ type: DECREMENT_TEST_DATA });
 
 export default decrementTestData;
