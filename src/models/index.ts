@@ -1,12 +1,15 @@
 export interface CategoryModel {
-  _id?: string;
-  name: string;
-  title: string;
-  description?: string;
-  images: string[];
-  dishes?: string[];
-  createdAt?: Date;
-  [extraProps: string]: any;
+  id?: string;
+  type?: string;
+  attributes: {
+    name: string;
+    title: string;
+    images: string[];
+    description: string | null;
+    createdAt?: Date;
+    updatedAt?: Date;
+  };
+  relationships?: Record<string, any>;
 }
 
 export type NullableCategoryModel = CategoryModel | null;
