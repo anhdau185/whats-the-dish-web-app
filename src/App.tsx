@@ -1,26 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { FC, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from 'react-router-dom';
 
-function App() {
+import { EmptyProps } from 'utilities/interfaces';
+import fetchAllCategories from 'actions/fetchAllCategories';
+import AppBar from 'components/AppBar/AppBar';
+import HomePage from 'pages/HomePage/HomePage';
+
+const App: FC<EmptyProps> = () => {
+  const dispatch = useDispatch();
+
+  useEffect((): void => {
+    dispatch(fetchAllCategories(null));
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="app">
+        <AppBar />
+        <div className="page">
+          <Switch>
+            <Route exact path="/" component={HomePage} />
+          </Switch>
+        </div>
+      </div>
+    </Router>
   );
-}
+};
 
 export default App;
