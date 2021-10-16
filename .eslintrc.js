@@ -29,7 +29,11 @@ module.exports = {
         'allowTemplateLiterals': true
       }
     ],
-    'indent': ['error', 2]
+    'indent': [
+      'error',
+      2,
+      { 'SwitchCase': 1 }
+    ]
   },
   settings: {
     react: {
