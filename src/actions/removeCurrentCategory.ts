@@ -1,11 +1,10 @@
-import {
-  ActionCreator,
-  RemoveCurrentCategoryAction
-} from 'actions/declarations';
+import { Action } from 'redux';
 
 import { REMOVE_CURRENT_CATEGORY } from './types';
 
-const setCurrentCategory: ActionCreator<RemoveCurrentCategoryAction> =
-  (): RemoveCurrentCategoryAction => ({ type: REMOVE_CURRENT_CATEGORY });
+export type RemoveCurrentCategoryAction = Action<'REMOVE_CURRENT_CATEGORY'>;
+
+const setCurrentCategory: () => RemoveCurrentCategoryAction =
+  () => ({ type: REMOVE_CURRENT_CATEGORY });
 
 export default setCurrentCategory;

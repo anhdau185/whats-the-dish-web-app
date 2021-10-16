@@ -1,28 +1,39 @@
-import { Dispatch } from 'redux';
+import { Action, Dispatch } from 'redux';
+import noop from 'lodash/fp/noop';
 
 import * as api from 'api';
 import { CategoryModel } from 'models';
-import {
-  AsyncActionCreator,
-  CreateCategoryAction
-} from 'actions/declarations';
 
 import { CREATE_CATEGORY } from './types';
 
-const createCategory: AsyncActionCreator<CreateCategoryAction> =
-  (onCompletion = null, category: CategoryModel) =>
-    async (dispatch: Dispatch<CreateCategoryAction>) => {
-      try {
-        const { data } = await api.createCategory(category);
-        dispatch({
-          type: CREATE_CATEGORY,
-          payload: data.createdCategory
-        });
-      } catch (error: any) {
-        console.error(error.message);
-      } finally {
-        if (typeof onCompletion === 'function') onCompletion();
-      }
-    };
+export interface CreateCategoryAction extends Action<'CREATE_CATEGORY'> {
+  payload: CategoryModel;
+}
+
+interface CreateCategoryOptions {
+  category: CategoryModel;
+  onCompletion?: () => void;
+}
+
+type CreateCategoryActionCreator =
+  (options: CreateCategoryOptions) => (dispatch: Dispatch<CreateCategoryAction>) => Promise<void>;
+
+const createCategory: CreateCategoryActionCreator =
+  options => async dispatch => {
+    const { category } = options;
+    const onCompletion = options.onCompletion || noop;
+
+    try {
+      const { data } = await api.createCategory(category);
+      dispatch({
+        type: CREATE_CATEGORY,
+        payload: data.createdCategory
+      });
+    } catch (error: any) {
+      console.error(error?.message);
+    } finally {
+      onCompletion();
+    }
+  };
 
 export default createCategory;

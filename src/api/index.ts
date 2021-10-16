@@ -2,28 +2,28 @@ import axios, { AxiosResponse } from 'axios';
 
 import { CategoryModel } from 'models';
 
-interface NetworkResponse {
-  error: boolean;
-  message: string;
+interface CommonApiResponse {
+  included?: any;
   [extraProps: string]: any;
 }
 
 type FetchCategoriesApiResponse =
-  AxiosResponse<NetworkResponse & { categories: CategoryModel[] }>;
+  AxiosResponse<CommonApiResponse & { data: CategoryModel[] }>;
 
 type CreateCategoryApiResponse =
-  AxiosResponse<NetworkResponse & { createdCategory: CategoryModel }>;
+  AxiosResponse<CommonApiResponse & { data: CategoryModel }>;
 
 type GetCategoryApiResponse =
-  AxiosResponse<NetworkResponse & { category: CategoryModel }>;
+  AxiosResponse<CommonApiResponse & { data: CategoryModel }>;
 
 type UpdateCategoryApiResponse =
-  AxiosResponse<NetworkResponse & { updatedCategory: CategoryModel }>;
+  AxiosResponse<CommonApiResponse & { data: CategoryModel }>;
 
-type DeleteCategoryApiResponse = AxiosResponse<NetworkResponse>;
+type DeleteCategoryApiResponse = AxiosResponse<CommonApiResponse>;
 
 
-const BASE_URL = 'https://whats-the-dish-api.herokuapp.com';
+// const BASE_URL = 'https://whats-the-dish-api.herokuapp.com';
+const BASE_URL = 'http://127.0.0.1:5000/api/v1';
 
 /* Categories REST APIs */
 

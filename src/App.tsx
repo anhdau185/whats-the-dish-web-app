@@ -6,7 +6,7 @@ import {
   Route
 } from 'react-router-dom';
 
-import { EmptyProps } from 'utilities/interfaces';
+import { EmptyProps } from 'utils';
 import fetchAllCategories from 'actions/fetchAllCategories';
 import AppBar from 'components/AppBar/AppBar';
 import HomePage from 'pages/HomePage/HomePage';
@@ -14,8 +14,8 @@ import HomePage from 'pages/HomePage/HomePage';
 const App: FC<EmptyProps> = () => {
   const dispatch = useDispatch();
 
-  useEffect((): void => {
-    dispatch(fetchAllCategories(null));
+  useEffect(() => {
+    dispatch(fetchAllCategories());
   }, []);
 
   return (

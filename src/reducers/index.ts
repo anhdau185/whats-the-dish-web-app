@@ -1,7 +1,7 @@
 import { Reducer, CombinedState, combineReducers } from 'redux';
 
 import { CategoryModel, NullableCategoryModel } from 'models';
-import { AppAction } from 'actions/declarations';
+import { AppAction } from 'actions';
 
 import testDataReducer from './testDataReducer';
 import categoriesReducer from './categoriesReducer';

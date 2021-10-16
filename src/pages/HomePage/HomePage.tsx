@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Container, Grow, Grid } from '@material-ui/core';
 
-import { EmptyProps } from 'utilities/interfaces';
+import { EmptyProps } from 'utils';
 import Categories from 'components/Categories/Categories';
 import CategoryForm from 'components/CategoryForm/CategoryForm';
 

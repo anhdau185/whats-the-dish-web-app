@@ -1,14 +1,13 @@
 import React, { FC, memo } from 'react';
 import { Container, AppBar, Typography } from '@material-ui/core';
-import { ClassNameMap } from '@material-ui/styles';
 
-import { EmptyProps } from 'utilities/interfaces';
+import { EmptyProps } from 'utils';
 import dishImage from 'images/dish.png';
 
 import useStyles from './styles';
 
 const AppBarComponent: FC<EmptyProps> = () => {
-  const classes: ClassNameMap<string> = useStyles();
+  const classes = useStyles();
 
   return (
     <Container maxWidth="lg">

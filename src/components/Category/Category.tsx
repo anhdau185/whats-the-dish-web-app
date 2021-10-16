@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {
   Button,
@@ -8,7 +8,6 @@ import {
   CardMedia,
   Typography
 } from '@material-ui/core';
-import { ClassNameMap } from '@material-ui/styles';
 import moment from 'moment';
 
 import { CategoryModel } from 'models';
@@ -19,39 +18,38 @@ import MoreMenu, { MoreMenuItems } from 'components/MoreMenu/MoreMenu';
 
 import useStyles from './styles';
 
-interface CategoryProps {
-  category: CategoryModel;
-}
-
-const Category: FC<CategoryProps> = (props: CategoryProps) => {
-  const { category } = props;
+const Category: FC<{ category: CategoryModel }> = ({ category }) => {
   const [createdAtHovered, setCreatedAtHovered] = useState<boolean>(false);
   const dispatch = useDispatch();
-  const classes: ClassNameMap<string> = useStyles();
+  const classes = useStyles();
 
-  const creationDateTime: string =
-    moment(category.createdAt).format('MMM D, YYYY h:mm a');
+  const creationDateTime =
+    moment(category.attributes.createdAt).format('MMM D, YYYY h:mm a');
 
-  const menuItems: MoreMenuItems = {
-    'Edit': () => dispatch(setCurrentCategory(category)),
-    'Delete': () => {
-      if (confirm('Delete this category?')) {
-        dispatch(
-          deleteCategory(
-            () => dispatch(removeCurrentCategory()),
-            category.name
-          )
-        );
+  const menuItems: MoreMenuItems = useMemo(
+    () => ({
+      'Edit': () => dispatch(setCurrentCategory(category)),
+      'Delete': () => {
+        if (confirm('Delete this category?')) {
+          dispatch(
+            deleteCategory({
+              name: category.attributes.name,
+              onCompletion: () => dispatch(removeCurrentCategory())
+            })
+          );
+        }
       }
-    }
-  };
+    }),
+    [category]
+  );
 
   return (
     <Card className={classes.card}>
       <CardMedia
+        component='div'
         className={classes.media}
-        image={category.images[0]}
-        title={category.title}
+        image={category.attributes.images[0]}
+        title={category.attributes.title}
       />
       <div className={classes.overlay}>
         <Typography
@@ -61,7 +59,7 @@ const Category: FC<CategoryProps> = (props: CategoryProps) => {
           onMouseLeave={() => setCreatedAtHovered(false)}
         >
           {!createdAtHovered
-            ? moment(category.createdAt).fromNow()
+            ? moment(category.attributes.createdAt).fromNow()
             : creationDateTime
           }
         </Typography>
@@ -71,10 +69,10 @@ const Category: FC<CategoryProps> = (props: CategoryProps) => {
       </div>
       <CardContent>
         <Typography variant="h5" gutterBottom>
-          {category.title}
+          {category.attributes.title}
         </Typography>
         <Typography variant="body2" color="textSecondary">
-          {category.description}
+          {category.attributes.description}
         </Typography>
       </CardContent>
       <CardActions className={classes.cardActions}>
