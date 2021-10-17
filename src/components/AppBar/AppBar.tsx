@@ -21,7 +21,7 @@ const AppBarComponent: FC<EmptyProps> = () => {
           variant="h2"
           align="center"
         >
-          What&apos;s the dish?
+          What&apos;s the dish today?
         </Typography>
         <img
           className={classes.image}
