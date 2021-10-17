@@ -1,5 +1,6 @@
 import React, { FC, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import moment from 'moment';
 import {
   Button,
   Card,
@@ -8,7 +9,6 @@ import {
   CardMedia,
   Typography
 } from '@material-ui/core';
-import moment from 'moment';
 
 import { Category } from 'models';
 import deleteCategory from 'actions/deleteCategory';
@@ -70,7 +70,7 @@ const CategoryItem: FC<{ category: Category }> = ({ category }) => {
       </div>
       <CardContent>
         <Typography variant="h5" gutterBottom>
-          {category.attributes.title}
+          {category.attributes.name}
         </Typography>
         <Typography variant="body2" color="textSecondary">
           {category.attributes.description}

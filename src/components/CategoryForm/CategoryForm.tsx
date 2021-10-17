@@ -179,7 +179,7 @@ const CategoryForm: FC<EmptyProps> = () => {
         <TextField
           fullWidth
           name="title"
-          label="Long name / Title"
+          label="Title / Long name"
           variant="outlined"
           value={formData.title}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
