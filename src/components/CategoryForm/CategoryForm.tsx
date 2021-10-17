@@ -29,7 +29,7 @@ const CategoryForm: FC<EmptyProps> = () => {
   const currentCategory = useSelector(
     (state: Readonly<GlobalState>) => state.currentCategory
   );
-  const isAnyCategorySelected = currentCategory != null;
+  const anyCategorySelected = currentCategory != null;
   const dispatch = useDispatch();
   const classes = useStyles();
 
@@ -56,7 +56,7 @@ const CategoryForm: FC<EmptyProps> = () => {
   }, [formData]);
 
   const handleClickClear = useCallback(() => {
-    if (isAnyCategorySelected) {
+    if (anyCategorySelected) {
       setFormData({
         ...formData,
         title: '',
@@ -66,20 +66,44 @@ const CategoryForm: FC<EmptyProps> = () => {
     } else {
       clearForm();
     }
-  }, [currentCategory, formData]);
+  }, [anyCategorySelected, formData]);
+
+  const validateForm = useCallback((): boolean => {
+    if (!formData.name || formData.name.length > 50) {
+      window.alert(
+        'Category name should be neither empty nor over 50 characters.'
+      );
+      return false;
+    }
+
+    if (formData.title.length > 70) {
+      window.alert('Title should be not be over 100 characters.');
+      return false;
+    }
+
+    if (formData.title.length > 150) {
+      window.alert('Description should be not be over 150 characters.');
+      return false;
+    }
+
+    return true;
+  }, [formData]);
 
   const handleSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!validateForm()) return;
+
     const dataToSubmit: RawCategory = {
       attributes: {
         name: formData.name,
-        title: formData.title,
+        title: formData.title || formData.name,
         description: formData.description,
         images: [formData.selectedFile]
       }
     };
 
-    if (isAnyCategorySelected) {
+    if (anyCategorySelected) {
       dispatch(
         updateCategory({
           id: currentCategory.id,
@@ -95,10 +119,10 @@ const CategoryForm: FC<EmptyProps> = () => {
         })
       );
     }
-  }, [currentCategory, formData]);
+  }, [currentCategory?.id, formData]);
 
   useEffect(() => {
-    if (isAnyCategorySelected) {
+    if (anyCategorySelected) {
       setFormData({
         name: currentCategory.attributes.name,
         title: currentCategory.attributes.title,
@@ -119,36 +143,34 @@ const CategoryForm: FC<EmptyProps> = () => {
         onSubmit={handleSubmit}
       >
         <Typography className={classes.formHeading} variant="h6" align="center">
-          {currentCategory ? 'Edit' : 'Create'} a Category
+          {anyCategorySelected ? 'Edit' : 'Create'} a Category
         </Typography>
-        {currentCategory
-          ? <>
+        {anyCategorySelected && (
+          <>
             <Typography
               variant="body2"
               align="center"
-              style={{ marginBottom: '8px', width: '100%' }}
+              style={{ marginBottom: 8, width: '100%' }}
             >
-              Now editing
-              <b>{`${currentCategory.attributes.name} (${currentCategory.attributes.title})`}</b>
+              {'Now editing '}
+              <b>{currentCategory.attributes.name}</b>
             </Typography>
             <Button
               variant="outlined"
               color="primary"
               size="small"
-              style={{ marginBottom: '5px' }}
+              style={{ marginBottom: 16 }}
               onClick={() => dispatch(removeCurrentCategory())}
             >
               Create a new category
             </Button>
           </>
-          : null
-        }
+        )}
         <TextField
           fullWidth
           name="name"
-          label="Category name (must be unique)"
+          label="*Category name"
           variant="outlined"
-          disabled={currentCategory != null}
           value={formData.name}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setFormData({ ...formData, name: e.target.value });
@@ -157,7 +179,7 @@ const CategoryForm: FC<EmptyProps> = () => {
         <TextField
           fullWidth
           name="title"
-          label="Category title"
+          label="Long name / Title"
           variant="outlined"
           value={formData.title}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
