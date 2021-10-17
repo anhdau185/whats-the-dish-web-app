@@ -6,13 +6,13 @@ import { Category, RawCategory } from 'models';
 
 import { CREATE_CATEGORY } from './types';
 
-export interface CreateCategoryAction extends Action<'CREATE_CATEGORY'> {
-  payload: Category;
-}
-
 interface CreateCategoryOptions {
   category: RawCategory;
   onCompletion?: () => void;
+}
+
+export interface CreateCategoryAction extends Action<'CREATE_CATEGORY'> {
+  payload: Category;
 }
 
 type CreateCategoryActionCreator =

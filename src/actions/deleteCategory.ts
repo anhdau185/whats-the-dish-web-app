@@ -5,13 +5,13 @@ import * as api from 'api';
 
 import { DELETE_CATEGORY } from './types';
 
-export interface DeleteCategoryAction extends Action<'DELETE_CATEGORY'> {
-  payload: string;
-}
-
 interface DeleteCategoryOptions {
   id: string;
   onCompletion?: () => void;
+}
+
+export interface DeleteCategoryAction extends Action<'DELETE_CATEGORY'> {
+  payload: string;
 }
 
 type DeleteCategoryActionCreator =

@@ -6,12 +6,12 @@ import { Category } from 'models';
 
 import { FETCH_ALL_CATEGORIES } from './types';
 
-export interface FetchCategoriesAction extends Action<'FETCH_ALL_CATEGORIES'> {
-  payload: Category[];
-}
-
 interface FetchCategoriesOptions {
   onCompletion?: () => void;
+}
+
+export interface FetchCategoriesAction extends Action<'FETCH_ALL_CATEGORIES'> {
+  payload: Category[];
 }
 
 type FetchCategoriesActionCreator =
