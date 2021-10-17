@@ -6,14 +6,14 @@ import { Category, RawCategory } from 'models';
 
 import { UPDATE_CATEGORY } from './types';
 
-export interface UpdateCategoryAction extends Action<'UPDATE_CATEGORY'> {
-  payload: Category;
-}
-
 interface UpdateCategoryOptions {
   id: string;
   category: RawCategory;
   onCompletion?: () => void;
+}
+
+export interface UpdateCategoryAction extends Action<'UPDATE_CATEGORY'> {
+  payload: Category;
 }
 
 type UpdateCategoryActionCreator =
