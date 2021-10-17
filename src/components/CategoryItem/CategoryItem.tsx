@@ -60,10 +60,9 @@ const CategoryItem: FC<{ category: Category }> = ({ category }) => {
           onMouseEnter={() => setTimeHovered(true)}
           onMouseLeave={() => setTimeHovered(false)}
         >
-          {!timeHovered
-            ? moment(category.attributes.createdAt).fromNow()
-            : creationDateTime
-          }
+          {timeHovered
+            ? creationDateTime
+            : moment(category.attributes.createdAt).fromNow()}
         </Typography>
       </div>
       <div className={classes.overlay2}>
