@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Container, Grow, Grid } from '@material-ui/core';
 
 import { EmptyProps } from 'utils';
-import Categories from 'components/Categories/Categories';
+import CategoryList from 'components/CategoryList/CategoryList';
 import CategoryForm from 'components/CategoryForm/CategoryForm';
 
 const HomePage: FC<EmptyProps> = () => {
@@ -17,7 +17,7 @@ const HomePage: FC<EmptyProps> = () => {
             spacing={3}
           >
             <Grid item xs={12} sm={7}>
-              <Categories />
+              <CategoryList />
             </Grid>
             <Grid item xs={12} sm={4}>
               <CategoryForm />

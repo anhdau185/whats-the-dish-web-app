@@ -2,16 +2,16 @@ import { Action, Dispatch } from 'redux';
 import noop from 'lodash/fp/noop';
 
 import * as api from 'api';
-import { CategoryModel } from 'models';
+import { Category, RawCategory } from 'models';
 
 import { CREATE_CATEGORY } from './types';
 
 export interface CreateCategoryAction extends Action<'CREATE_CATEGORY'> {
-  payload: CategoryModel;
+  payload: Category;
 }
 
 interface CreateCategoryOptions {
-  category: CategoryModel;
+  category: RawCategory;
   onCompletion?: () => void;
 }
 
@@ -24,10 +24,10 @@ const createCategory: CreateCategoryActionCreator =
     const onCompletion = options.onCompletion || noop;
 
     try {
-      const { data } = await api.createCategory(category);
+      const { data: apiResponse } = await api.createCategory(category);
       dispatch({
         type: CREATE_CATEGORY,
-        payload: data.createdCategory
+        payload: apiResponse.data
       });
     } catch (error: any) {
       console.error(error?.message);

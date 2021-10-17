@@ -1,6 +1,7 @@
-import { CategoryModel, NullableCategoryModel } from './category';
+import { Category, RawCategory, NullableCategory } from './category';
 
 export type {
-  CategoryModel,
-  NullableCategoryModel
+  Category,
+  RawCategory,
+  NullableCategory
 };

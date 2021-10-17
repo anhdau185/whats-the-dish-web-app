@@ -1,6 +1,6 @@
 import { Reducer } from 'redux';
 
-import { NullableCategoryModel } from 'models';
+import { NullableCategory } from 'models';
 import {
   SetCurrentCategoryAction,
   RemoveCurrentCategoryAction
@@ -11,7 +11,7 @@ import {
 } from 'actions/types';
 
 export type CurrentCategoryReducer =
-  Reducer<NullableCategoryModel, SetCurrentCategoryAction | RemoveCurrentCategoryAction>;
+  Reducer<NullableCategory, SetCurrentCategoryAction | RemoveCurrentCategoryAction>;
 
 const currentCategoryReducer: CurrentCategoryReducer =
   (prevState = null, action) => {

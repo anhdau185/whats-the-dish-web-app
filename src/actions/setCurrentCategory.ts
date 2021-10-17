@@ -1,13 +1,13 @@
-import { CategoryModel } from 'models';
+import { Category } from 'models';
 
 import { SET_CURRENT_CATEGORY } from './types';
 import { Action } from 'redux';
 
 export interface SetCurrentCategoryAction extends Action<'SET_CURRENT_CATEGORY'> {
-  payload: CategoryModel;
+  payload: Category;
 }
 
-const setCurrentCategory: (category: CategoryModel) => SetCurrentCategoryAction =
+const setCurrentCategory: (category: Category) => SetCurrentCategoryAction =
   category => ({
     type: SET_CURRENT_CATEGORY,
     payload: category

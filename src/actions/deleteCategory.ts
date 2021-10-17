@@ -10,7 +10,7 @@ export interface DeleteCategoryAction extends Action<'DELETE_CATEGORY'> {
 }
 
 interface DeleteCategoryOptions {
-  name: string;
+  id: string;
   onCompletion?: () => void;
 }
 
@@ -19,19 +19,19 @@ type DeleteCategoryActionCreator =
 
 const deleteCategory: DeleteCategoryActionCreator =
   options => async dispatch => {
-    const { name } = options;
+    const { id } = options;
     const onCompletion = options.onCompletion || noop;
 
     try {
-      await api.deleteCategory(name);
+      await api.deleteCategory(id);
       dispatch({
         type: DELETE_CATEGORY,
-        payload: name
+        payload: id
       });
     } catch (error: any) {
       console.error(error.message);
     } finally {
-      if (typeof onCompletion === 'function') onCompletion();
+      onCompletion();
     }
   };
 

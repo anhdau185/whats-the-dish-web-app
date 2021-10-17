@@ -4,11 +4,11 @@ import { CircularProgress, Grid } from '@material-ui/core';
 
 import { EmptyProps } from 'utils';
 import { GlobalState } from 'reducers';
-import Category from 'components/Category/Category';
+import CategoryItem from 'components/CategoryItem/CategoryItem';
 
 import useStyles from './styles';
 
-const Categories: FC<EmptyProps> = () => {
+const CategoryList: FC<EmptyProps> = () => {
   const classes = useStyles();
   const categories = useSelector(
     (state: Readonly<GlobalState>) => state.categories
@@ -27,7 +27,7 @@ const Categories: FC<EmptyProps> = () => {
           {categories.map(
             category => (
               <Grid key={category.id} item xs={12} sm={6}>
-                <Category category={category} />
+                <CategoryItem category={category} />
               </Grid>
             )
           )}
@@ -36,4 +36,4 @@ const Categories: FC<EmptyProps> = () => {
   );
 };
 
-export default Categories;
+export default CategoryList;

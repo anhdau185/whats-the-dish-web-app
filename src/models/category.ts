@@ -1,15 +1,24 @@
-export interface CategoryModel {
-  id?: string;
-  type?: string;
-  attributes: {
-    name: string;
-    title: string;
-    images: string[];
-    description: string | null;
-    createdAt?: Date;
-    updatedAt?: Date;
-  };
-  relationships?: Record<string, any>;
+interface RawCategoryAttributes {
+  name: string;
+  title: string;
+  images: string[];
+  description: string | null;
 }
 
-export type NullableCategoryModel = CategoryModel | null;
+interface CategoryAttributes extends RawCategoryAttributes {
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface RawCategory {
+  attributes: RawCategoryAttributes;
+}
+
+export interface Category {
+  id: string;
+  type?: string;
+  attributes: CategoryAttributes;
+  relationships?: Record<string, unknown>;
+}
+
+export type NullableCategory = Category | null;

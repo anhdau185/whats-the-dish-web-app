@@ -1,6 +1,6 @@
 import { Reducer, CombinedState, combineReducers } from 'redux';
 
-import { CategoryModel, NullableCategoryModel } from 'models';
+import { Category, NullableCategory } from 'models';
 import { AppAction } from 'actions';
 
 import testDataReducer from './testDataReducer';
@@ -9,8 +9,8 @@ import currentCategoryReducer from './currentCategoryReducer';
 
 export interface GlobalState {
   testData: number;
-  categories: CategoryModel[];
-  currentCategory: NullableCategoryModel;
+  categories: Category[];
+  currentCategory: NullableCategory;
 }
 
 type RootReducer =
