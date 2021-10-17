@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 
-import { CategoryModel } from 'models';
+import { Category, RawCategory } from 'models';
 
 interface CommonApiResponse {
   included?: any;
@@ -8,16 +8,16 @@ interface CommonApiResponse {
 }
 
 type FetchCategoriesApiResponse =
-  AxiosResponse<CommonApiResponse & { data: CategoryModel[] }>;
+  AxiosResponse<CommonApiResponse & { data: Category[] }>;
 
 type CreateCategoryApiResponse =
-  AxiosResponse<CommonApiResponse & { data: CategoryModel }>;
+  AxiosResponse<CommonApiResponse & { data: Category }>;
 
 type GetCategoryApiResponse =
-  AxiosResponse<CommonApiResponse & { data: CategoryModel }>;
+  AxiosResponse<CommonApiResponse & { data: Category }>;
 
 type UpdateCategoryApiResponse =
-  AxiosResponse<CommonApiResponse & { data: CategoryModel }>;
+  AxiosResponse<CommonApiResponse & { data: Category }>;
 
 type DeleteCategoryApiResponse = AxiosResponse<CommonApiResponse>;
 
@@ -31,17 +31,17 @@ export const fetchCategories = (): Promise<FetchCategoriesApiResponse> =>
   axios.get(`${BASE_URL}/categories`);
 
 export const createCategory =
-  (category: CategoryModel): Promise<CreateCategoryApiResponse> =>
+  (category: RawCategory): Promise<CreateCategoryApiResponse> =>
     axios.post(`${BASE_URL}/categories`, category);
 
 export const getCategory =
-  (name: string): Promise<GetCategoryApiResponse> =>
-    axios.get(`${BASE_URL}/categories/${name}`);
+  (id: string): Promise<GetCategoryApiResponse> =>
+    axios.get(`${BASE_URL}/categories/${id}`);
 
 export const updateCategory =
-  (name: string, category: CategoryModel): Promise<UpdateCategoryApiResponse> =>
-    axios.patch(`${BASE_URL}/categories/${name}`, category);
+  (id: string, category: RawCategory): Promise<UpdateCategoryApiResponse> =>
+    axios.patch(`${BASE_URL}/categories/${id}`, category);
 
 export const deleteCategory =
-  (name: string): Promise<DeleteCategoryApiResponse> =>
-    axios.delete(`${BASE_URL}/categories/${name}`);
+  (id: string): Promise<DeleteCategoryApiResponse> =>
+    axios.delete(`${BASE_URL}/categories/${id}`);

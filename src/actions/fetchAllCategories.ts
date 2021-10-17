@@ -2,12 +2,12 @@ import { Action, Dispatch } from 'redux';
 import noop from 'lodash/fp/noop';
 
 import * as api from 'api';
-import { CategoryModel } from 'models';
+import { Category } from 'models';
 
 import { FETCH_ALL_CATEGORIES } from './types';
 
 export interface FetchCategoriesAction extends Action<'FETCH_ALL_CATEGORIES'> {
-  payload: CategoryModel[];
+  payload: Category[];
 }
 
 interface FetchCategoriesOptions {

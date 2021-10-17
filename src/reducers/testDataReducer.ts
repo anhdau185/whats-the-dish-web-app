@@ -13,7 +13,7 @@ type TestDataReducer =
   Reducer<number, IncrementTestDataAction | DecrementTestDataAction>;
 
 const testDataReducer: TestDataReducer =
-  (prevState = 0, action): number => {
+  (prevState = 0, action) => {
     switch (action.type) {
       case INCREMENT_TEST_DATA:
         return prevState + 1;

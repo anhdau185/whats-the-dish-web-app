@@ -2,17 +2,17 @@ import { Action, Dispatch } from 'redux';
 import noop from 'lodash/fp/noop';
 
 import * as api from 'api';
-import { CategoryModel } from 'models';
+import { Category, RawCategory } from 'models';
 
 import { UPDATE_CATEGORY } from './types';
 
 export interface UpdateCategoryAction extends Action<'UPDATE_CATEGORY'> {
-  payload: CategoryModel;
+  payload: Category;
 }
 
 interface UpdateCategoryOptions {
-  name: string;
-  category: CategoryModel;
+  id: string;
+  category: RawCategory;
   onCompletion?: () => void;
 }
 
@@ -21,19 +21,19 @@ type UpdateCategoryActionCreator =
 
 const updateCategory: UpdateCategoryActionCreator =
   options => async dispatch => {
-    const { name, category } = options;
+    const { id, category } = options;
     const onCompletion = options.onCompletion || noop;
 
     try {
-      const { data } = await api.updateCategory(name, category);
+      const { data: apiResponse } = await api.updateCategory(id, category);
       dispatch({
         type: UPDATE_CATEGORY,
-        payload: data.updatedCategory
+        payload: apiResponse.data
       });
     } catch (error: any) {
       console.error(error.message);
     } finally {
-      if (typeof onCompletion === 'function') onCompletion();
+      onCompletion();
     }
   };
 

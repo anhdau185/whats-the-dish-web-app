@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core';
 import moment from 'moment';
 
-import { CategoryModel } from 'models';
+import { Category } from 'models';
 import deleteCategory from 'actions/deleteCategory';
 import setCurrentCategory from 'actions/setCurrentCategory';
 import removeCurrentCategory from 'actions/removeCurrentCategory';
@@ -18,24 +18,24 @@ import MoreMenu, { MoreMenuItems } from 'components/MoreMenu/MoreMenu';
 
 import useStyles from './styles';
 
-const Category: FC<{ category: CategoryModel }> = ({ category }) => {
+const CategoryItem: FC<{ category: Category }> = ({ category }) => {
   const [timeHovered, setTimeHovered] = useState<boolean>(false);
   const dispatch = useDispatch();
   const classes = useStyles();
 
-  const creationDateTime = useMemo(
+  const creationDateTime = useMemo<string>(
     () => moment(category.attributes.createdAt).format('MMM D, YYYY h:mm a'),
     [category.attributes.createdAt]
   );
 
-  const menuItems: MoreMenuItems = useMemo(
+  const menuItems = useMemo<MoreMenuItems>(
     () => ({
       'Edit': () => dispatch(setCurrentCategory(category)),
       'Delete': () => {
         if (confirm('Delete this category?')) {
           dispatch(
             deleteCategory({
-              name: category.attributes.name,
+              id: category.id,
               onCompletion: () => dispatch(removeCurrentCategory())
             })
           );
@@ -86,4 +86,4 @@ const Category: FC<{ category: CategoryModel }> = ({ category }) => {
   );
 };
 
-export default Category;
+export default CategoryItem;

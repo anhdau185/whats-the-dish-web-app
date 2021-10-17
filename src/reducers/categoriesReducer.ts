@@ -1,6 +1,6 @@
 import { Reducer } from 'redux';
 
-import { CategoryModel } from 'models';
+import { Category } from 'models';
 import {
   FetchCategoriesAction,
   CreateCategoryAction,
@@ -15,7 +15,7 @@ import {
 } from 'actions/types';
 
 type CategoriesReducer = Reducer<
-  CategoryModel[],
+  Category[],
   FetchCategoriesAction | CreateCategoryAction | UpdateCategoryAction | DeleteCategoryAction
 >;
 
@@ -28,13 +28,10 @@ const categoriesReducer: CategoriesReducer =
         return [...prevState, action.payload];
       case UPDATE_CATEGORY:
         return prevState.map(
-          item =>
-            item.attributes.name === action.payload.attributes.name ? action.payload : item
+          item => item.id === action.payload.id ? action.payload : item
         );
       case DELETE_CATEGORY:
-        return prevState.filter(
-          item => item.attributes.name !== action.payload
-        );
+        return prevState.filter(item => item.id !== action.payload);
       default:
         return prevState;
     }

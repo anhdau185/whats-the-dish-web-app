@@ -4,7 +4,7 @@ import { Button, Paper, TextField, Typography } from '@material-ui/core';
 import FileBase64 from 'react-file-base64';
 
 import { EmptyProps } from 'utils';
-import { CategoryModel } from 'models';
+import { RawCategory } from 'models';
 import { GlobalState } from 'reducers';
 import createCategory from 'actions/createCategory';
 import updateCategory from 'actions/updateCategory';
@@ -29,17 +29,18 @@ const CategoryForm: FC<EmptyProps> = () => {
   const currentCategory = useSelector(
     (state: Readonly<GlobalState>) => state.currentCategory
   );
-
+  const isAnyCategorySelected = currentCategory != null;
   const dispatch = useDispatch();
   const classes = useStyles();
-  const clearForm = () => {
+
+  const clearForm = useCallback(() => {
     setFormData({
       name: '',
       title: '',
       description: '',
       selectedFile: ''
     });
-  };
+  }, []);
 
   /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
   const onProcessingImgDone = useCallback((result: any) => {
@@ -55,7 +56,7 @@ const CategoryForm: FC<EmptyProps> = () => {
   }, [formData]);
 
   const handleClickClear = useCallback(() => {
-    if (currentCategory) {
+    if (isAnyCategorySelected) {
       setFormData({
         ...formData,
         title: '',
@@ -69,7 +70,7 @@ const CategoryForm: FC<EmptyProps> = () => {
 
   const handleSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const dataToSubmit: CategoryModel = {
+    const dataToSubmit: RawCategory = {
       attributes: {
         name: formData.name,
         title: formData.title,
@@ -78,10 +79,10 @@ const CategoryForm: FC<EmptyProps> = () => {
       }
     };
 
-    if (currentCategory) {
+    if (isAnyCategorySelected) {
       dispatch(
         updateCategory({
-          name: currentCategory.attributes.name,
+          id: currentCategory.id,
           category: dataToSubmit,
           onCompletion: () => dispatch(removeCurrentCategory())
         })
@@ -97,7 +98,7 @@ const CategoryForm: FC<EmptyProps> = () => {
   }, [currentCategory, formData]);
 
   useEffect(() => {
-    if (currentCategory) {
+    if (isAnyCategorySelected) {
       setFormData({
         name: currentCategory.attributes.name,
         title: currentCategory.attributes.title,
