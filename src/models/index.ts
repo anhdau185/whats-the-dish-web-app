@@ -1,15 +1,6 @@
-export interface CategoryModel {
-  id?: string;
-  type?: string;
-  attributes: {
-    name: string;
-    title: string;
-    images: string[];
-    description: string | null;
-    createdAt?: Date;
-    updatedAt?: Date;
-  };
-  relationships?: Record<string, any>;
-}
+import { CategoryModel, NullableCategoryModel } from './category';
 
-export type NullableCategoryModel = CategoryModel | null;
+export type {
+  CategoryModel,
+  NullableCategoryModel
+};

@@ -19,12 +19,14 @@ import MoreMenu, { MoreMenuItems } from 'components/MoreMenu/MoreMenu';
 import useStyles from './styles';
 
 const Category: FC<{ category: CategoryModel }> = ({ category }) => {
-  const [createdAtHovered, setCreatedAtHovered] = useState<boolean>(false);
+  const [timeHovered, setTimeHovered] = useState<boolean>(false);
   const dispatch = useDispatch();
   const classes = useStyles();
 
-  const creationDateTime =
-    moment(category.attributes.createdAt).format('MMM D, YYYY h:mm a');
+  const creationDateTime = useMemo(
+    () => moment(category.attributes.createdAt).format('MMM D, YYYY h:mm a'),
+    [category.attributes.createdAt]
+  );
 
   const menuItems: MoreMenuItems = useMemo(
     () => ({
@@ -55,10 +57,10 @@ const Category: FC<{ category: CategoryModel }> = ({ category }) => {
         <Typography
           variant="body2"
           style={{ cursor: 'default' }}
-          onMouseEnter={() => setCreatedAtHovered(true)}
-          onMouseLeave={() => setCreatedAtHovered(false)}
+          onMouseEnter={() => setTimeHovered(true)}
+          onMouseLeave={() => setTimeHovered(false)}
         >
-          {!createdAtHovered
+          {!timeHovered
             ? moment(category.attributes.createdAt).fromNow()
             : creationDateTime
           }
@@ -76,7 +78,9 @@ const Category: FC<{ category: CategoryModel }> = ({ category }) => {
         </Typography>
       </CardContent>
       <CardActions className={classes.cardActions}>
-        <Button size="small" color="primary">View details</Button>
+        <Button size="small" color="primary">
+          View details
+        </Button>
       </CardActions>
     </Card>
   );
