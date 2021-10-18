@@ -26,13 +26,11 @@ export const createCategory =
     axios.post(`${BASE_URL}/categories`, category);
 
 export const getCategory =
-  (id: string): Promise<GetCategoryApiResponse> =>
-    axios.get(`${BASE_URL}/categories/${id}`);
+  (id: string): Promise<GetCategoryApiResponse> => axios.get(`${BASE_URL}/categories/${id}`);
 
 export const updateCategory =
   (id: string, category: RawCategory): Promise<UpdateCategoryApiResponse> =>
     axios.patch(`${BASE_URL}/categories/${id}`, category);
 
 export const deleteCategory =
-  (id: string): Promise<DeleteCategoryApiResponse> =>
-    axios.delete(`${BASE_URL}/categories/${id}`);
+  (id: string): Promise<DeleteCategoryApiResponse> => axios.delete(`${BASE_URL}/categories/${id}`);
