@@ -1,7 +1,7 @@
 {
   "name": "whats-the-dish-web-app",
   "version": "0.3.1",
-  "description": "What's the Dish web app",
+  "description": "What's The Dish web app",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.12.3",
