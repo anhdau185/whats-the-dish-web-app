@@ -6,11 +6,11 @@ import {
   Card,
   CardActions,
   CardContent,
-  CardMedia,
   Typography
 } from '@material-ui/core';
 
 import { Category } from 'models';
+import { getCategoryImages } from 'utils';
 import deleteCategory from 'actions/deleteCategory';
 import setCurrentCategory from 'actions/setCurrentCategory';
 import removeCurrentCategory from 'actions/removeCurrentCategory';
@@ -18,12 +18,20 @@ import MoreMenu, { MoreMenuItems } from 'components/MoreMenu/MoreMenu';
 
 import useStyles from './styles';
 
+const DEFAULT_IMAGE_URL =
+  'https://dl.dropboxusercontent.com/s/0krcni2sgpktto9/no-img.jpg';
+
 const CategoryItem: FC<{ category: Category }> = ({ category }) => {
   const [timeHovered, setTimeHovered] = useState<boolean>(false);
   const dispatch = useDispatch();
   const classes = useStyles();
 
-  const creationDateTime = useMemo<string>(
+  const categoryImage = useMemo(
+    () => getCategoryImages(category).categoryImage || DEFAULT_IMAGE_URL,
+    [category]
+  );
+
+  const creationDateTime = useMemo(
     () => moment(category.attributes.createdAt).format('MMM D, YYYY h:mm a'),
     [category.attributes.createdAt]
   );
@@ -47,11 +55,10 @@ const CategoryItem: FC<{ category: Category }> = ({ category }) => {
 
   return (
     <Card className={classes.card}>
-      <CardMedia
-        component='div'
-        className={classes.media}
-        image={category.attributes.images[0]}
+      <img
+        src={categoryImage}
         title={category.attributes.title}
+        alt={category.attributes.title}
       />
       <div className={classes.overlay}>
         <Typography

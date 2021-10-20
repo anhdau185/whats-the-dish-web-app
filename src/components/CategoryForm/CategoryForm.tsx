@@ -1,9 +1,8 @@
 import React, { FC, useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Button, Paper, TextField, Typography } from '@material-ui/core';
-import FileBase64 from 'react-file-base64';
 
-import { EmptyProps } from 'utils';
+import { EmptyProps, getCategoryImages } from 'utils';
 import { RawCategory } from 'models';
 import { GlobalState } from 'reducers';
 import createCategory from 'actions/createCategory';
@@ -16,57 +15,31 @@ interface CategoryFormData {
   name: string;
   title: string;
   description: string;
-  selectedFile: string;
+  imageUrl: string;
 }
 
 const CategoryForm: FC<EmptyProps> = () => {
+  const dispatch = useDispatch();
+  const classes = useStyles();
   const [formData, setFormData] = useState<CategoryFormData>({
     name: '',
     title: '',
     description: '',
-    selectedFile: ''
+    imageUrl: ''
   });
   const currentCategory = useSelector(
     (state: Readonly<GlobalState>) => state.currentCategory
   );
   const anyCategorySelected = currentCategory != null;
-  const dispatch = useDispatch();
-  const classes = useStyles();
 
   const clearForm = useCallback(() => {
     setFormData({
       name: '',
       title: '',
       description: '',
-      selectedFile: ''
+      imageUrl: ''
     });
   }, []);
-
-  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-  const onProcessingImgDone = useCallback((result: any) => {
-    if (result && 'base64' in result
-      && typeof result.base64 === 'string') {
-      setFormData({
-        ...formData,
-        selectedFile: result.base64
-      });
-    } else {
-      console.error('Error converting image to base64: ', result);
-    }
-  }, [formData]);
-
-  const handleClickClear = useCallback(() => {
-    if (anyCategorySelected) {
-      setFormData({
-        ...formData,
-        title: '',
-        description: '',
-        selectedFile: ''
-      });
-    } else {
-      clearForm();
-    }
-  }, [anyCategorySelected, formData]);
 
   const validateForm = useCallback((): boolean => {
     if (!formData.name || formData.name.length > 50) {
@@ -81,7 +54,7 @@ const CategoryForm: FC<EmptyProps> = () => {
       return false;
     }
 
-    if (formData.title.length > 150) {
+    if (formData.description.length > 150) {
       window.alert('Description should be not be over 150 characters.');
       return false;
     }
@@ -94,16 +67,17 @@ const CategoryForm: FC<EmptyProps> = () => {
 
     if (!validateForm()) return;
 
-    const dataToSubmit: RawCategory = {
-      attributes: {
-        name: formData.name,
-        title: formData.title || formData.name,
-        description: formData.description,
-        images: [formData.selectedFile]
-      }
-    };
-
     if (anyCategorySelected) {
+      const { categoryAlbum } = getCategoryImages(currentCategory);
+      const dataToSubmit: RawCategory = {
+        attributes: {
+          name: formData.name,
+          title: formData.title || formData.name,
+          description: formData.description,
+          images: [formData.imageUrl, ...categoryAlbum]
+        }
+      };
+
       dispatch(
         updateCategory({
           id: currentCategory.id,
@@ -112,6 +86,15 @@ const CategoryForm: FC<EmptyProps> = () => {
         })
       );
     } else {
+      const dataToSubmit: RawCategory = {
+        attributes: {
+          name: formData.name,
+          title: formData.title || formData.name,
+          description: formData.description,
+          images: formData.imageUrl ? [formData.imageUrl] : []
+        }
+      };
+
       dispatch(
         createCategory({
           category: dataToSubmit,
@@ -119,7 +102,7 @@ const CategoryForm: FC<EmptyProps> = () => {
         })
       );
     }
-  }, [currentCategory?.id, formData]);
+  }, [currentCategory, formData]);
 
   useEffect(() => {
     if (anyCategorySelected) {
@@ -127,7 +110,7 @@ const CategoryForm: FC<EmptyProps> = () => {
         name: currentCategory.attributes.name,
         title: currentCategory.attributes.title,
         description: currentCategory.attributes.description || '',
-        selectedFile: currentCategory.attributes.images[0]
+        imageUrl: currentCategory.attributes.images[0]
       });
     } else {
       clearForm();
@@ -196,13 +179,17 @@ const CategoryForm: FC<EmptyProps> = () => {
             setFormData({ ...formData, description: e.target.value });
           }}
         />
-        <div className={classes.fileInput}>
-          <FileBase64
-            type="file"
-            multiple={false}
-            onDone={onProcessingImgDone}
-          />
-        </div>
+        <TextField
+          fullWidth
+          name="imageUrl"
+          label="Category image URL"
+          variant="outlined"
+          value={formData.imageUrl}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            setFormData({ ...formData, imageUrl: e.target.value });
+          }}
+          style={{ marginBottom: 16 }}
+        />
         <Button
           fullWidth
           type="submit"
@@ -218,7 +205,7 @@ const CategoryForm: FC<EmptyProps> = () => {
           variant="contained"
           color="secondary"
           size="small"
-          onClick={handleClickClear}
+          onClick={clearForm}
         >
           Clear
         </Button>
