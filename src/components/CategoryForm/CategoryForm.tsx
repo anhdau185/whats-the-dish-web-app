@@ -42,10 +42,13 @@ const CategoryForm: FC<EmptyProps> = () => {
   }, []);
 
   const validateForm = useCallback((): boolean => {
-    if (!formData.name || formData.name.length > 50) {
-      window.alert(
-        'Category name should be neither empty nor over 50 characters.'
-      );
+    if (!formData.name) {
+      window.alert('Category name should not be empty.');
+      return false;
+    }
+
+    if (formData.name.length > 50) {
+      window.alert('Category name should not be over 50 characters.');
       return false;
     }
 
