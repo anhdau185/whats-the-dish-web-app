@@ -22,7 +22,12 @@ const fetchAllCategories: FetchCategoriesActionCreator =
     const onCompletion = options.onCompletion || noop;
 
     try {
-      const { data: apiResponse } = await api.fetchCategories();
+      const { data: apiResponse } = await api.fetchCategories({
+        include_dishes: false,
+        order_by: 'name',
+        order_direction: 'asc'
+      });
+
       dispatch({
         type: FETCH_ALL_CATEGORIES,
         payload: apiResponse.data
