@@ -3,16 +3,14 @@ import { useSelector } from 'react-redux';
 import { CircularProgress, Grid } from '@material-ui/core';
 
 import { EmptyProps } from 'utils';
-import { GlobalState } from 'reducers';
+import { categoriesSelector } from 'reducers/state';
 import CategoryItem from 'components/CategoryItem/CategoryItem';
 
 import useStyles from './styles';
 
 const CategoryList: FC<EmptyProps> = () => {
   const classes = useStyles();
-  const categories = useSelector(
-    (state: Readonly<GlobalState>) => state.categories
-  );
+  const categories = useSelector(categoriesSelector);
 
   return (
     categories.length === 0

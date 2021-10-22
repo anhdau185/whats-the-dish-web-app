@@ -4,7 +4,7 @@ import { Button, Paper, TextField, Typography } from '@material-ui/core';
 
 import { EmptyProps, getCategoryImages } from 'utils';
 import { RawCategory } from 'models';
-import { GlobalState } from 'reducers';
+import { currentCategorySelector } from 'reducers/state';
 import createCategory from 'actions/createCategory';
 import updateCategory from 'actions/updateCategory';
 import removeCurrentCategory from 'actions/removeCurrentCategory';
@@ -21,9 +21,7 @@ interface CategoryFormData {
 const CategoryForm: FC<EmptyProps> = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const currentCategory = useSelector(
-    (state: Readonly<GlobalState>) => state.currentCategory
-  );
+  const currentCategory = useSelector(currentCategorySelector);
   const anyCategorySelected = currentCategory != null;
 
   const [formData, setFormData] = useState<CategoryFormData>({
