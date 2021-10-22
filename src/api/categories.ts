@@ -4,6 +4,16 @@ import { Category, RawCategory } from 'models';
 
 import { CommonApiResponse, BASE_URL } from '.';
 
+interface FetchCategoriesApiOptions {
+  include_dishes?: boolean;
+  order_by?: 'name' | 'title' | 'created_at' | 'updated_at';
+  order_direction?: 'asc' | 'desc';
+}
+
+interface GetCategoryApiOptions {
+  include_dishes?: boolean;
+}
+
 interface CategoryCollectionApiResponse extends CommonApiResponse {
   data: Category[];
 }
@@ -18,15 +28,17 @@ type GetCategoryApiResponse = AxiosResponse<SingleCategoryApiResponse>;
 type UpdateCategoryApiResponse = AxiosResponse<SingleCategoryApiResponse>;
 type DeleteCategoryApiResponse = AxiosResponse<CommonApiResponse>;
 
-export const fetchCategories = (): Promise<FetchCategoriesApiResponse> =>
-  axios.get(`${BASE_URL}/categories`);
+export const fetchCategories =
+  (params: FetchCategoriesApiOptions = {}): Promise<FetchCategoriesApiResponse> =>
+    axios.get(`${BASE_URL}/categories`, { params });
 
 export const createCategory =
   (category: RawCategory): Promise<CreateCategoryApiResponse> =>
     axios.post(`${BASE_URL}/categories`, category);
 
 export const getCategory =
-  (id: string): Promise<GetCategoryApiResponse> => axios.get(`${BASE_URL}/categories/${id}`);
+  (id: string, params: GetCategoryApiOptions = {}): Promise<GetCategoryApiResponse> =>
+    axios.get(`${BASE_URL}/categories/${id}`, { params });
 
 export const updateCategory =
   (id: string, category: RawCategory): Promise<UpdateCategoryApiResponse> =>
