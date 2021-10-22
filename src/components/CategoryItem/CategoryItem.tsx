@@ -1,4 +1,5 @@
 import React, { FC, useMemo, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import moment from 'moment';
 import {
@@ -23,6 +24,7 @@ const DEFAULT_IMAGE_URL =
 
 const CategoryItem: FC<{ category: Category }> = ({ category }) => {
   const classes = useStyles();
+  const history = useHistory();
   const dispatch = useDispatch();
   const [timeHovered, setTimeHovered] = useState<boolean>(false);
 
@@ -84,7 +86,11 @@ const CategoryItem: FC<{ category: Category }> = ({ category }) => {
         </Typography>
       </CardContent>
       <CardActions className={classes.cardActions}>
-        <Button size="small" color="primary">
+        <Button
+          size="small"
+          color="primary"
+          onClick={() => history.push(`/categories/${category.id}`)}
+        >
           View details
         </Button>
       </CardActions>

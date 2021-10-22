@@ -10,6 +10,7 @@ import { EmptyProps } from 'utils';
 import fetchAllCategories from 'actions/fetchAllCategories';
 import AppBar from 'components/AppBar/AppBar';
 import HomePage from 'pages/HomePage/HomePage';
+import CategoryPage from 'pages/CategoryPage/CategoryPage';
 
 const App: FC<EmptyProps> = () => {
   const dispatch = useDispatch();
@@ -25,6 +26,7 @@ const App: FC<EmptyProps> = () => {
         <div className="page">
           <Switch>
             <Route exact path="/" component={HomePage} />
+            <Route exact path="/categories/:id" component={CategoryPage} />
           </Switch>
         </div>
       </div>
