@@ -1,4 +1,5 @@
 import React, { FC, memo } from 'react';
+import { Link } from 'react-router-dom';
 import { Container, AppBar, Typography } from '@material-ui/core';
 
 import { EmptyProps } from 'utils';
@@ -16,6 +17,14 @@ const AppBarComponent: FC<EmptyProps> = () => {
         position="static"
         color="inherit"
       >
+        <Link to="/">
+          <img
+            className={classes.image}
+            src={dishImage}
+            alt="dishIcon"
+            height="60"
+          />
+        </Link>
         <Typography
           className={classes.heading}
           variant="h2"
@@ -23,12 +32,6 @@ const AppBarComponent: FC<EmptyProps> = () => {
         >
           What&apos;s the dish today?
         </Typography>
-        <img
-          className={classes.image}
-          src={dishImage}
-          alt="dishIcon"
-          height="60"
-        />
       </AppBar>
     </Container>
   );

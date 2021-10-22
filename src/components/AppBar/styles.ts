@@ -14,6 +14,7 @@ export default makeStyles({
     color: 'rgb(126, 197, 254)'
   },
   image: {
-    marginLeft: '15px'
+    display: 'block',
+    marginRight: '15px'
   }
 });
