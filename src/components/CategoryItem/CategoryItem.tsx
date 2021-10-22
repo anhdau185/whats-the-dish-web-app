@@ -22,9 +22,9 @@ const DEFAULT_IMAGE_URL =
   'https://dl.dropboxusercontent.com/s/0krcni2sgpktto9/no-img.jpg';
 
 const CategoryItem: FC<{ category: Category }> = ({ category }) => {
-  const [timeHovered, setTimeHovered] = useState<boolean>(false);
-  const dispatch = useDispatch();
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const [timeHovered, setTimeHovered] = useState<boolean>(false);
 
   const categoryImage = useMemo(
     () => getCategoryImages(category).categoryImage || DEFAULT_IMAGE_URL,
@@ -77,7 +77,7 @@ const CategoryItem: FC<{ category: Category }> = ({ category }) => {
       </div>
       <CardContent>
         <Typography variant="h5" gutterBottom>
-          {category.attributes.name}
+          {category.attributes.title}
         </Typography>
         <Typography variant="body2" color="textSecondary">
           {category.attributes.description}

@@ -19,18 +19,19 @@ interface CategoryFormData {
 }
 
 const CategoryForm: FC<EmptyProps> = () => {
-  const dispatch = useDispatch();
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const currentCategory = useSelector(
+    (state: Readonly<GlobalState>) => state.currentCategory
+  );
+  const anyCategorySelected = currentCategory != null;
+
   const [formData, setFormData] = useState<CategoryFormData>({
     name: '',
     title: '',
     description: '',
     imageUrl: ''
   });
-  const currentCategory = useSelector(
-    (state: Readonly<GlobalState>) => state.currentCategory
-  );
-  const anyCategorySelected = currentCategory != null;
 
   const clearForm = useCallback(() => {
     setFormData({
@@ -113,7 +114,7 @@ const CategoryForm: FC<EmptyProps> = () => {
         name: currentCategory.attributes.name,
         title: currentCategory.attributes.title,
         description: currentCategory.attributes.description || '',
-        imageUrl: currentCategory.attributes.images[0]
+        imageUrl: currentCategory.attributes.images[0] || ''
       });
     } else {
       clearForm();
@@ -128,7 +129,12 @@ const CategoryForm: FC<EmptyProps> = () => {
         className={classes.form}
         onSubmit={handleSubmit}
       >
-        <Typography className={classes.formHeading} variant="h6" align="center">
+        <Typography
+          variant="h6"
+          className={classes.formHeading}
+          align="center"
+          style={{ marginBottom: 0 }}
+        >
           {anyCategorySelected ? 'Edit' : 'Create'} a Category
         </Typography>
         {anyCategorySelected && (
