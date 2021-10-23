@@ -4,29 +4,29 @@ import { Category, RawCategory } from 'models';
 
 import { CommonApiResponse, BASE_URL } from '.';
 
-interface FetchCategoriesApiOptions {
+export interface FetchCategoriesApiOptions {
   include_dishes?: boolean;
   order_by?: 'name' | 'title' | 'created_at' | 'updated_at';
   order_direction?: 'asc' | 'desc';
 }
 
-interface GetCategoryApiOptions {
+export interface GetCategoryApiOptions {
   include_dishes?: boolean;
 }
 
-interface CategoryCollectionApiResponse extends CommonApiResponse {
+export interface CategoryCollectionApiResponse extends CommonApiResponse {
   data: Category[];
 }
 
-interface SingleCategoryApiResponse extends CommonApiResponse {
+export interface SingleCategoryApiResponse extends CommonApiResponse {
   data: Category;
 }
 
-type FetchCategoriesApiResponse = AxiosResponse<CategoryCollectionApiResponse>;
-type CreateCategoryApiResponse = AxiosResponse<SingleCategoryApiResponse>;
-type GetCategoryApiResponse = AxiosResponse<SingleCategoryApiResponse>;
-type UpdateCategoryApiResponse = AxiosResponse<SingleCategoryApiResponse>;
-type DeleteCategoryApiResponse = AxiosResponse<CommonApiResponse>;
+export type FetchCategoriesApiResponse = AxiosResponse<CategoryCollectionApiResponse>;
+export type CreateCategoryApiResponse = AxiosResponse<SingleCategoryApiResponse>;
+export type GetCategoryApiResponse = AxiosResponse<SingleCategoryApiResponse>;
+export type UpdateCategoryApiResponse = AxiosResponse<SingleCategoryApiResponse>;
+export type DeleteCategoryApiResponse = AxiosResponse<CommonApiResponse>;
 
 export const fetchCategories =
   (params: FetchCategoriesApiOptions = {}): Promise<FetchCategoriesApiResponse> =>

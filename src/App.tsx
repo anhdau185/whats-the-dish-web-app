@@ -14,7 +14,6 @@ import CategoryPage from 'pages/CategoryPage/CategoryPage';
 
 const App: FC<EmptyProps> = () => {
   const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(fetchAllCategories());
   }, []);

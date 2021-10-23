@@ -1,8 +1,6 @@
-import React, { FC, useMemo } from 'react';
-import { useSelector } from 'react-redux';
+import React, { FC } from 'react';
 
-import { categoriesSelector } from 'reducers/state';
-import { NullableCategory } from 'models';
+import { useGetCategoryApi } from 'hooks';
 
 interface CategoryPageProps {
   match: {
@@ -12,21 +10,28 @@ interface CategoryPageProps {
 
 const CategoryPage: FC<CategoryPageProps> = ({ match }) => {
   const { id } = match.params;
-  const categories = useSelector(categoriesSelector);
-  const category = useMemo<NullableCategory>(
-    () => categories.find(category => category.id === id) || null,
-    [categories]
-  );
+  const {
+    loading: fetchingCategory,
+    data: category,
+    error
+  } = useGetCategoryApi(id, { include_dishes: true });
 
-  return category ? (
+  if (fetchingCategory) return <div>Fetching the category...</div>;
+
+  if (error != null)
+    return (
+      <div>
+        An error occurred while fetching the category ({error?.message}).
+      </div>
+    );
+
+  return category != null ? (
     <>
       <div>{category.attributes.name}</div>
       <div>{category.attributes.title}</div>
       <div>{category.attributes.description}</div>
     </>
-  ) : (
-    <div>Error: Category not found.</div>
-  );
+  ) : null;
 };
 
 export default CategoryPage;
