@@ -3,7 +3,9 @@ import {
   createCategory,
   getCategory,
   updateCategory,
-  deleteCategory
+  deleteCategory,
+  FetchCategoriesApiOptions,
+  GetCategoryApiOptions
 } from './categories';
 
 // export const BASE_URL = 'https://whats-the-dish-api.herokuapp.com';
@@ -13,6 +15,11 @@ export interface CommonApiResponse {
   included?: any;
   [extraProps: string]: any;
 }
+
+export type {
+  FetchCategoriesApiOptions,
+  GetCategoryApiOptions
+};
 
 export {
   fetchCategories,
