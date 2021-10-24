@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { CircularProgress, Grid } from '@material-ui/core';
+import isEmpty from 'lodash/fp/isEmpty';
 
 import { EmptyProps } from 'utils';
 import { categoriesSelector } from 'reducers/state';
@@ -13,7 +14,7 @@ const CategoryList: FC<EmptyProps> = () => {
   const categories = useSelector(categoriesSelector);
 
   return (
-    categories.length === 0
+    isEmpty(categories)
       ? <CircularProgress />
       : (
         <Grid

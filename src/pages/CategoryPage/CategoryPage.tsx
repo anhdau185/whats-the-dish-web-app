@@ -8,24 +8,25 @@ interface CategoryPageProps {
   }
 }
 
-const CategoryPage: FC<CategoryPageProps> = ({ match }) => {
-  const { id } = match.params;
+const CategoryPage: FC<CategoryPageProps> = ({ match: { params } }) => {
   const {
-    loading: fetchingCategory,
     data: category,
+    loading: isFetchingCategory,
     error
-  } = useGetCategoryApi(id, { include_dishes: true });
+  } = useGetCategoryApi(params.id, { include_dishes: true });
+  const dataIsReady = category != null;
+  const errorOccurred = error != null;
 
-  if (fetchingCategory) return <div>Fetching the category...</div>;
+  if (isFetchingCategory) return <div>Fetching the category...</div>;
 
-  if (error != null)
+  if (errorOccurred)
     return (
       <div>
         An error occurred while fetching the category ({error?.message}).
       </div>
     );
 
-  return category != null ? (
+  return dataIsReady ? (
     <>
       <div>{category.attributes.name}</div>
       <div>{category.attributes.title}</div>
