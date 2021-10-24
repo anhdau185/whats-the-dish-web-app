@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 
-import { Category, RawCategory } from 'models';
+import { Category, RawCategory, Dish } from 'models';
 
 import { CommonApiResponse, BASE_URL } from '.';
 
@@ -14,12 +14,14 @@ export interface GetCategoryApiOptions {
   include_dishes?: boolean;
 }
 
-export interface CategoryCollectionApiResponse extends CommonApiResponse {
+export interface CategoryCollectionApiResponse extends Omit<CommonApiResponse, 'included'> {
   data: Category[];
+  included?: Dish[];
 }
 
-export interface SingleCategoryApiResponse extends CommonApiResponse {
+export interface SingleCategoryApiResponse extends Omit<CommonApiResponse, 'included'> {
   data: Category;
+  included?: Dish[];
 }
 
 export type FetchCategoriesApiResponse = AxiosResponse<CategoryCollectionApiResponse>;

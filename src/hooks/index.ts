@@ -1,30 +1,38 @@
 import { useEffect, useState } from 'react';
 
+import { NullableCategory, Dish } from 'models';
 import * as api from 'api';
-import { NullableCategory } from 'models';
+import {
+  GetCategoryApiOptions,
+  SingleCategoryApiResponse
+} from 'api/categories';
 
-interface ApiHookResult<T> {
-  data: T;
+interface GetCategoryHookResult {
+  data: NullableCategory;
+  includedData: Dish[];
   loading: boolean;
   error: any;
 }
 
 export const useGetCategoryApi =
-  (id: string, params?: api.GetCategoryApiOptions): ApiHookResult<NullableCategory> => {
-    const [data, setData] = useState<NullableCategory>(null);
+  (id: string, params?: GetCategoryApiOptions): GetCategoryHookResult => {
+    const [response, setResponse] = useState<SingleCategoryApiResponse | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<any>(null);
+    const data = response?.data || null;
+    const includedData = response?.included || [];
 
     useEffect(() => {
       setLoading(true);
       api.getCategory(id, params)
-        .then(({ data: apiResponse }) => setData(apiResponse.data))
+        .then(({ data: apiResponse }) => setResponse(apiResponse))
         .catch(setError)
         .finally(() => setLoading(false));
     }, []);
 
     return {
       data,
+      includedData,
       loading,
       error
     };
