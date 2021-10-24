@@ -15,7 +15,7 @@ import { getCategoryImages } from 'utils';
 import deleteCategory from 'actions/deleteCategory';
 import setCurrentCategory from 'actions/setCurrentCategory';
 import removeCurrentCategory from 'actions/removeCurrentCategory';
-import MoreMenu, { MoreMenuItems } from 'components/MoreMenu/MoreMenu';
+import MoreMenu, { MoreMenuItems } from 'components/MoreMenu';
 
 import useStyles from './styles';
 
