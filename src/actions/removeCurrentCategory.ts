@@ -4,7 +4,7 @@ import { REMOVE_CURRENT_CATEGORY } from './types';
 
 export type RemoveCurrentCategoryAction = Action<'REMOVE_CURRENT_CATEGORY'>;
 
-const setCurrentCategory: () => RemoveCurrentCategoryAction =
+const removeCurrentCategory: () => RemoveCurrentCategoryAction =
   () => ({ type: REMOVE_CURRENT_CATEGORY });
 
-export default setCurrentCategory;
+export default removeCurrentCategory;
