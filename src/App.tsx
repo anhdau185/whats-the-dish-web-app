@@ -9,8 +9,8 @@ import {
 import { EmptyProps } from 'utils';
 import fetchAllCategories from 'actions/fetchAllCategories';
 import AppBar from 'components/AppBar/AppBar';
-import HomePage from 'pages/HomePage/HomePage';
-import CategoryPage from 'pages/CategoryPage/CategoryPage';
+import HomePage from 'pages/HomePage';
+import CategoryPage from 'pages/CategoryPage';
 
 const App: FC<EmptyProps> = () => {
   const dispatch = useDispatch();
