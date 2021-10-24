@@ -1,6 +1,13 @@
 import React, { FC } from 'react';
+import {
+  CircularProgress,
+  Container,
+  Grow,
+  Grid
+} from '@material-ui/core';
 
 import { useGetCategoryApi } from 'hooks';
+import DishList from 'components/DishList';
 
 interface CategoryPageProps {
   match: {
@@ -11,13 +18,14 @@ interface CategoryPageProps {
 const CategoryPage: FC<CategoryPageProps> = ({ match: { params } }) => {
   const {
     data: category,
+    includedData: dishes,
     loading: isFetchingCategory,
     error
   } = useGetCategoryApi(params.id, { include_dishes: true });
   const dataIsReady = category != null;
   const errorOccurred = error != null;
 
-  if (isFetchingCategory) return <div>Fetching the category...</div>;
+  if (isFetchingCategory) return <CircularProgress />;
 
   if (errorOccurred)
     return (
@@ -26,13 +34,29 @@ const CategoryPage: FC<CategoryPageProps> = ({ match: { params } }) => {
       </div>
     );
 
-  return dataIsReady ? (
-    <>
-      <div>{category.attributes.name}</div>
-      <div>{category.attributes.title}</div>
-      <div>{category.attributes.description}</div>
-    </>
-  ) : null;
+  return !dataIsReady
+    ? <CircularProgress />
+    : (
+      <Container maxWidth="lg">
+        <Grow in>
+          <Container>
+            <Grid
+              container
+              justifyContent="space-between"
+              alignItems="stretch"
+              spacing={3}
+            >
+              <Grid item xs={12} sm={7}>
+                <DishList dishes={dishes} />
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                {/* <DishForm /> */}
+              </Grid>
+            </Grid>
+          </Container>
+        </Grow>
+      </Container>
+    );
 };
 
 export default CategoryPage;
