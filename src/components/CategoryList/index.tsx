@@ -3,7 +3,7 @@ import { CircularProgress, Grid } from '@material-ui/core';
 import isEmpty from 'lodash/fp/isEmpty';
 
 import { Category } from 'models';
-import CategoryItem from 'components/CategoryItem/CategoryItem';
+import CategoryItem from 'components/CategoryItem';
 
 import useStyles from './styles';
 
