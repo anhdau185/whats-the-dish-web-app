@@ -6,6 +6,8 @@ import { SetCurrentCategoryAction } from './setCurrentCategory';
 import { RemoveCurrentCategoryAction } from './removeCurrentCategory';
 import { IncrementTestDataAction } from './incrementTestData';
 import { DecrementTestDataAction } from './decrementTestData';
+import { SetCurrentDishAction } from './setCurrentDish';
+import { RemoveCurrentDishAction } from './removeCurrentDish';
 
 type AppAction = FetchCategoriesAction
   | CreateCategoryAction
@@ -14,7 +16,9 @@ type AppAction = FetchCategoriesAction
   | SetCurrentCategoryAction
   | RemoveCurrentCategoryAction
   | IncrementTestDataAction
-  | DecrementTestDataAction;
+  | DecrementTestDataAction
+  | SetCurrentDishAction
+  | RemoveCurrentDishAction;
 
 export type {
   FetchCategoriesAction,
@@ -25,5 +29,7 @@ export type {
   RemoveCurrentCategoryAction,
   IncrementTestDataAction,
   DecrementTestDataAction,
+  SetCurrentDishAction,
+  RemoveCurrentDishAction,
   AppAction
 };
