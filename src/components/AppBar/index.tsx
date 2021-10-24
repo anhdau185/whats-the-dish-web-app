@@ -7,7 +7,7 @@ import dishImage from 'images/dish.png';
 
 import useStyles from './styles';
 
-const AppBarComponent: FC<EmptyProps> = () => {
+const WhatsTheDishAppBar: FC<EmptyProps> = () => {
   const classes = useStyles();
 
   return (
@@ -37,4 +37,4 @@ const AppBarComponent: FC<EmptyProps> = () => {
   );
 };
 
-export default memo(AppBarComponent);
+export default memo(WhatsTheDishAppBar);

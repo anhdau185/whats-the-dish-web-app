@@ -8,7 +8,7 @@ import {
 
 import { EmptyProps } from 'utils';
 import fetchAllCategories from 'actions/fetchAllCategories';
-import AppBar from 'components/AppBar/AppBar';
+import AppBar from 'components/AppBar';
 import HomePage from 'pages/HomePage';
 import CategoryPage from 'pages/CategoryPage';
 
