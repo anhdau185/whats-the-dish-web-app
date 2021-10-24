@@ -1,8 +1,8 @@
 interface RawCategoryAttributes {
   name: string;
   title: string;
-  images: string[];
   description: string | null;
+  images: string[];
 }
 
 interface CategoryAttributes extends RawCategoryAttributes {
@@ -16,7 +16,7 @@ export interface RawCategory {
 
 export interface Category {
   id: string;
-  type?: string;
+  type?: 'categories';
   attributes: CategoryAttributes;
   relationships?: Record<string, unknown>;
 }

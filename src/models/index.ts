@@ -1,7 +1,11 @@
 import { Category, RawCategory, NullableCategory } from './category';
+import { Dish, RawDish, NullableDish } from './dish';
 
 export type {
   Category,
   RawCategory,
-  NullableCategory
+  NullableCategory,
+  Dish,
+  RawDish,
+  NullableDish
 };
