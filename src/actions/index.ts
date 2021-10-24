@@ -8,6 +8,8 @@ import { IncrementTestDataAction } from './incrementTestData';
 import { DecrementTestDataAction } from './decrementTestData';
 import { SetCurrentDishAction } from './setCurrentDish';
 import { RemoveCurrentDishAction } from './removeCurrentDish';
+import { EnableAppLoadingAction } from './enableAppLoading';
+import { DisableAppLoadingAction } from './disableAppLoading';
 
 type AppAction = FetchCategoriesAction
   | CreateCategoryAction
@@ -18,7 +20,9 @@ type AppAction = FetchCategoriesAction
   | IncrementTestDataAction
   | DecrementTestDataAction
   | SetCurrentDishAction
-  | RemoveCurrentDishAction;
+  | RemoveCurrentDishAction
+  | EnableAppLoadingAction
+  | DisableAppLoadingAction;
 
 export type {
   FetchCategoriesAction,
@@ -31,5 +35,7 @@ export type {
   DecrementTestDataAction,
   SetCurrentDishAction,
   RemoveCurrentDishAction,
+  EnableAppLoadingAction,
+  DisableAppLoadingAction,
   AppAction
 };

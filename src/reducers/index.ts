@@ -7,12 +7,14 @@ import testDataReducer from './testDataReducer';
 import categoriesReducer from './categoriesReducer';
 import currentCategoryReducer from './currentCategoryReducer';
 import currentDishReducer from './currentDishReducer';
+import appLoadingReducer from './appLoadingReducer';
 
 export interface GlobalState {
   testData: number;
   categories: Category[];
   currentCategory: NullableCategory;
   currentDish: NullableDish;
+  appLoading: boolean;
 }
 
 type RootReducer =
@@ -22,7 +24,8 @@ const rootReducer: RootReducer = combineReducers({
   testData: testDataReducer,
   categories: categoriesReducer,
   currentCategory: currentCategoryReducer,
-  currentDish: currentDishReducer
+  currentDish: currentDishReducer,
+  appLoading: appLoadingReducer
 });
 
 export default rootReducer;
