@@ -4,8 +4,8 @@ import { Container, Grow, Grid } from '@material-ui/core';
 
 import { EmptyProps } from 'utils';
 import { categoriesSelector } from 'reducers/state';
-import CategoryList from 'components/CategoryList/CategoryList';
-import CategoryForm from 'components/CategoryForm/CategoryForm';
+import CategoryList from 'components/CategoryList';
+import CategoryForm from 'components/CategoryForm';
 
 const HomePage: FC<EmptyProps> = () => {
   const categories = useSelector(categoriesSelector);
