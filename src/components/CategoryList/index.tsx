@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { CircularProgress, Grid } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import isEmpty from 'lodash/fp/isEmpty';
 
 import { Category } from 'models';
@@ -12,8 +12,11 @@ const CategoryList: FC<{ categories: Category[] }> = ({ categories }) => {
 
   return (
     isEmpty(categories)
-      ? <CircularProgress />
-      : (
+      ? (
+        <Typography variant="h5" className={classes.emptyCategories}>
+          No categories created yet.
+        </Typography>
+      ) : (
         <Grid
           container
           spacing={3}

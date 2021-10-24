@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { CircularProgress, Grid } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import isEmpty from 'lodash/fp/isEmpty';
 
 import { Dish } from 'models';
@@ -12,8 +12,11 @@ const DishList: FC<{ dishes: Dish[] }> = ({ dishes }) => {
 
   return (
     isEmpty(dishes)
-      ? <CircularProgress />
-      : (
+      ? (
+        <Typography variant="h5" className={classes.emptyDishes}>
+          No dishes added to this category yet.
+        </Typography>
+      ) : (
         <Grid
           container
           spacing={3}
