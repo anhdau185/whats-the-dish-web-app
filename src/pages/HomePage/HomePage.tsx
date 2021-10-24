@@ -1,11 +1,15 @@
 import React, { FC } from 'react';
+import { useSelector } from 'react-redux';
 import { Container, Grow, Grid } from '@material-ui/core';
 
 import { EmptyProps } from 'utils';
+import { categoriesSelector } from 'reducers/state';
 import CategoryList from 'components/CategoryList/CategoryList';
 import CategoryForm from 'components/CategoryForm/CategoryForm';
 
 const HomePage: FC<EmptyProps> = () => {
+  const categories = useSelector(categoriesSelector);
+
   return (
     <Container maxWidth="lg">
       <Grow in>
@@ -17,7 +21,7 @@ const HomePage: FC<EmptyProps> = () => {
             spacing={3}
           >
             <Grid item xs={12} sm={7}>
-              <CategoryList />
+              <CategoryList categories={categories} />
             </Grid>
             <Grid item xs={12} sm={4}>
               <CategoryForm />
