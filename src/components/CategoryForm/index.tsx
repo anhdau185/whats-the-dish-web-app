@@ -119,6 +119,10 @@ const CategoryForm: FC<EmptyProps> = () => {
     }
   }, [currentCategory]);
 
+  useEffect(() => () => {
+    dispatch(removeCurrentCategory());
+  }, []);
+
   return (
     <Paper className={`${classes.root} ${classes.paper}`}>
       <form
