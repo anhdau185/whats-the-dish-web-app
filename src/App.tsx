@@ -7,16 +7,23 @@ import {
 } from 'react-router-dom';
 
 import { EmptyProps } from 'utils';
+import enableAppLoading from 'actions/enableAppLoading';
 import fetchAllCategories from 'actions/fetchAllCategories';
 import AppBar from 'components/AppBar';
 import HomePage from 'pages/HomePage';
 import CategoryPage from 'pages/CategoryPage';
+import disableAppLoading from './actions/disableAppLoading';
 
 const App: FC<EmptyProps> = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchAllCategories());
+    dispatch(enableAppLoading());
+    dispatch(
+      fetchAllCategories({
+        onCompletion: () => dispatch(disableAppLoading())
+      })
+    );
   }, []);
 
   return (
