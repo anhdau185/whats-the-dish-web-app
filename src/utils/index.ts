@@ -1,6 +1,6 @@
 import isEmpty from 'lodash/fp/isEmpty';
 
-import { Category } from 'models';
+import { Category, Dish } from 'models';
 
 export interface EmptyProps {
   [props: string]: never;
@@ -11,6 +11,11 @@ interface CategoryImages {
   categoryAlbum: string[];
 }
 
+interface DishImages {
+  dishImage?: string;
+  dishAlbum: string[];
+}
+
 export const getCategoryImages = (category: Category): CategoryImages => {
   const allImages = category.attributes.images;
 
@@ -19,5 +24,16 @@ export const getCategoryImages = (category: Category): CategoryImages => {
   return {
     categoryImage: allImages[0],
     categoryAlbum: allImages.slice(1)
+  };
+};
+
+export const getDishImages = (dish: Dish): DishImages => {
+  const allImages = dish.attributes.images;
+
+  if (isEmpty(allImages)) return { dishAlbum: [] };
+
+  return {
+    dishImage: allImages[0],
+    dishAlbum: allImages.slice(1)
   };
 };
