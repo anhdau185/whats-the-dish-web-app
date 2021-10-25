@@ -1,13 +1,14 @@
 import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
-import { Container, Grow, Grid } from '@material-ui/core';
+import { Container, Grow, Grid, CircularProgress } from '@material-ui/core';
 
 import { EmptyProps } from 'utils';
-import { categoriesSelector } from 'reducers/state';
+import { appLoadingSelector, categoriesSelector } from 'reducers/state';
 import CategoryList from 'components/CategoryList';
 import CategoryForm from 'components/CategoryForm';
 
 const HomePage: FC<EmptyProps> = () => {
+  const appLoading = useSelector(appLoadingSelector);
   const categories = useSelector(categoriesSelector);
 
   return (
@@ -21,7 +22,9 @@ const HomePage: FC<EmptyProps> = () => {
             spacing={3}
           >
             <Grid item xs={12} sm={7}>
-              <CategoryList categories={categories} />
+              {appLoading
+                ? <CircularProgress />
+                : <CategoryList categories={categories} />}
             </Grid>
             <Grid item xs={12} sm={4}>
               <CategoryForm />
