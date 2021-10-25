@@ -8,6 +8,7 @@ import {
 
 import { useGetCategoryApi } from 'hooks';
 import DishList from 'components/DishList';
+import DishForm from 'components/DishForm';
 
 interface CategoryPageProps {
   match: {
@@ -50,7 +51,7 @@ const CategoryPage: FC<CategoryPageProps> = ({ match: { params } }) => {
                 <DishList dishes={dishes} />
               </Grid>
               <Grid item xs={12} sm={4}>
-                {/* <DishForm /> */}
+                <DishForm />
               </Grid>
             </Grid>
           </Container>
