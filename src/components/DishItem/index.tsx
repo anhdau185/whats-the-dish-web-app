@@ -11,15 +11,20 @@ import {
 import { Dish } from 'models';
 import { getDishImages } from 'utils';
 import setCurrentDish from 'actions/setCurrentDish';
-import removeCurrentDish from 'actions/removeCurrentDish';
+// import removeCurrentDish from 'actions/removeCurrentDish';
 import MoreMenu, { MoreMenuItems } from 'components/MoreMenu';
 
 import useStyles from './styles';
 
+interface DishItemProps {
+  dish: Dish;
+  noActions?: boolean;
+}
+
 const DEFAULT_IMAGE_URL =
   'https://dl.dropboxusercontent.com/s/0krcni2sgpktto9/no-img.jpg';
 
-const DishItem: FC<{ dish: Dish }> = ({ dish }) => {
+const DishItem: FC<DishItemProps> = ({ dish, noActions = false }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -52,9 +57,11 @@ const DishItem: FC<{ dish: Dish }> = ({ dish }) => {
         title={dish.attributes.title}
         alt={dish.attributes.title}
       />
-      <div className={classes.overlay2}>
-        <MoreMenu items={menuItems} color="white" />
-      </div>
+      {!noActions && (
+        <div className={classes.overlay2}>
+          <MoreMenu items={menuItems} color="white" />
+        </div>
+      )}
       <CardContent>
         <Typography variant="h5" gutterBottom>
           {dish.attributes.title}
@@ -64,12 +71,7 @@ const DishItem: FC<{ dish: Dish }> = ({ dish }) => {
         </Typography>
       </CardContent>
       <CardActions className={classes.cardActions}>
-        <Button
-          size="small"
-          color="primary"
-        >
-          View details
-        </Button>
+        <Button size="small" color="primary">View details</Button>
       </CardActions>
     </Card>
   );

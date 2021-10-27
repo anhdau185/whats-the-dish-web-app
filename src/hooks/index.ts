@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import { NullableCategory, Dish } from 'models';
 import * as api from 'api';
@@ -10,6 +10,7 @@ import {
 interface GetCategoryHookResult {
   data: NullableCategory;
   includedData: Dish[];
+  fetchData: () => void;
   loading: boolean;
   error: any;
 }
@@ -19,20 +20,22 @@ export const useGetCategoryApi =
     const [response, setResponse] = useState<SingleCategoryApiResponse | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<any>(null);
+
     const data = response?.data || null;
     const includedData = response?.included || [];
 
-    useEffect(() => {
+    const fetchData = useCallback(() => {
       setLoading(true);
       api.getCategory(id, params)
         .then(({ data: apiResponse }) => setResponse(apiResponse))
         .catch(setError)
         .finally(() => setLoading(false));
-    }, []);
+    }, [id, params]);
 
     return {
       data,
       includedData,
+      fetchData,
       loading,
       error
     };
