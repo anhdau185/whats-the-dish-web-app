@@ -7,14 +7,24 @@ import DishItem from 'components/DishItem';
 
 import useStyles from './styles';
 
-const DishList: FC<{ dishes: Dish[] }> = ({ dishes }) => {
+interface DishListProps {
+  dishes: Dish[];
+  emptyText?: string;
+  noItemActions?: boolean;
+}
+
+const DishList: FC<DishListProps> = ({
+  dishes,
+  emptyText,
+  noItemActions = false
+}) => {
   const classes = useStyles();
 
   return (
     isEmpty(dishes)
       ? (
         <Typography variant="h5" className={classes.emptyDishes}>
-          No dishes added to this category yet.
+          {emptyText || 'No dishes to display.'}
         </Typography>
       ) : (
         <Grid
@@ -26,7 +36,7 @@ const DishList: FC<{ dishes: Dish[] }> = ({ dishes }) => {
           {dishes.map(
             dish => (
               <Grid key={`dish-${dish.id}`} item xs={12} sm={6}>
-                <DishItem dish={dish} />
+                <DishItem dish={dish} noActions={noItemActions} />
               </Grid>
             )
           )}

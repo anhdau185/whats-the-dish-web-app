@@ -1,14 +1,14 @@
-import React, { FC } from 'react';
+import React, { FC, ReactNode, useEffect } from 'react';
 import {
   CircularProgress,
   Container,
   Grow,
-  Grid
+  Grid,
+  Typography
 } from '@material-ui/core';
 
 import { useGetCategoryApi } from 'hooks';
-import DishList from 'components/DishList';
-import DishForm from 'components/DishForm';
+import CategoryAssignmentList from 'components/DishList';
 
 interface CategoryPageProps {
   match: {
@@ -16,48 +16,61 @@ interface CategoryPageProps {
   }
 }
 
+const PageWrapper: FC<{ children: ReactNode }> = ({ children }) => (
+  <Container maxWidth="lg">
+    <Grow in>
+      <Container>
+        <Grid container spacing={4}>{children}</Grid>
+      </Container>
+    </Grow>
+  </Container>
+);
+
 const CategoryPage: FC<CategoryPageProps> = ({ match: { params } }) => {
   const {
     data: category,
     includedData: dishes,
-    loading: isFetchingCategory,
+    fetchData: fetchCategory,
+    loading: fetchingCategory,
     error
   } = useGetCategoryApi(params.id, { include_dishes: true });
-  const dataIsReady = category != null;
+
   const errorOccurred = error != null;
+  const dataIsReady = category != null;
 
-  if (isFetchingCategory) return <CircularProgress />;
+  useEffect(() => {
+    fetchCategory();
+  }, []);
 
-  if (errorOccurred)
-    return (
-      <div>
-        An error occurred while fetching the category ({error?.message}).
-      </div>
-    );
-
-  return !dataIsReady
-    ? <CircularProgress />
-    : (
-      <Container maxWidth="lg">
-        <Grow in>
-          <Container>
-            <Grid
-              container
-              justifyContent="space-between"
-              alignItems="stretch"
-              spacing={3}
-            >
-              <Grid item xs={12} sm={7}>
-                <DishList dishes={dishes} />
-              </Grid>
-              <Grid item xs={12} sm={4}>
-                <DishForm />
-              </Grid>
-            </Grid>
-          </Container>
-        </Grow>
-      </Container>
-    );
+  return (
+    <PageWrapper>
+      {fetchingCategory && <CircularProgress />}
+      {errorOccurred && (
+        <Typography variant="h5">
+          An error occurred while fetching the category ({error?.message}).
+        </Typography>
+      )}
+      {dataIsReady && (
+        <>
+          <Grid item xs={12}>
+            <Typography variant="h4">
+              {category.attributes.title}
+            </Typography>
+            <Typography variant="body1">
+              {category.attributes.description}
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <CategoryAssignmentList
+              noItemActions
+              dishes={dishes}
+              emptyText="No dishes added to this category yet."
+            />
+          </Grid>
+        </>
+      )}
+    </PageWrapper>
+  );
 };
 
 export default CategoryPage;
