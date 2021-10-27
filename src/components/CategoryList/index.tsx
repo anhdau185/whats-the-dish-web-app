@@ -7,14 +7,24 @@ import CategoryItem from 'components/CategoryItem';
 
 import useStyles from './styles';
 
-const CategoryList: FC<{ categories: Category[] }> = ({ categories }) => {
+interface CategoryListProps {
+  categories: Category[];
+  emptyText?: string;
+  noItemActions?: boolean;
+}
+
+const CategoryList: FC<CategoryListProps> = ({
+  categories,
+  emptyText,
+  noItemActions = false
+}) => {
   const classes = useStyles();
 
   return (
     isEmpty(categories)
       ? (
         <Typography variant="h5" className={classes.emptyCategories}>
-          No categories created yet.
+          {emptyText || 'No categories to display.'}
         </Typography>
       ) : (
         <Grid
@@ -26,7 +36,7 @@ const CategoryList: FC<{ categories: Category[] }> = ({ categories }) => {
           {categories.map(
             category => (
               <Grid key={`category-${category.id}`} item xs={12} sm={6}>
-                <CategoryItem category={category} />
+                <CategoryItem category={category} noActions={noItemActions} />
               </Grid>
             )
           )}
