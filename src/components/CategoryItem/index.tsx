@@ -22,7 +22,12 @@ import useStyles from './styles';
 const DEFAULT_IMAGE_URL =
   'https://dl.dropboxusercontent.com/s/0krcni2sgpktto9/no-img.jpg';
 
-const CategoryItem: FC<{ category: Category }> = ({ category }) => {
+interface CategoryItemProps {
+  category: Category;
+  noActions?: boolean;
+}
+
+const CategoryItem: FC<CategoryItemProps> = ({ category, noActions = false }) => {
   const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
@@ -74,9 +79,11 @@ const CategoryItem: FC<{ category: Category }> = ({ category }) => {
             : moment(category.attributes.createdAt).fromNow()}
         </Typography>
       </div>
-      <div className={classes.overlay2}>
-        <MoreMenu items={menuItems} color="white" />
-      </div>
+      {!noActions && (
+        <div className={classes.overlay2}>
+          <MoreMenu items={menuItems} color="white" />
+        </div>
+      )}
       <CardContent>
         <Typography variant="h5" gutterBottom>
           {category.attributes.title}

@@ -24,7 +24,12 @@ const HomePage: FC<EmptyProps> = () => {
             <Grid item xs={12} sm={7}>
               {appLoading
                 ? <CircularProgress />
-                : <CategoryList categories={categories} />}
+                : (
+                  <CategoryList
+                    categories={categories}
+                    emptyText="No categories created yet."
+                  />
+                )}
             </Grid>
             <Grid item xs={12} sm={4}>
               <CategoryForm />
