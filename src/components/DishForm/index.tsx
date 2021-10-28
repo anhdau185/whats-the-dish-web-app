@@ -1,12 +1,12 @@
 import React, { FC, useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Button, Paper, TextField, Typography } from '@material-ui/core';
+import noop from 'lodash/fp/noop';
 
-import { EmptyProps, getDishImages } from 'utils';
 import { RawDish } from 'models';
+import { getDishImages } from 'utils';
+import { useCreateDishApi, useUpdateDishApi } from 'hooks';
 import { currentDishSelector } from 'reducers/state';
-// import createDish from 'actions/createDish';
-// import updateDish from 'actions/updateDish';
 import removeCurrentDish from 'actions/removeCurrentDish';
 
 import useStyles from './styles';
@@ -19,11 +19,23 @@ interface DishFormData {
   places: string;
 }
 
-const DishForm: FC<EmptyProps> = () => {
+const DishForm: FC<{ refetchData?: () => void }> = ({ refetchData = noop }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const currentDish = useSelector(currentDishSelector);
   const anyDishSelected = currentDish != null;
+
+  const {
+    fetchData: createDish,
+    loading: creatingDish
+  } = useCreateDishApi({ onCompletion: refetchData });
+
+  const {
+    fetchData: updateDish,
+    loading: updatingDish
+  } = useUpdateDishApi({ onCompletion: refetchData });
+
+  const fetchingApi = creatingDish || updatingDish;
 
   const [formData, setFormData] = useState<DishFormData>({
     name: '',
@@ -84,13 +96,7 @@ const DishForm: FC<EmptyProps> = () => {
         }
       };
 
-      // dispatch(
-      //   updateDish({
-      //     id: currentDish.id,
-      //     dish: dataToSubmit,
-      //     onCompletion: () => dispatch(removeCurrentDish())
-      //   })
-      // );
+      updateDish(currentDish.id, dataToSubmit);
     } else {
       const dataToSubmit: RawDish = {
         attributes: {
@@ -102,12 +108,7 @@ const DishForm: FC<EmptyProps> = () => {
         }
       };
 
-      // dispatch(
-      //   createDish({
-      //     dish: dataToSubmit,
-      //     onCompletion: clearForm
-      //   })
-      // );
+      createDish(dataToSubmit);
     }
   }, [currentDish, formData]);
 
@@ -161,6 +162,7 @@ const DishForm: FC<EmptyProps> = () => {
               size="small"
               style={{ marginBottom: 16 }}
               onClick={() => dispatch(removeCurrentDish())}
+              disabled={fetchingApi}
             >
               Create a new dish
             </Button>
@@ -175,6 +177,7 @@ const DishForm: FC<EmptyProps> = () => {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setFormData({ ...formData, name: e.target.value });
           }}
+          disabled={fetchingApi}
         />
         <TextField
           fullWidth
@@ -185,6 +188,7 @@ const DishForm: FC<EmptyProps> = () => {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setFormData({ ...formData, title: e.target.value });
           }}
+          disabled={fetchingApi}
         />
         <TextField
           fullWidth
@@ -195,6 +199,7 @@ const DishForm: FC<EmptyProps> = () => {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setFormData({ ...formData, description: e.target.value });
           }}
+          disabled={fetchingApi}
         />
         <TextField
           fullWidth
@@ -206,6 +211,7 @@ const DishForm: FC<EmptyProps> = () => {
             setFormData({ ...formData, imageUrl: e.target.value });
           }}
           style={{ marginBottom: 16 }}
+          disabled={fetchingApi}
         />
         <TextField
           fullWidth
@@ -216,6 +222,7 @@ const DishForm: FC<EmptyProps> = () => {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setFormData({ ...formData, places: e.target.value });
           }}
+          disabled={fetchingApi}
         />
         <Button
           fullWidth
@@ -224,6 +231,7 @@ const DishForm: FC<EmptyProps> = () => {
           variant="contained"
           color="primary"
           size="large"
+          disabled={fetchingApi}
         >
           Submit
         </Button>
@@ -233,6 +241,7 @@ const DishForm: FC<EmptyProps> = () => {
           color="secondary"
           size="small"
           onClick={clearForm}
+          disabled={fetchingApi}
         >
           Clear
         </Button>
