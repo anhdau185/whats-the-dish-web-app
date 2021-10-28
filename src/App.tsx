@@ -11,7 +11,7 @@ import enableAppLoading from 'actions/enableAppLoading';
 import disableAppLoading from 'actions/disableAppLoading';
 import fetchAllCategories from 'actions/fetchAllCategories';
 import AppBar from 'components/AppBar';
-import HomePage from 'pages/HomePage';
+import CategoryListingPage from 'pages/CategoryListingPage';
 import CategoryPage from 'pages/CategoryPage';
 import DishPage from 'pages/DishPage';
 
@@ -33,7 +33,7 @@ const App: FC<EmptyProps> = () => {
         <AppBar />
         <div className="page">
           <Switch>
-            <Route exact path="/" component={HomePage} />
+            <Route exact path="/" component={CategoryListingPage} />
             <Route exact path="/categories/:id" component={CategoryPage} />
             <Route exact path="/dishes/:id" component={DishPage} />
           </Switch>

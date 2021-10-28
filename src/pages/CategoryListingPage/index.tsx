@@ -7,7 +7,7 @@ import { appLoadingSelector, categoriesSelector } from 'reducers/state';
 import CategoryList from 'components/CategoryList';
 import CategoryForm from 'components/CategoryForm';
 
-const HomePage: FC<EmptyProps> = () => {
+const CategoryListingPage: FC<EmptyProps> = () => {
   const appLoading = useSelector(appLoadingSelector);
   const categories = useSelector(categoriesSelector);
 
@@ -41,4 +41,4 @@ const HomePage: FC<EmptyProps> = () => {
   );
 };
 
-export default HomePage;
+export default CategoryListingPage;
