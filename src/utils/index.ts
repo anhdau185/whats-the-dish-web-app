@@ -6,6 +6,12 @@ export interface EmptyProps {
   [props: string]: never;
 }
 
+export interface RouterIdPageProps {
+  match: {
+    params: { id: string }
+  }
+}
+
 interface CategoryImages {
   categoryImage?: string;
   categoryAlbum: string[];
