@@ -6,19 +6,19 @@ import { Dish, NullableDish, RawDish } from 'models';
 
 import { ApiHookOptions } from '.';
 
-interface CreateDishApiHookOptions extends ApiHookOptions {
+interface UpdateDishApiHookOptions extends ApiHookOptions {
   onSuccess?: (data: Dish) => void;
 }
 
-interface CreateDishApiHookResult {
+interface UpdateDishApiHookResult {
   data: NullableDish;
-  fetchData: (dish: RawDish) => Promise<void>;
+  fetchData: (id: string, dish: RawDish) => Promise<void>;
   loading: boolean;
   error: any;
 }
 
-const useCreateDishApi =
-  (options?: CreateDishApiHookOptions): CreateDishApiHookResult => {
+const useUpdateDishApi =
+  (options?: UpdateDishApiHookOptions): UpdateDishApiHookResult => {
     const [data, setData] = useState<NullableDish>(null);
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<any>(null);
@@ -27,10 +27,10 @@ const useCreateDishApi =
     const onFailure = options?.onFailure || noop;
     const onCompletion = options?.onCompletion || noop;
 
-    const fetchData = useCallback(async (dish: RawDish) => {
+    const fetchData = useCallback(async (id: string, dish: RawDish) => {
       setLoading(true);
       try {
-        const { data: { data } } = await api.createDish(dish);
+        const { data: { data } } = await api.updateDish(id, dish);
         setData(data);
         onSuccess(data);
       } catch (error: any) {
@@ -51,4 +51,4 @@ const useCreateDishApi =
     };
   };
 
-export default useCreateDishApi;
+export default useUpdateDishApi;
