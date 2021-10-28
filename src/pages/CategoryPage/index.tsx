@@ -8,13 +8,8 @@ import {
 } from '@material-ui/core';
 
 import { useGetCategoryApi } from 'hooks';
+import { RouterIdPageProps } from 'utils';
 import CategoryAssignmentList from 'components/DishList';
-
-interface CategoryPageProps {
-  match: {
-    params: { id: string }
-  }
-}
 
 const PageWrapper: FC<{ children: ReactNode }> = ({ children }) => (
   <Container maxWidth="lg">
@@ -26,7 +21,7 @@ const PageWrapper: FC<{ children: ReactNode }> = ({ children }) => (
   </Container>
 );
 
-const CategoryPage: FC<CategoryPageProps> = ({ match: { params } }) => {
+const CategoryPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
   const {
     data: category,
     includedData: dishes,
