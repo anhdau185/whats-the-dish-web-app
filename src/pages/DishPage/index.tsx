@@ -28,13 +28,13 @@ const DishPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
     fetchData: fetchDish,
     loading: fetchingDish,
     error
-  } = useGetDishApi(params.id, { include_categories: true });
+  } = useGetDishApi();
 
   const errorOccurred = error != null;
   const dataIsReady = dish != null;
 
   useEffect(() => {
-    fetchDish();
+    fetchDish(params.id, { include_categories: true });
   }, []);
 
   return (

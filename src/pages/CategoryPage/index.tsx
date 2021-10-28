@@ -28,13 +28,13 @@ const CategoryPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
     fetchData: fetchCategory,
     loading: fetchingCategory,
     error
-  } = useGetCategoryApi(params.id, { include_dishes: true });
+  } = useGetCategoryApi();
 
   const errorOccurred = error != null;
   const dataIsReady = category != null;
 
   useEffect(() => {
-    fetchCategory();
+    fetchCategory(params.id, { include_dishes: true });
   }, []);
 
   return (
