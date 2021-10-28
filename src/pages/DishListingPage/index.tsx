@@ -11,10 +11,14 @@ const DishListingPage: FC<EmptyProps> = () => {
     data: dishes,
     loading: fetchingDishes,
     fetchData: fetchDishes
-  } = useFetchDishesApi({ include_categories: false });
+  } = useFetchDishesApi();
 
   useEffect(() => {
-    fetchDishes();
+    fetchDishes({
+      include_categories: false,
+      order_by: 'title',
+      order_direction: 'asc'
+    });
   }, []);
 
   return (

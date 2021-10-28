@@ -10,35 +10,34 @@ import {
 interface GetCategoryHookResult {
   data: NullableCategory;
   includedData: Dish[];
-  fetchData: () => void;
+  fetchData: (id: string, params?: GetCategoryApiOptions) => void;
   loading: boolean;
   error: any;
 }
 
-const useGetCategoryApi =
-  (id: string, params?: GetCategoryApiOptions): GetCategoryHookResult => {
-    const [response, setResponse] = useState<SingleCategoryApiResponse | null>(null);
-    const [loading, setLoading] = useState<boolean>(false);
-    const [error, setError] = useState<any>(null);
+const useGetCategoryApi = (): GetCategoryHookResult => {
+  const [response, setResponse] = useState<SingleCategoryApiResponse | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<any>(null);
 
-    const data = response?.data || null;
-    const includedData = response?.included || [];
+  const data = response?.data || null;
+  const includedData = response?.included || [];
 
-    const fetchData = useCallback(() => {
-      setLoading(true);
-      api.getCategory(id, params)
-        .then(({ data: apiResponse }) => setResponse(apiResponse))
-        .catch(setError)
-        .finally(() => setLoading(false));
-    }, [id, params]);
+  const fetchData = useCallback((id: string, params?: GetCategoryApiOptions) => {
+    setLoading(true);
+    api.getCategory(id, params)
+      .then(({ data: apiResponse }) => setResponse(apiResponse))
+      .catch(setError)
+      .finally(() => setLoading(false));
+  }, []);
 
-    return {
-      data,
-      includedData,
-      fetchData,
-      loading,
-      error
-    };
+  return {
+    data,
+    includedData,
+    fetchData,
+    loading,
+    error
   };
+};
 
 export default useGetCategoryApi;

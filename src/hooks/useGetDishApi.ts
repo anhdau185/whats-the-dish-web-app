@@ -10,35 +10,34 @@ import {
 interface GetDishHookResult {
   data: NullableDish;
   includedData: Category[];
-  fetchData: () => void;
+  fetchData: (id: string, params?: GetDishApiOptions) => void;
   loading: boolean;
   error: any;
 }
 
-const useGetDishApi =
-  (id: string, params?: GetDishApiOptions): GetDishHookResult => {
-    const [response, setResponse] = useState<SingleDishApiResponse | null>(null);
-    const [loading, setLoading] = useState<boolean>(false);
-    const [error, setError] = useState<any>(null);
+const useGetDishApi = (): GetDishHookResult => {
+  const [response, setResponse] = useState<SingleDishApiResponse | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<any>(null);
 
-    const data = response?.data || null;
-    const includedData = response?.included || [];
+  const data = response?.data || null;
+  const includedData = response?.included || [];
 
-    const fetchData = useCallback(() => {
-      setLoading(true);
-      api.getDish(id, params)
-        .then(({ data: apiResponse }) => setResponse(apiResponse))
-        .catch(setError)
-        .finally(() => setLoading(false));
-    }, [id, params]);
+  const fetchData = useCallback((id: string, params?: GetDishApiOptions) => {
+    setLoading(true);
+    api.getDish(id, params)
+      .then(({ data: apiResponse }) => setResponse(apiResponse))
+      .catch(setError)
+      .finally(() => setLoading(false));
+  }, []);
 
-    return {
-      data,
-      includedData,
-      fetchData,
-      loading,
-      error
-    };
+  return {
+    data,
+    includedData,
+    fetchData,
+    loading,
+    error
   };
+};
 
 export default useGetDishApi;
