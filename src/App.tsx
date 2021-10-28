@@ -8,11 +8,12 @@ import {
 
 import { EmptyProps } from 'utils';
 import enableAppLoading from 'actions/enableAppLoading';
+import disableAppLoading from 'actions/disableAppLoading';
 import fetchAllCategories from 'actions/fetchAllCategories';
 import AppBar from 'components/AppBar';
 import HomePage from 'pages/HomePage';
 import CategoryPage from 'pages/CategoryPage';
-import disableAppLoading from './actions/disableAppLoading';
+import DishPage from 'pages/DishPage';
 
 const App: FC<EmptyProps> = () => {
   const dispatch = useDispatch();
@@ -34,6 +35,7 @@ const App: FC<EmptyProps> = () => {
           <Switch>
             <Route exact path="/" component={HomePage} />
             <Route exact path="/categories/:id" component={CategoryPage} />
+            <Route exact path="/dishes/:id" component={DishPage} />
           </Switch>
         </div>
       </div>

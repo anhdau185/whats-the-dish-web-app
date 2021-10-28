@@ -1,4 +1,5 @@
 import React, { FC, useMemo } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import {
   Button,
@@ -26,6 +27,7 @@ const DEFAULT_IMAGE_URL =
 
 const DishItem: FC<DishItemProps> = ({ dish, noActions = false }) => {
   const classes = useStyles();
+  const history = useHistory();
   const dispatch = useDispatch();
 
   const dishImage = useMemo(
@@ -71,7 +73,13 @@ const DishItem: FC<DishItemProps> = ({ dish, noActions = false }) => {
         </Typography>
       </CardContent>
       <CardActions className={classes.cardActions}>
-        <Button size="small" color="primary">View details</Button>
+        <Button
+          size="small"
+          color="primary"
+          onClick={() => history.push(`/dishes/${dish.id}`)}
+        >
+          View details
+        </Button>
       </CardActions>
     </Card>
   );
