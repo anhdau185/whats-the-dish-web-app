@@ -11,7 +11,7 @@ import { useGetCategoryApi } from 'hooks';
 import { RouterIdPageProps } from 'utils';
 import CategoryAssignmentList from 'components/DishList';
 
-const PageWrapper: FC<{ children: ReactNode }> = ({ children }) => (
+const PageWrapper: FC<{ children?: ReactNode }> = ({ children }) => (
   <Container maxWidth="lg">
     <Grow in>
       <Container>
