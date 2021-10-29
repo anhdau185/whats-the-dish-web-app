@@ -42,6 +42,7 @@ const DishListingPage: FC<EmptyProps> = () => {
                   <DishList
                     dishes={dishes}
                     emptyText="No dishes created yet."
+                    refetchData={fetchDishes}
                   />
                 )}
             </Grid>

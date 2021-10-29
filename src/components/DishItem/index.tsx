@@ -11,8 +11,9 @@ import {
 
 import { Dish } from 'models';
 import { getDishImages } from 'utils';
+import { useDeleteDishApi } from 'hooks';
 import setCurrentDish from 'actions/setCurrentDish';
-// import removeCurrentDish from 'actions/removeCurrentDish';
+import removeCurrentDish from 'actions/removeCurrentDish';
 import MoreMenu, { MoreMenuItems } from 'components/MoreMenu';
 
 import useStyles from './styles';
@@ -20,12 +21,17 @@ import useStyles from './styles';
 interface DishItemProps {
   dish: Dish;
   noActions?: boolean;
+  refetchData: () => void | Promise<void>;
 }
 
 const DEFAULT_IMAGE_URL =
   'https://dl.dropboxusercontent.com/s/0krcni2sgpktto9/no-img.jpg';
 
-const DishItem: FC<DishItemProps> = ({ dish, noActions = false }) => {
+const DishItem: FC<DishItemProps> = ({
+  dish,
+  noActions = false,
+  refetchData
+}) => {
   const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
@@ -35,18 +41,19 @@ const DishItem: FC<DishItemProps> = ({ dish, noActions = false }) => {
     [dish]
   );
 
+  const { fetchData: deleteDish } = useDeleteDishApi({
+    onCompletion: () => {
+      dispatch(removeCurrentDish());
+      refetchData();
+    }
+  });
+
   const menuItems = useMemo<MoreMenuItems>(
     () => ({
       'Edit': () => dispatch(setCurrentDish(dish)),
       'Delete': () => {
-        if (confirm('Delete this dish?')) {
-          // dispatch(
-          //   deleteDish({
-          //     id: dish.id,
-          //     onCompletion: () => dispatch(removeCurrentDish())
-          //   })
-          // );
-        }
+        if (confirm('Delete this dish?'))
+          deleteDish(dish.id);
       }
     }),
     [dish]

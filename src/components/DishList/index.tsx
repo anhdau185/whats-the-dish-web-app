@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { Grid, Typography } from '@material-ui/core';
 import isEmpty from 'lodash/fp/isEmpty';
+import noop from 'lodash/fp/noop';
 
 import { Dish } from 'models';
 import DishItem from 'components/DishItem';
@@ -11,12 +12,14 @@ interface DishListProps {
   dishes: Dish[];
   emptyText?: string;
   noItemActions?: boolean;
+  refetchData?: () => void | Promise<void>;
 }
 
 const DishList: FC<DishListProps> = ({
   dishes,
   emptyText,
-  noItemActions = false
+  noItemActions = false,
+  refetchData = noop
 }) => {
   const classes = useStyles();
 
@@ -36,7 +39,11 @@ const DishList: FC<DishListProps> = ({
           {dishes.map(
             dish => (
               <Grid key={`dish-${dish.id}`} item xs={12} sm={6}>
-                <DishItem dish={dish} noActions={noItemActions} />
+                <DishItem
+                  dish={dish}
+                  noActions={noItemActions}
+                  refetchData={refetchData}
+                />
               </Grid>
             )
           )}

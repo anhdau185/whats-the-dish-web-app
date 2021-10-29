@@ -19,23 +19,13 @@ interface DishFormData {
   places: string;
 }
 
-const DishForm: FC<{ refetchData?: () => void }> = ({ refetchData = noop }) => {
+const DishForm: FC<{ refetchData?: () => void | Promise<void> }> = ({
+  refetchData = noop
+}) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const currentDish = useSelector(currentDishSelector);
   const anyDishSelected = currentDish != null;
-
-  const {
-    fetchData: createDish,
-    loading: creatingDish
-  } = useCreateDishApi({ onCompletion: refetchData });
-
-  const {
-    fetchData: updateDish,
-    loading: updatingDish
-  } = useUpdateDishApi({ onCompletion: refetchData });
-
-  const fetchingApi = creatingDish || updatingDish;
 
   const [formData, setFormData] = useState<DishFormData>({
     name: '',
@@ -54,6 +44,23 @@ const DishForm: FC<{ refetchData?: () => void }> = ({ refetchData = noop }) => {
       places: ''
     });
   }, []);
+
+  const onCompletion = useCallback(() => {
+    clearForm();
+    refetchData();
+  }, []);
+
+  const {
+    fetchData: createDish,
+    loading: creatingDish
+  } = useCreateDishApi({ onCompletion });
+
+  const {
+    fetchData: updateDish,
+    loading: updatingDish
+  } = useUpdateDishApi({ onCompletion });
+
+  const fetchingApi = creatingDish || updatingDish;
 
   const validateForm = useCallback((): boolean => {
     if (!formData.name) {
@@ -144,7 +151,7 @@ const DishForm: FC<{ refetchData?: () => void }> = ({ refetchData = noop }) => {
           align="center"
           style={{ marginBottom: 0 }}
         >
-          {anyDishSelected ? 'Edit' : 'Create'} a Dish
+          {anyDishSelected ? 'Edit a Dish' : 'Create a Dish'}
         </Typography>
         {anyDishSelected && (
           <>
@@ -233,7 +240,7 @@ const DishForm: FC<{ refetchData?: () => void }> = ({ refetchData = noop }) => {
           size="large"
           disabled={fetchingApi}
         >
-          Submit
+          {anyDishSelected ? 'Save' : 'Submit'}
         </Button>
         <Button
           fullWidth

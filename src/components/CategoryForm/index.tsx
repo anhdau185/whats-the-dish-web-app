@@ -137,7 +137,7 @@ const CategoryForm: FC<EmptyProps> = () => {
           align="center"
           style={{ marginBottom: 0 }}
         >
-          {anyCategorySelected ? 'Edit' : 'Create'} a Category
+          {anyCategorySelected ? 'Edit a Category' : 'Create a Category'}
         </Typography>
         {anyCategorySelected && (
           <>
@@ -209,7 +209,7 @@ const CategoryForm: FC<EmptyProps> = () => {
           color="primary"
           size="large"
         >
-          Submit
+          {anyCategorySelected ? 'Save' : 'Submit'}
         </Button>
         <Button
           fullWidth
