@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+import noop from 'lodash/fp/noop';
 
 import { NullableCategory, Dish } from 'models';
 import * as api from 'api';
@@ -7,37 +8,59 @@ import {
   SingleCategoryApiResponse
 } from 'api/categories';
 
+import { ApiHookOptions } from '.';
+
+interface GetCategoryApiHookOptions extends ApiHookOptions {
+  onSuccess?: (data: SingleCategoryApiResponse) => void;
+}
+
 interface GetCategoryHookResult {
   data: NullableCategory;
   includedData: Dish[];
-  fetchData: (id: string, params?: GetCategoryApiOptions) => void;
+  fetchData: (id: string, params?: GetCategoryApiOptions) => Promise<void>;
   loading: boolean;
   error: any;
 }
 
-const useGetCategoryApi = (): GetCategoryHookResult => {
-  const [response, setResponse] = useState<SingleCategoryApiResponse | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<any>(null);
+const useGetCategoryApi =
+  (options?: GetCategoryApiHookOptions): GetCategoryHookResult => {
+    const [response, setResponse] = useState<SingleCategoryApiResponse | null>(null);
+    const [loading, setLoading] = useState<boolean>(false);
+    const [error, setError] = useState<any>(null);
 
-  const data = response?.data || null;
-  const includedData = response?.included || [];
+    const onSuccess = options?.onSuccess || noop;
+    const onFailure = options?.onFailure || noop;
+    const onCompletion = options?.onCompletion || noop;
 
-  const fetchData = useCallback((id: string, params?: GetCategoryApiOptions) => {
-    setLoading(true);
-    api.getCategory(id, params)
-      .then(({ data: apiResponse }) => setResponse(apiResponse))
-      .catch(setError)
-      .finally(() => setLoading(false));
-  }, []);
+    const data = response?.data || null;
+    const includedData = response?.included || [];
 
-  return {
-    data,
-    includedData,
-    fetchData,
-    loading,
-    error
+    const fetchData = useCallback(
+      async (id: string, params?: GetCategoryApiOptions) => {
+        setLoading(true);
+        try {
+          const { data: response } = await api.getCategory(id, params);
+          setResponse(response);
+          onSuccess(response);
+        } catch (error: any) {
+          const safeError = error || {};
+          setError(safeError);
+          onFailure(safeError);
+        } finally {
+          setLoading(false);
+          onCompletion();
+        }
+      },
+      []
+    );
+
+    return {
+      data,
+      includedData,
+      fetchData,
+      loading,
+      error
+    };
   };
-};
 
 export default useGetCategoryApi;
