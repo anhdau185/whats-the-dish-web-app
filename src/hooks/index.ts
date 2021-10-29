@@ -3,9 +3,10 @@ import useGetDishApi from './useGetDishApi';
 import useFetchDishesApi from './useFetchDishesApi';
 import useCreateDishApi from './useCreateDishApi';
 import useUpdateDishApi from './useUpdateDishApi';
+import useDeleteDishApi from './useDeleteDishApi';
 
 export interface ApiHookOptions {
-  onSuccess?: (data: any) => void;
+  onSuccess?: (data?: any) => void;
   onFailure?: (error: any) => void;
   onCompletion?: () => void;
 }
@@ -15,5 +16,6 @@ export {
   useGetDishApi,
   useFetchDishesApi,
   useCreateDishApi,
-  useUpdateDishApi
+  useUpdateDishApi,
+  useDeleteDishApi
 };
