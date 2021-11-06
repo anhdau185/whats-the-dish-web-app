@@ -1,5 +1,4 @@
-import React, { FC, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { FC } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -7,44 +6,30 @@ import {
 } from 'react-router-dom';
 
 import { EmptyProps } from 'utils';
-import enableAppLoading from 'actions/enableAppLoading';
-import disableAppLoading from 'actions/disableAppLoading';
-import fetchAllCategories from 'actions/fetchAllCategories';
 import AppBar from 'components/AppBar';
 
 /* Pages */
+import HomePage from 'pages/HomePage';
 import CategoryListingPage from 'pages/CategoryListingPage';
-import DishListingPage from 'pages/DishListingPage';
 import CategoryPage from 'pages/CategoryPage';
+import DishListingPage from 'pages/DishListingPage';
 import DishPage from 'pages/DishPage';
 
-const App: FC<EmptyProps> = () => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(enableAppLoading());
-    dispatch(
-      fetchAllCategories({
-        onCompletion: () => dispatch(disableAppLoading())
-      })
-    );
-  }, []);
-
-  return (
-    <Router>
-      <div className="app">
-        <AppBar />
-        <div className="page">
-          <Switch>
-            <Route exact path="/" component={CategoryListingPage} />
-            <Route exact path="/dishes" component={DishListingPage} />
-            <Route exact path="/categories/:id" component={CategoryPage} />
-            <Route exact path="/dishes/:id" component={DishPage} />
-          </Switch>
-        </div>
+const App: FC<EmptyProps> = () => (
+  <Router>
+    <div className="app">
+      <AppBar />
+      <div className="page">
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route exact path="/categories" component={CategoryListingPage} />
+          <Route exact path="/categories/:id" component={CategoryPage} />
+          <Route exact path="/dishes" component={DishListingPage} />
+          <Route exact path="/dishes/:id" component={DishPage} />
+        </Switch>
       </div>
-    </Router>
-  );
-};
+    </div>
+  </Router>
+);
 
 export default App;

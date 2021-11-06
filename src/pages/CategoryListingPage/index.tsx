@@ -1,15 +1,21 @@
 import React, { FC } from 'react';
-import { useSelector } from 'react-redux';
-import { Container, Grow, Grid, CircularProgress } from '@material-ui/core';
+import {
+  Container,
+  Grow,
+  Grid,
+  CircularProgress
+} from '@material-ui/core';
 
 import { EmptyProps } from 'utils';
-import { appLoadingSelector, categoriesSelector } from 'reducers/state';
+import { useFetchCategoriesAC } from 'hooks';
 import CategoryList from 'components/CategoryList';
 import CategoryForm from 'components/CategoryForm';
 
 const CategoryListingPage: FC<EmptyProps> = () => {
-  const appLoading = useSelector(appLoadingSelector);
-  const categories = useSelector(categoriesSelector);
+  const {
+    loading: fetchingCategories,
+    data: categories
+  } = useFetchCategoriesAC();
 
   return (
     <Container maxWidth="lg">
@@ -22,7 +28,7 @@ const CategoryListingPage: FC<EmptyProps> = () => {
             spacing={3}
           >
             <Grid item xs={12} sm={7}>
-              {appLoading
+              {fetchingCategories
                 ? <CircularProgress />
                 : (
                   <CategoryList
