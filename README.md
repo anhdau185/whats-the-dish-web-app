@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# What's The Dish Web App
 
 React.js app for What's The Dish project.
 
