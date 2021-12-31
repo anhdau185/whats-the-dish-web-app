@@ -6,8 +6,12 @@ import isEmpty from 'lodash/fp/isEmpty';
 import enableAppLoading from 'actions/enableAppLoading';
 import disableAppLoading from 'actions/disableAppLoading';
 import fetchAllCategories from 'actions/fetchAllCategories';
+import { Category } from 'models';
 
-const useFetchCategoriesAC = () => {
+const useFetchCategoriesAC = (): {
+  loading: boolean,
+  data: Category[]
+} => {
   const dispatch = useDispatch();
   const loading = useSelector(appLoadingSelector);
   const data = useSelector(categoriesSelector);

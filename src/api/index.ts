@@ -14,8 +14,11 @@ import {
   deleteDish
 } from './dishes';
 
-// export const BASE_URL = 'https://whats-the-dish-api.herokuapp.com'; // production host
-export const BASE_URL = 'http://127.0.0.1:5000/api/v1';  // local host
+// local host for development
+// export const BASE_URL = 'http://127.0.0.1:5000/api/v1';
+
+// heroku production host
+export const BASE_URL = 'https://whats-the-dish-api.herokuapp.com/api/v1';
 
 export interface CommonApiResponse {
   included?: unknown;
