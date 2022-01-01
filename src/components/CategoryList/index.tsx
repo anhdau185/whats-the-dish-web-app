@@ -23,7 +23,7 @@ const CategoryList: FC<CategoryListProps> = ({
   return (
     isEmpty(categories)
       ? (
-        <Typography variant="h5" className={classes.emptyCategories}>
+        <Typography variant="h5" color="textSecondary">
           {emptyText || 'No categories to display.'}
         </Typography>
       ) : (

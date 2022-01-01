@@ -30,7 +30,7 @@ const WhatsTheDishAppBar: FC<EmptyProps> = () => {
           variant="h2"
           align="center"
         >
-          What&apos;s the dish today?
+          What&apos;s The Dish?
         </Typography>
       </AppBar>
     </Container>

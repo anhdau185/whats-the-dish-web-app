@@ -26,7 +26,7 @@ const DishList: FC<DishListProps> = ({
   return (
     isEmpty(dishes)
       ? (
-        <Typography variant="h5" className={classes.emptyDishes}>
+        <Typography variant="h5" color="textSecondary">
           {emptyText || 'No dishes to display.'}
         </Typography>
       ) : (
