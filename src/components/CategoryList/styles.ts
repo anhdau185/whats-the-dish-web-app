@@ -1,8 +1,7 @@
-import { makeStyles } from '@material-ui/core/styles';
+import styled from 'styled-components';
+import { Grid } from '@material-ui/core';
 
-export default makeStyles(() => ({
-  mainContainer: {
-    display: 'flex',
-    alignItems: 'flex-start'
-  }
-}));
+export const StyledGrid = styled(Grid)`
+  display: flex;
+  align-items: flex-start;
+`;

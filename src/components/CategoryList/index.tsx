@@ -5,7 +5,7 @@ import isEmpty from 'lodash/fp/isEmpty';
 import { Category } from 'models';
 import CategoryItem from 'components/CategoryItem';
 
-import useStyles from './styles';
+import { StyledGrid } from './styles';
 
 interface CategoryListProps {
   categories: Category[];
@@ -17,32 +17,22 @@ const CategoryList: FC<CategoryListProps> = ({
   categories,
   emptyText,
   noItemActions = false
-}) => {
-  const classes = useStyles();
-
-  return (
-    isEmpty(categories)
-      ? (
-        <Typography variant="h5" color="textSecondary">
-          {emptyText || 'No categories to display.'}
-        </Typography>
-      ) : (
-        <Grid
-          container
-          spacing={3}
-          alignItems="stretch"
-          className={classes.mainContainer}
-        >
-          {categories.map(
-            category => (
-              <Grid key={`category-${category.id}`} item xs={12} sm={6}>
-                <CategoryItem category={category} noActions={noItemActions} />
-              </Grid>
-            )
-          )}
-        </Grid>
-      )
-  );
-};
+}) =>
+  isEmpty(categories)
+    ? (
+      <Typography variant="h5" color="textSecondary">
+        {emptyText || 'No categories to display.'}
+      </Typography>
+    ) : (
+      <StyledGrid container spacing={3} alignItems="stretch">
+        {categories.map(
+          category => (
+            <Grid key={`category-${category.id}`} item xs={12} sm={6}>
+              <CategoryItem category={category} noActions={noItemActions} />
+            </Grid>
+          )
+        )}
+      </StyledGrid>
+    );
 
 export default CategoryList;
