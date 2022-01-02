@@ -1,14 +1,8 @@
 import React, { FC, useMemo, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { Button, CardContent, Typography } from '@material-ui/core';
 import moment from 'moment';
-import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  Typography
-} from '@material-ui/core';
 
 import { Category } from 'models';
 import { getCategoryImages } from 'utils';
@@ -17,10 +11,16 @@ import setCurrentCategory from 'actions/setCurrentCategory';
 import removeCurrentCategory from 'actions/removeCurrentCategory';
 import MoreMenu, { MoreMenuItems } from 'components/MoreMenu';
 
-import useStyles from './styles';
+import {
+  ImageWrapper,
+  TimeOverlay,
+  MoreButtonOverlay,
+  StyledCard,
+  StyledCardActions
+} from './styles';
 
 const DEFAULT_IMAGE_URL =
-  'https://dl.dropboxusercontent.com/s/0krcni2sgpktto9/no-img.jpg';
+  'https://dl.dropboxusercontent.com/s/m6acpdmoket5486/food-placeholder.png';
 
 interface CategoryItemProps {
   category: Category;
@@ -28,7 +28,6 @@ interface CategoryItemProps {
 }
 
 const CategoryItem: FC<CategoryItemProps> = ({ category, noActions = false }) => {
-  const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
   const [timeHovered, setTimeHovered] = useState<boolean>(false);
@@ -61,13 +60,15 @@ const CategoryItem: FC<CategoryItemProps> = ({ category, noActions = false }) =>
   );
 
   return (
-    <Card className={classes.card}>
-      <img
-        src={categoryImage}
-        title={category.attributes.title}
-        alt={category.attributes.title}
-      />
-      <div className={classes.overlay}>
+    <StyledCard>
+      <ImageWrapper>
+        <img
+          src={categoryImage}
+          title={category.attributes.title}
+          alt={category.attributes.title}
+        />
+      </ImageWrapper>
+      <TimeOverlay>
         <Typography
           variant="body2"
           style={{ cursor: 'default' }}
@@ -78,21 +79,21 @@ const CategoryItem: FC<CategoryItemProps> = ({ category, noActions = false }) =>
             ? creationDateTime
             : moment(category.attributes.createdAt).fromNow()}
         </Typography>
-      </div>
+      </TimeOverlay>
       {!noActions && (
-        <div className={classes.overlay2}>
+        <MoreButtonOverlay>
           <MoreMenu items={menuItems} color="white" />
-        </div>
+        </MoreButtonOverlay>
       )}
       <CardContent>
-        <Typography variant="h5" gutterBottom>
+        <Typography variant="h5" gutterBottom style={{ marginBottom: '0.2em' }}>
           {category.attributes.title}
         </Typography>
         <Typography variant="body2" color="textSecondary">
           {category.attributes.description}
         </Typography>
       </CardContent>
-      <CardActions className={classes.cardActions}>
+      <StyledCardActions>
         <Button
           size="small"
           color="primary"
@@ -100,8 +101,8 @@ const CategoryItem: FC<CategoryItemProps> = ({ category, noActions = false }) =>
         >
           View details
         </Button>
-      </CardActions>
-    </Card>
+      </StyledCardActions>
+    </StyledCard>
   );
 };
 
