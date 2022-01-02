@@ -11,12 +11,12 @@ const HOME_ITEMS: HomeItem[] = [
   {
     url: '/categories',
     title: 'See all categories',
-    description: 'Find your favorite types of food.'
+    description: 'Find out your favorite types of food'
   },
   {
     url: '/dishes',
     title: 'See all dishes',
-    description: 'Find your favorite foods or drinks.'
+    description: 'Find out your favorite food & drink'
   }
 ];
 
