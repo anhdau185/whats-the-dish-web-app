@@ -1,11 +1,15 @@
 import React, { FC } from 'react';
 import { Grid, Typography } from '@material-ui/core';
+import styled from 'styled-components';
 import isEmpty from 'lodash/fp/isEmpty';
 
 import { Category } from 'models';
 import CategoryItem from 'components/CategoryItem';
 
-import { StyledGrid } from './styles';
+export const StyledGrid = styled(Grid)`
+  display: flex;
+  align-items: flex-start;
+`;
 
 interface CategoryListProps {
   categories: Category[];
