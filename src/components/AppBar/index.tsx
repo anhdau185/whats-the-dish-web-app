@@ -27,7 +27,7 @@ const WhatsTheDishAppBar: FC<EmptyProps> = () => {
         </Link>
         <Typography
           className={classes.heading}
-          variant="h2"
+          variant="h3"
           align="center"
         >
           What&apos;s The Dish?
