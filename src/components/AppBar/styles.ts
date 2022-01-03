@@ -11,7 +11,8 @@ export default makeStyles({
     alignItems: 'center'
   },
   heading: {
-    color: 'rgb(126, 197, 254)'
+    color: 'rgb(126, 197, 254)',
+    fontWeight: 300
   },
   image: {
     display: 'block',
