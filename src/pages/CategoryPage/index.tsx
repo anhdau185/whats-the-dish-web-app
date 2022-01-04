@@ -1,25 +1,16 @@
-import React, { FC, ReactNode, useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
 import {
-  CircularProgress,
   Container,
-  Grow,
   Grid,
+  CircularProgress,
   Typography
 } from '@material-ui/core';
 
 import { useGetCategoryApi } from 'hooks';
 import { RouterIdPageProps } from 'utils';
 import CategoryAssignmentList from 'components/DishList';
-
-const PageWrapper: FC<{ children?: ReactNode }> = ({ children }) => (
-  <Container maxWidth="lg">
-    <Grow in>
-      <Container>
-        <Grid container spacing={4}>{children}</Grid>
-      </Container>
-    </Grow>
-  </Container>
-);
+import DetailImageSlider from 'components/DetailImageSlider';
+import EditableCategoryTitle from 'components/EditableCategoryTitle';
 
 const CategoryPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
   const {
@@ -38,20 +29,21 @@ const CategoryPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
   }, []);
 
   return (
-    <PageWrapper>
+    <Container maxWidth="lg">
       {fetchingCategory && <CircularProgress />}
       {errorOccurred && (
-        <Typography variant="h5">
+        <Typography variant="h5" color="textSecondary">
           An error occurred while fetching the category ({error?.message}).
         </Typography>
       )}
       {dataIsReady && (
-        <>
-          <Grid item xs={12}>
-            <Typography variant="h4">
-              {category.attributes.title}
-            </Typography>
-            <Typography variant="body1">
+        <Grid container spacing={4}>
+          <Grid item xs={6}>
+            <DetailImageSlider imageUrls={category.attributes.images} />
+          </Grid>
+          <Grid item xs={6}>
+            <EditableCategoryTitle category={category} />
+            <Typography variant="body1" color="textSecondary">
               {category.attributes.description}
             </Typography>
           </Grid>
@@ -62,9 +54,9 @@ const CategoryPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
               emptyText="No dishes added to this category yet."
             />
           </Grid>
-        </>
+        </Grid>
       )}
-    </PageWrapper>
+    </Container>
   );
 };
 
