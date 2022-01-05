@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useCallback, useRef, useState } from 'react';
 import { Typography, TextField, IconButton } from '@material-ui/core';
 import Edit from '@material-ui/icons/Edit';
 import Check from '@material-ui/icons/Check';
@@ -9,47 +9,55 @@ import { Category, RawCategory } from 'models';
 import useUpdateCategoryApi from 'hooks/useUpdateCategoryApi';
 
 const TitleWrapper = styled.div`
-display: flex;
-align-items: center;
-min-height: 60px;
-margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  min-height: 60px;
+  margin-bottom: 0.5rem;
 `;
 
 const StyledTextField = styled(TextField)`
-div {
-  font-size: 2.125rem;
-}
+  div {
+    font-size: 2.125rem;
+  }
 `;
 
 const StyledIconButton = styled(IconButton)`
-padding: 8px;
-height: max-content;
+  padding: 8px;
+  height: max-content;
 `;
 
 const EditableCategoryTitle: FC<{ category: Category }> = ({ category }) => {
-  const [newTitle, setNewTitle] = useState<string>(category.attributes.title);
+  const originalValue = useRef<string>(category.attributes.title);
+  const [displayValue, setDisplayValue] = useState<string>(category.attributes.title);
   const [editMode, setEditMode] = useState<boolean>(false);
   const { fetchData: updateCategory } = useUpdateCategoryApi();
 
   const enterEditMode = () => setEditMode(true);
 
   const exitEditMode = () => {
-    setNewTitle(category.attributes.title);
+    setDisplayValue(originalValue.current); // roll back to current original value
     setEditMode(false);
   };
 
-  const saveNewTitle = () => {
-    const dataToSubmit: RawCategory = {
-      attributes: {
-        title: newTitle,
-        name: category.attributes.name,
-        images: category.attributes.images,
-        description: category.attributes.description
-      }
-    };
-    updateCategory(category.id, dataToSubmit);
-    setEditMode(false);
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDisplayValue(e.target.value);
   };
+
+  const saveNewValue = useCallback(() => {
+    if (displayValue !== originalValue.current) {
+      const dataToSubmit: RawCategory = {
+        attributes: {
+          title: displayValue,
+          name: category.attributes.name,
+          images: category.attributes.images,
+          description: category.attributes.description
+        }
+      };
+      updateCategory(category.id, dataToSubmit);
+      originalValue.current = displayValue; // optimistically update original value on save
+    }
+    setEditMode(false);
+  }, [displayValue, originalValue.current, category]);
 
   return (
     <TitleWrapper>
@@ -58,16 +66,14 @@ const EditableCategoryTitle: FC<{ category: Category }> = ({ category }) => {
           <StyledTextField
             size="medium"
             variant="standard"
-            value={newTitle}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              setNewTitle(e.target.value);
-            }}
+            value={displayValue}
+            onChange={onChange}
             inputRef={(input?: HTMLInputElement) => {
               if (input) input.focus();
             }}
           />
           <div style={{ marginLeft: 0 }}>
-            <StyledIconButton onClick={saveNewTitle}>
+            <StyledIconButton onClick={saveNewValue}>
               <Check />
             </StyledIconButton>
             <StyledIconButton onClick={exitEditMode}>
@@ -77,10 +83,8 @@ const EditableCategoryTitle: FC<{ category: Category }> = ({ category }) => {
         </>
       ) : (
         <>
-          <Typography variant="h4" style={{ marginRight: 3 }}>
-            {newTitle}
-          </Typography>
-          <StyledIconButton onClick={enterEditMode}>
+          <Typography variant="h4">{displayValue}</Typography>
+          <StyledIconButton onClick={enterEditMode} style={{ marginLeft: 3 }}>
             <Edit />
           </StyledIconButton>
         </>
