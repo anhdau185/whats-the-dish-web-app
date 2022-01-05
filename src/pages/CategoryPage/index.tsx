@@ -11,6 +11,7 @@ import { RouterIdPageProps } from 'utils';
 import CategoryAssignmentList from 'components/DishList';
 import DetailImageSlider from 'components/DetailImageSlider';
 import EditableCategoryTitle from 'components/EditableCategoryTitle';
+import EditableCategoryDescription from 'components/EditableCategoryDescription';
 
 const CategoryPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
   const {
@@ -43,9 +44,7 @@ const CategoryPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
           </Grid>
           <Grid item xs={6}>
             <EditableCategoryTitle category={category} />
-            <Typography variant="body1" color="textSecondary">
-              {category.attributes.description}
-            </Typography>
+            <EditableCategoryDescription category={category} />
           </Grid>
           <Grid item xs={12}>
             <CategoryAssignmentList
