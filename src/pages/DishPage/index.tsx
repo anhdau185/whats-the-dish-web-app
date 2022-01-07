@@ -50,13 +50,15 @@ const DishPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
               {dish.attributes.description}
             </Typography>
           </Grid>
-          <Grid item xs={12}>
-            <CategoryList
-              noItemActions
-              categories={categories}
-              emptyText="This dish has not yet been added to any categories."
-            />
-          </Grid>
+          {false && (
+            <Grid item xs={12}>
+              <CategoryList
+                noItemActions
+                categories={categories}
+                emptyText="This dish has not yet been added to any categories."
+              />
+            </Grid>
+          )}
         </>
       )}
     </PageWrapper>

@@ -46,13 +46,15 @@ const CategoryPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
             <EditableCategoryDescription category={category} />
             <AlbumEditor data={category} refetch={fetchCategoryWithOptions} />
           </Grid>
-          <Grid item xs={12}>
-            <CategoryAssignmentList
-              noItemActions
-              dishes={dishes}
-              emptyText="No dishes added to this category yet."
-            />
-          </Grid>
+          {false && (
+            <Grid item xs={12}>
+              <CategoryAssignmentList
+                noItemActions
+                dishes={dishes}
+                emptyText="No dishes added to this category yet."
+              />
+            </Grid>
+          )}
         </Grid>
       )}
     </Container>
