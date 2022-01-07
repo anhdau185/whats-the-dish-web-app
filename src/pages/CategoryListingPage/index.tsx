@@ -1,13 +1,9 @@
 import React, { FC } from 'react';
-import {
-  Container,
-  Grow,
-  Grid,
-  CircularProgress
-} from '@material-ui/core';
+import { Container, Grow, Grid } from '@material-ui/core';
 
 import { EmptyProps } from 'utils';
 import { useFetchCategoriesAC } from 'hooks';
+import Progress from 'components/Progress';
 import CategoryList from 'components/CategoryList';
 import CategoryForm from 'components/CategoryForm';
 
@@ -19,6 +15,7 @@ const CategoryListingPage: FC<EmptyProps> = () => {
 
   return (
     <Container maxWidth="lg">
+      <Progress loading={fetchingCategories} />
       <Grow in>
         <Container>
           <Grid
@@ -28,14 +25,10 @@ const CategoryListingPage: FC<EmptyProps> = () => {
             spacing={3}
           >
             <Grid item xs={12} sm={7}>
-              {fetchingCategories
-                ? <CircularProgress />
-                : (
-                  <CategoryList
-                    categories={categories}
-                    emptyText="No categories created yet."
-                  />
-                )}
+              <CategoryList
+                categories={categories}
+                emptyText="No categories created yet."
+              />
             </Grid>
             <Grid item xs={12} sm={4}>
               <CategoryForm />
