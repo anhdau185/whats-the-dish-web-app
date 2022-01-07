@@ -1,14 +1,9 @@
 import React, { FC, ReactNode, useEffect } from 'react';
-import {
-  CircularProgress,
-  Container,
-  Grow,
-  Grid,
-  Typography
-} from '@material-ui/core';
+import { Container, Grow, Grid, Typography } from '@material-ui/core';
 
 import { useGetDishApi } from 'hooks';
 import { RouterIdPageProps } from 'utils';
+import Progress from 'components/Progress';
 import CategoryList from 'components/CategoryList';
 
 const PageWrapper: FC<{ children?: ReactNode }> = ({ children }) => (
@@ -39,7 +34,7 @@ const DishPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
 
   return (
     <PageWrapper>
-      {fetchingDish && <CircularProgress />}
+      <Progress loading={fetchingDish} />
       {errorOccurred && (
         <Typography variant="h5">
           An error occurred while fetching the dish ({error?.message}).

@@ -1,8 +1,9 @@
 import React, { FC, useCallback, useEffect } from 'react';
-import { Container, Grow, Grid, CircularProgress } from '@material-ui/core';
+import { Container, Grow, Grid } from '@material-ui/core';
 
 import { useFetchDishesApi } from 'hooks';
 import { EmptyProps } from 'utils';
+import Progress from 'components/Progress';
 import DishList from 'components/DishList';
 import DishForm from 'components/DishForm';
 
@@ -27,6 +28,7 @@ const DishListingPage: FC<EmptyProps> = () => {
 
   return (
     <Container maxWidth="lg">
+      <Progress loading={fetchingDishes} />
       <Grow in>
         <Container>
           <Grid
@@ -36,15 +38,11 @@ const DishListingPage: FC<EmptyProps> = () => {
             spacing={3}
           >
             <Grid item xs={12} sm={7}>
-              {fetchingDishes
-                ? <CircularProgress />
-                : (
-                  <DishList
-                    dishes={dishes}
-                    emptyText="No dishes created yet."
-                    refetchData={fetchDishes}
-                  />
-                )}
+              <DishList
+                dishes={dishes}
+                emptyText="No dishes created yet."
+                refetchData={fetchDishes}
+              />
             </Grid>
             <Grid item xs={12} sm={4}>
               <DishForm refetchData={fetchDishes} />

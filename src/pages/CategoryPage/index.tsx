@@ -1,13 +1,9 @@
 import React, { FC, useEffect } from 'react';
-import {
-  Container,
-  Grid,
-  CircularProgress,
-  Typography
-} from '@material-ui/core';
+import { Container, Grid, Typography } from '@material-ui/core';
 
 import { useGetCategoryApi } from 'hooks';
 import { RouterIdPageProps } from 'utils';
+import Progress from 'components/Progress';
 import CategoryAssignmentList from 'components/DishList';
 import DetailImageSlider from 'components/DetailImageSlider';
 import EditableCategoryTitle from 'components/EditableCategoryTitle';
@@ -34,7 +30,7 @@ const CategoryPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
 
   return (
     <Container maxWidth="lg">
-      {fetchingCategory && <CircularProgress />}
+      <Progress loading={fetchingCategory} />
       {errorOccurred && (
         <Typography variant="h5" color="textSecondary">
           An error occurred while fetching the category ({error?.message}).
