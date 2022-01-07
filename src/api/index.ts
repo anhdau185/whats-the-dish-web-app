@@ -15,7 +15,7 @@ import {
 } from './dishes';
 
 // local host for development
-// export const BASE_URL = 'http://127.0.0.1:5000/api/v1';
+// export const BASE_URL = 'http://localhost:5000/api/v1';
 
 // heroku production host
 export const BASE_URL = 'https://whats-the-dish-api.herokuapp.com/api/v1';
