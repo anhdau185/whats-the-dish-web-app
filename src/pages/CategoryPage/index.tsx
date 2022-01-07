@@ -12,6 +12,7 @@ import CategoryAssignmentList from 'components/DishList';
 import DetailImageSlider from 'components/DetailImageSlider';
 import EditableCategoryTitle from 'components/EditableCategoryTitle';
 import EditableCategoryDescription from 'components/EditableCategoryDescription';
+import AlbumEditor from 'components/AlbumEditor/AlbumEditor';
 
 const CategoryPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
   const {
@@ -24,9 +25,11 @@ const CategoryPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
 
   const errorOccurred = error != null;
   const dataIsReady = category != null;
+  const fetchCategoryWithOptions =
+    () => fetchCategory(params.id, { include_dishes: true });
 
   useEffect(() => {
-    fetchCategory(params.id, { include_dishes: true });
+    fetchCategoryWithOptions();
   }, []);
 
   return (
@@ -45,6 +48,7 @@ const CategoryPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
           <Grid item xs={6}>
             <EditableCategoryTitle category={category} />
             <EditableCategoryDescription category={category} />
+            <AlbumEditor data={category} refetch={fetchCategoryWithOptions} />
           </Grid>
           <Grid item xs={12}>
             <CategoryAssignmentList
