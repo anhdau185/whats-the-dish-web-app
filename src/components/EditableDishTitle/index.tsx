@@ -36,7 +36,7 @@ const EditableDishTitle: FC<{ dish: Dish }> = ({ dish }) => {
           name: dish.attributes.name,
           images: dish.attributes.images,
           description: dish.attributes.description,
-          places: dish.attributes.places
+          places: dish.attributes.places || []
         }
       };
       updateDish(dish.id, dataToSubmit);
