@@ -96,8 +96,13 @@ const AlbumEditor: FC<AlbumEditorProps> = ({ data, refetch = noop }) => {
           const isLast = index === displayAlbum.length - 1;
           const prevValue = displayAlbum[index - 1];
           const nextValue = displayAlbum[index + 1];
-          const shouldNotBeEditable = !isEmpty(nextValue) ||
-            (!isFirst && isEmpty(value) && isEmpty(prevValue));
+
+          const disabled =
+            !isEmpty(nextValue) || (!isFirst && isEmpty(value) && isEmpty(prevValue));
+
+          const placeholder = !disabled
+            ? (isFirst ? 'Enter your primary image URL' : 'Enter your next image URL')
+            : undefined;
 
           return (
             <CustomTextField
@@ -106,8 +111,9 @@ const AlbumEditor: FC<AlbumEditorProps> = ({ data, refetch = noop }) => {
               isLast={isLast}
               size="small"
               variant="outlined"
-              disabled={shouldNotBeEditable}
+              disabled={disabled}
               label={isFirst ? 'Primary image' : undefined}
+              placeholder={placeholder}
               InputProps={textFieldInputProps}
               value={value}
               onChange={onChange(index)}
