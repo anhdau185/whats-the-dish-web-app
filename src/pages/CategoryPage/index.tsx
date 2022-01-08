@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from 'react';
 import { Container, Grid, Typography } from '@material-ui/core';
 
-import { useGetCategoryApi } from 'hooks';
+import { useGetCategoryApi, useUpdateCategoryApi } from 'hooks';
 import { RouterIdPageProps } from 'utils';
 import Progress from 'components/Progress';
 import CategoryAssignmentList from 'components/DishList';
@@ -24,13 +24,16 @@ const CategoryPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
   const fetchCategoryWithOptions =
     () => fetchCategory(params.id, { include_dishes: true });
 
+  const { fetchData: updateCategory, loading: updatingCategory } =
+    useUpdateCategoryApi({ onSuccess: fetchCategoryWithOptions });
+
   useEffect(() => {
     fetchCategoryWithOptions();
   }, []);
 
   return (
     <Container maxWidth="lg">
-      <Progress loading={fetchingCategory}>
+      <Progress loading={fetchingCategory || updatingCategory}>
         {errorOccurred && (
           <Typography
             variant="h5"
@@ -49,7 +52,7 @@ const CategoryPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
             <Grid item xs={6}>
               <EditableCategoryTitle category={category} />
               <EditableCategoryDescription category={category} />
-              <AlbumEditor data={category} refetch={fetchCategoryWithOptions} />
+              <AlbumEditor data={category} updateData={updateCategory} />
             </Grid>
             {false && (
               <Grid item xs={12}>

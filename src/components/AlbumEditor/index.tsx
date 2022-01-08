@@ -7,10 +7,8 @@ import Photo from '@material-ui/icons/Photo';
 import compact from 'lodash/fp/compact';
 import isEmpty from 'lodash/fp/isEmpty';
 import isEqual from 'lodash/fp/isEqual';
-import noop from 'lodash/fp/noop';
 
 import { Category, Dish, RawCategory, RawDish } from 'models';
-import useUpdateCategoryApi from 'hooks/useUpdateCategoryApi';
 
 import {
   CustomAccordion,
@@ -20,12 +18,12 @@ import {
   StyledIconButton
 } from './styles';
 
+type SubmittedData = RawCategory | RawDish;
+
 interface AlbumEditorProps {
   data: Category | Dish;
-  refetch?: () => void | Promise<void>;
+  updateData: (id: string, submittedData: SubmittedData) => void | Promise<void>;
 }
-
-type SubmittedData = RawCategory | RawDish;
 
 const MAX_IMAGES_ALLOWED = 5;
 
@@ -34,7 +32,7 @@ const generateDisplayAlbum = (actualAlbum: string[]): string[] =>
     (emptyValue, index) => actualAlbum[index] || emptyValue
   );
 
-const textFieldInputProps = {
+const textFieldLeftIcon = {
   startAdornment: (
     <InputAdornment position="start">
       <Photo />
@@ -42,16 +40,12 @@ const textFieldInputProps = {
   )
 };
 
-const AlbumEditor: FC<AlbumEditorProps> = ({ data, refetch = noop }) => {
+const AlbumEditor: FC<AlbumEditorProps> = ({ data, updateData }) => {
   const actualAlbum = data.attributes.images;
   const [expanded, setExpanded] = useState<boolean>(false);
   const [displayAlbum, setDisplayAlbum] = useState<string[]>(
     generateDisplayAlbum(actualAlbum)
   );
-
-  const { fetchData: updateCategory } = useUpdateCategoryApi({
-    onSuccess: refetch
-  });
 
   const onChange = useCallback(
     (targetIndex: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -77,7 +71,7 @@ const AlbumEditor: FC<AlbumEditorProps> = ({ data, refetch = noop }) => {
         description: data.attributes.description
       }
     };
-    updateCategory(data.id, dataToSubmit);
+    updateData(data.id, dataToSubmit);
   }, [displayAlbum, data]);
 
   const reset = () => {
@@ -114,7 +108,7 @@ const AlbumEditor: FC<AlbumEditorProps> = ({ data, refetch = noop }) => {
               disabled={disabled}
               label={isFirst ? 'Primary image' : undefined}
               placeholder={placeholder}
-              InputProps={textFieldInputProps}
+              InputProps={textFieldLeftIcon}
               value={value}
               onChange={onChange(index)}
             />

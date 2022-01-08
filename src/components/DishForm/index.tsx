@@ -126,7 +126,7 @@ const DishForm: FC<{ refetchData?: () => void | Promise<void> }> = ({
         title: currentDish.attributes.title,
         description: currentDish.attributes.description || '',
         imageUrl: currentDish.attributes.images[0] || '',
-        places: currentDish.attributes.places.join(',')
+        places: currentDish.attributes.places?.join(',') || ''
       });
     } else {
       clearForm();

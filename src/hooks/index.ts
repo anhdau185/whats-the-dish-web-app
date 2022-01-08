@@ -4,6 +4,7 @@ import useFetchDishesApi from './useFetchDishesApi';
 import useCreateDishApi from './useCreateDishApi';
 import useUpdateDishApi from './useUpdateDishApi';
 import useDeleteDishApi from './useDeleteDishApi';
+import useUpdateCategoryApi from './useUpdateCategoryApi';
 import useFetchCategoriesAC from './useFetchCategoriesAC';
 
 export interface ApiHookOptions {
@@ -19,5 +20,6 @@ export {
   useCreateDishApi,
   useUpdateDishApi,
   useDeleteDishApi,
+  useUpdateCategoryApi,
   useFetchCategoriesAC
 };

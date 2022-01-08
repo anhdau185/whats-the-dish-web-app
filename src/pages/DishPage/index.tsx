@@ -1,20 +1,14 @@
-import React, { FC, ReactNode, useEffect } from 'react';
-import { Container, Grow, Grid, Typography } from '@material-ui/core';
+import React, { FC, useEffect } from 'react';
+import { Container, Grid, Typography } from '@material-ui/core';
 
-import { useGetDishApi } from 'hooks';
+import { useGetDishApi, useUpdateDishApi } from 'hooks';
 import { RouterIdPageProps } from 'utils';
 import Progress from 'components/Progress';
 import CategoryList from 'components/CategoryList';
-
-const PageWrapper: FC<{ children?: ReactNode }> = ({ children }) => (
-  <Container maxWidth="lg">
-    <Grow in>
-      <Container>
-        <Grid container spacing={4}>{children}</Grid>
-      </Container>
-    </Grow>
-  </Container>
-);
+import AlbumSlider from 'components/AlbumSlider';
+import AlbumEditor from 'components/AlbumEditor';
+import EditableDishTitle from 'components/EditableDishTitle';
+import EditableDishDescription from 'components/EditableDishDescription';
 
 const DishPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
   const {
@@ -27,28 +21,38 @@ const DishPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
 
   const errorOccurred = error != null;
   const dataIsReady = dish != null;
+  const fetchDishWithOptions =
+    () => fetchDish(params.id, { include_categories: true });
+
+  const { fetchData: updateDish, loading: updatingDish } =
+    useUpdateDishApi({ onSuccess: fetchDishWithOptions });
 
   useEffect(() => {
-    fetchDish(params.id, { include_categories: true });
+    fetchDishWithOptions();
   }, []);
 
   return (
-    <PageWrapper>
-      <Progress loading={fetchingDish}>
+    <Container maxWidth="lg">
+      <Progress loading={fetchingDish || updatingDish}>
         {errorOccurred && (
-          <Typography variant="h5">
-            An error occurred while fetching the dish ({error?.message}).
+          <Typography
+            variant="h5"
+            color="textSecondary"
+            style={{ marginBottom: '0.5em' }}
+          >
+            An error occurred while fetching the dish
+            {error?.message ? ` (${error?.message})` : ''}.
           </Typography>
         )}
         {dataIsReady && (
-          <>
-            <Grid item xs={12}>
-              <Typography variant="h4">
-                {dish.attributes.title}
-              </Typography>
-              <Typography variant="body1">
-                {dish.attributes.description}
-              </Typography>
+          <Grid container spacing={4}>
+            <Grid item xs={6}>
+              <AlbumSlider album={dish.attributes.images} />
+            </Grid>
+            <Grid item xs={6}>
+              <EditableDishTitle dish={dish} />
+              <EditableDishDescription dish={dish} />
+              <AlbumEditor data={dish} updateData={updateDish} />
             </Grid>
             {false && (
               <Grid item xs={12}>
@@ -59,10 +63,10 @@ const DishPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
                 />
               </Grid>
             )}
-          </>
+          </Grid>
         )}
       </Progress>
-    </PageWrapper>
+    </Container>
   );
 };
 
