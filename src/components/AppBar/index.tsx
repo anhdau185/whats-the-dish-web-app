@@ -1,40 +1,25 @@
 import React, { FC, memo } from 'react';
 import { Link } from 'react-router-dom';
-import { Container, AppBar, Typography } from '@material-ui/core';
+import { Container } from '@material-ui/core';
 
 import { EmptyProps } from 'utils';
+
+import { AppBarHeading, AppBarIcon, WTDAppBar } from './styles';
 import dishImage from 'images/dish.png';
 
-import useStyles from './styles';
+const APP_NAME = `What's The Dish?`;
 
-const WhatsTheDishAppBar: FC<EmptyProps> = () => {
-  const classes = useStyles();
-
-  return (
-    <Container maxWidth="lg">
-      <AppBar
-        className={classes.appBar}
-        position="static"
-        color="inherit"
-      >
-        <Link to="/">
-          <img
-            className={classes.image}
-            src={dishImage}
-            alt="dishIcon"
-            height="60"
-          />
-        </Link>
-        <Typography
-          className={classes.heading}
-          variant="h3"
-          align="center"
-        >
-          What&apos;s The Dish?
-        </Typography>
-      </AppBar>
-    </Container>
-  );
-};
+const WhatsTheDishAppBar: FC<EmptyProps> = () => (
+  <Container maxWidth="lg">
+    <WTDAppBar position="static" color="inherit">
+      <Link to="/">
+        <AppBarIcon src={dishImage} alt="dishIcon" />
+      </Link>
+      <AppBarHeading variant="h3" align="center">
+        {APP_NAME}
+      </AppBarHeading>
+    </WTDAppBar>
+  </Container>
+);
 
 export default memo(WhatsTheDishAppBar);
