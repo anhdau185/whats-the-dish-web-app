@@ -22,7 +22,8 @@ type SubmittedData = RawCategory | RawDish;
 
 interface AlbumEditorProps {
   data: Category | Dish;
-  updateData: (id: string, submittedData: SubmittedData) => void | Promise<void>;
+  updateData:
+    (id: string, submittedData: SubmittedData) => void | Promise<void>;
 }
 
 const MAX_IMAGES_ALLOWED = 5;
