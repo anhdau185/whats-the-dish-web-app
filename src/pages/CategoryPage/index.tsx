@@ -5,7 +5,7 @@ import { useGetCategoryApi } from 'hooks';
 import { RouterIdPageProps } from 'utils';
 import Progress from 'components/Progress';
 import CategoryAssignmentList from 'components/DishList';
-import DetailImageSlider from 'components/DetailImageSlider';
+import AlbumSlider from 'components/AlbumSlider';
 import EditableCategoryTitle from 'components/EditableCategoryTitle';
 import EditableCategoryDescription from 'components/EditableCategoryDescription';
 import AlbumEditor from 'components/AlbumEditor/AlbumEditor';
@@ -39,7 +39,7 @@ const CategoryPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
         {dataIsReady && (
           <Grid container spacing={4}>
             <Grid item xs={6}>
-              <DetailImageSlider imageUrls={category.attributes.images} />
+              <AlbumSlider album={category.attributes.images} />
             </Grid>
             <Grid item xs={6}>
               <EditableCategoryTitle category={category} />

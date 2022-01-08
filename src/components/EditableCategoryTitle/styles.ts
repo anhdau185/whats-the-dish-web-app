@@ -9,7 +9,7 @@ export const TitleWrapper = styled.div`
 `;
 
 export const StyledTextField = styled(TextField)`
-  div {
+  > div {
     font-size: 2.125rem;
   }
 `;
