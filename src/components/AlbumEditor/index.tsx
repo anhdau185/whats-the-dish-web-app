@@ -60,6 +60,7 @@ const AlbumEditor: FC<AlbumEditorProps> = ({ data, updateData }) => {
   );
 
   const saveAlbum = useCallback(() => {
+    setExpanded(false);
     const compactedDisplayAlbum = compact(displayAlbum);
 
     if (isEqual(compactedDisplayAlbum, actualAlbum)) return;
