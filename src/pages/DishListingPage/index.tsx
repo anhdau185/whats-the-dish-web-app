@@ -28,28 +28,29 @@ const DishListingPage: FC<EmptyProps> = () => {
 
   return (
     <Container maxWidth="lg">
-      <Progress loading={fetchingDishes} />
-      <Grow in>
-        <Container>
-          <Grid
-            container
-            justifyContent="space-between"
-            alignItems="stretch"
-            spacing={3}
-          >
-            <Grid item xs={12} sm={7}>
-              <DishList
-                dishes={dishes}
-                emptyText="No dishes created yet."
-                refetchData={fetchDishes}
-              />
+      <Progress loading={fetchingDishes}>
+        <Grow in>
+          <Container>
+            <Grid
+              container
+              justifyContent="space-between"
+              alignItems="stretch"
+              spacing={3}
+            >
+              <Grid item xs={12} sm={7}>
+                <DishList
+                  dishes={dishes}
+                  emptyText="No dishes created yet."
+                  refetchData={fetchDishes}
+                />
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                <DishForm refetchData={fetchDishes} />
+              </Grid>
             </Grid>
-            <Grid item xs={12} sm={4}>
-              <DishForm refetchData={fetchDishes} />
-            </Grid>
-          </Grid>
-        </Container>
-      </Grow>
+          </Container>
+        </Grow>
+      </Progress>
     </Container>
   );
 };

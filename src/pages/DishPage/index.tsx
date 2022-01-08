@@ -34,33 +34,34 @@ const DishPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
 
   return (
     <PageWrapper>
-      <Progress loading={fetchingDish} />
-      {errorOccurred && (
-        <Typography variant="h5">
-          An error occurred while fetching the dish ({error?.message}).
-        </Typography>
-      )}
-      {dataIsReady && (
-        <>
-          <Grid item xs={12}>
-            <Typography variant="h4">
-              {dish.attributes.title}
-            </Typography>
-            <Typography variant="body1">
-              {dish.attributes.description}
-            </Typography>
-          </Grid>
-          {false && (
+      <Progress loading={fetchingDish}>
+        {errorOccurred && (
+          <Typography variant="h5">
+            An error occurred while fetching the dish ({error?.message}).
+          </Typography>
+        )}
+        {dataIsReady && (
+          <>
             <Grid item xs={12}>
-              <CategoryList
-                noItemActions
-                categories={categories}
-                emptyText="This dish has not yet been added to any categories."
-              />
+              <Typography variant="h4">
+                {dish.attributes.title}
+              </Typography>
+              <Typography variant="body1">
+                {dish.attributes.description}
+              </Typography>
             </Grid>
-          )}
-        </>
-      )}
+            {false && (
+              <Grid item xs={12}>
+                <CategoryList
+                  noItemActions
+                  categories={categories}
+                  emptyText="This dish has not yet been added to any categories."
+                />
+              </Grid>
+            )}
+          </>
+        )}
+      </Progress>
     </PageWrapper>
   );
 };
