@@ -3,7 +3,7 @@ interface RawDishAttributes {
   title: string;
   description: string | null;
   images: string[];
-  places: string[];
+  places?: string[];
 }
 
 interface DishAttributes extends RawDishAttributes {
