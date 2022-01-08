@@ -8,7 +8,7 @@ import CategoryList from 'components/CategoryList';
 import AlbumSlider from 'components/AlbumSlider';
 import AlbumEditor from 'components/AlbumEditor';
 import EditableTitle from 'components/EditableTitle';
-import EditableDishDescription from 'components/EditableDishDescription';
+import EditableDescription from 'components/EditableDescription';
 
 const DishPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
   const {
@@ -51,7 +51,7 @@ const DishPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
             </Grid>
             <Grid item xs={6}>
               <EditableTitle data={dish} updateData={updateDish} />
-              <EditableDishDescription dish={dish} />
+              <EditableDescription data={dish} updateData={updateDish} />
               <AlbumEditor data={dish} updateData={updateDish} />
             </Grid>
             {false && (
