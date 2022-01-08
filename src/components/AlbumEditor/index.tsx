@@ -22,7 +22,7 @@ import {
 
 interface AlbumEditorProps {
   data: Category;
-  refetch?: () => Promise<void>;
+  refetch?: () => void | Promise<void>;
 }
 
 const MAX_IMAGES_ALLOWED = 5;

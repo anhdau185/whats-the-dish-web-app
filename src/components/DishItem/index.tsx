@@ -1,13 +1,8 @@
-import React, { FC, useMemo } from 'react';
+import React, { FC, useMemo, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  Typography
-} from '@material-ui/core';
+import { Button, CardContent, Typography } from '@material-ui/core';
+import moment from 'moment';
 
 import { Dish } from 'models';
 import { getDishImages } from 'utils';
@@ -16,7 +11,16 @@ import setCurrentDish from 'actions/setCurrentDish';
 import removeCurrentDish from 'actions/removeCurrentDish';
 import MoreMenu, { MoreMenuItems } from 'components/MoreMenu';
 
-import useStyles from './styles';
+import {
+  ImageWrapper,
+  MoreButtonOverlay,
+  StyledCard,
+  StyledCardActions,
+  TimeOverlay
+} from './styles';
+
+const DEFAULT_IMAGE_URL =
+  'https://dl.dropboxusercontent.com/s/m6acpdmoket5486/food-placeholder.png';
 
 interface DishItemProps {
   dish: Dish;
@@ -24,21 +28,23 @@ interface DishItemProps {
   refetchData: () => void | Promise<void>;
 }
 
-const DEFAULT_IMAGE_URL =
-  'https://dl.dropboxusercontent.com/s/0krcni2sgpktto9/no-img.jpg';
-
 const DishItem: FC<DishItemProps> = ({
   dish,
   noActions = false,
   refetchData
 }) => {
-  const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
+  const [timeHovered, setTimeHovered] = useState<boolean>(false);
 
   const dishImage = useMemo(
     () => getDishImages(dish).dishImage || DEFAULT_IMAGE_URL,
     [dish]
+  );
+
+  const creationDateTime = useMemo(
+    () => moment(dish.attributes.createdAt).format('MMM D, YYYY h:mm a'),
+    [dish.attributes.createdAt]
   );
 
   const { fetchData: deleteDish } = useDeleteDishApi({
@@ -60,26 +66,40 @@ const DishItem: FC<DishItemProps> = ({
   );
 
   return (
-    <Card className={classes.card}>
-      <img
-        src={dishImage}
-        title={dish.attributes.title}
-        alt={dish.attributes.title}
-      />
+    <StyledCard>
+      <ImageWrapper>
+        <img
+          src={dishImage}
+          title={dish.attributes.title}
+          alt={dish.attributes.title}
+        />
+      </ImageWrapper>
+      <TimeOverlay>
+        <Typography
+          variant="body2"
+          style={{ cursor: 'default' }}
+          onMouseEnter={() => setTimeHovered(true)}
+          onMouseLeave={() => setTimeHovered(false)}
+        >
+          {timeHovered
+            ? creationDateTime
+            : moment(dish.attributes.createdAt).fromNow()}
+        </Typography>
+      </TimeOverlay>
       {!noActions && (
-        <div className={classes.overlay2}>
+        <MoreButtonOverlay>
           <MoreMenu items={menuItems} color="white" />
-        </div>
+        </MoreButtonOverlay>
       )}
       <CardContent>
-        <Typography variant="h5" gutterBottom>
+        <Typography variant="h5" gutterBottom style={{ marginBottom: '0.2em' }}>
           {dish.attributes.title}
         </Typography>
         <Typography variant="body2" color="textSecondary">
           {dish.attributes.description}
         </Typography>
       </CardContent>
-      <CardActions className={classes.cardActions}>
+      <StyledCardActions>
         <Button
           size="small"
           color="primary"
@@ -87,8 +107,8 @@ const DishItem: FC<DishItemProps> = ({
         >
           View details
         </Button>
-      </CardActions>
-    </Card>
+      </StyledCardActions>
+    </StyledCard>
   );
 };
 
