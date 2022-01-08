@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { appLoadingSelector, categoriesSelector } from 'reducers/state';
-import isEmpty from 'lodash/fp/isEmpty';
 
 import enableAppLoading from 'actions/enableAppLoading';
 import disableAppLoading from 'actions/disableAppLoading';
@@ -17,14 +16,12 @@ const useFetchCategoriesAC = (): {
   const data = useSelector(categoriesSelector);
 
   useEffect(() => {
-    if (isEmpty(data)) {
-      dispatch(enableAppLoading());
-      dispatch(
-        fetchAllCategories({
-          onCompletion: () => dispatch(disableAppLoading())
-        })
-      );
-    }
+    dispatch(enableAppLoading());
+    dispatch(
+      fetchAllCategories({
+        onCompletion: () => dispatch(disableAppLoading())
+      })
+    );
   }, []);
 
   return { loading, data };
