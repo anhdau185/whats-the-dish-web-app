@@ -9945,6 +9945,30 @@ redent@^3.0.0:
     indent-string "^4.0.0"
     strip-indent "^3.0.0"
 
+redux-api-call-adapter-dedupe@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.npmjs.org/redux-api-call-adapter-dedupe/-/redux-api-call-adapter-dedupe-1.1.1.tgz#ce266b7041aa0c21357988d9a034148a5ce74566"
+  integrity sha512-nmBQznIKh9L+fP+s9zuhjN+NB4W/Qm7kevxxKYVjObCQf/haG0MumDZal0rfMb3k6UUO8SdipWgQjrBR4pTp5g==
+
+redux-api-call-adapter-fetch@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.npmjs.org/redux-api-call-adapter-fetch/-/redux-api-call-adapter-fetch-1.1.1.tgz#0a226f73f1b93c666a44e42b6e3b81dd3c73a969"
+  integrity sha512-wj52AJGSkZM7B5cf0MAw1Q3MASPS5rHW/XhqxpTHLpKfYsYn9g3c2wLVXjgOloaMrCDHbyLMhDuzzXx34WL01A==
+
+redux-api-call-adapter-json@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.npmjs.org/redux-api-call-adapter-json/-/redux-api-call-adapter-json-1.1.1.tgz#529301335cc14f87e6df23046c95eddd5c5ae293"
+  integrity sha512-2TrfyzshvFR+sr7nPE7QR6Iqu/gu5CDonNdnR3X7tOZDuZZ4SESqG0vbneQfifaM4GoB2OVdyPNJLY+VJaZ8zQ==
+
+redux-api-call@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.npmjs.org/redux-api-call/-/redux-api-call-1.2.1.tgz#076859bf311077e91d6f11ce4f92742b01133d95"
+  integrity sha512-Qb3mRnxS5g3zRrY7rTfaLq3vXcpikeFueaImU/J0HRnT9Gjy/aWzYrMi0ZrUwsKiBBukQQO4h5OzJV+tqYRxOQ==
+  dependencies:
+    redux-api-call-adapter-dedupe "^1.1.1"
+    redux-api-call-adapter-fetch "^1.1.1"
+    redux-api-call-adapter-json "^1.1.1"
+
 redux-devtools-extension@^2.13.9:
   version "2.13.9"
   resolved "https://registry.npmjs.org/redux-devtools-extension/-/redux-devtools-extension-2.13.9.tgz#6b764e8028b507adcb75a1cae790f71e6be08ae7"
