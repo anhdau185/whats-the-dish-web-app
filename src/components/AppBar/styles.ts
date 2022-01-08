@@ -1,21 +1,23 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { AppBar, Typography } from '@material-ui/core';
+import styled from 'styled-components';
 
-export default makeStyles({
-  appBar: {
-    borderRadius: 15,
-    padding: '4px',
-    margin: '30px 0',
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  heading: {
-    color: 'rgb(126, 197, 254)',
-    fontWeight: 300
-  },
-  image: {
-    display: 'block',
-    marginRight: '15px'
-  }
-});
+export const WTDAppBar = styled(AppBar)`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  padding: 4px;
+  margin: 30px 0;
+`;
+
+export const AppBarIcon = styled.img`
+  display: block;
+  height: 60px;
+  margin-right: 15px;
+`;
+
+export const AppBarHeading = styled(Typography)`
+  color: rgb(126, 197, 254);
+  font-weight: 300;
+`;
