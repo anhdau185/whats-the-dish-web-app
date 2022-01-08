@@ -7,7 +7,7 @@ import Progress from 'components/Progress';
 import CategoryList from 'components/CategoryList';
 import AlbumSlider from 'components/AlbumSlider';
 import AlbumEditor from 'components/AlbumEditor';
-import EditableDishTitle from 'components/EditableDishTitle';
+import EditableTitle from 'components/EditableTitle';
 import EditableDishDescription from 'components/EditableDishDescription';
 
 const DishPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
@@ -50,7 +50,7 @@ const DishPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
               <AlbumSlider album={dish.attributes.images} />
             </Grid>
             <Grid item xs={6}>
-              <EditableDishTitle dish={dish} />
+              <EditableTitle data={dish} updateData={updateDish} />
               <EditableDishDescription dish={dish} />
               <AlbumEditor data={dish} updateData={updateDish} />
             </Grid>

@@ -6,9 +6,9 @@ import { RouterIdPageProps } from 'utils';
 import Progress from 'components/Progress';
 import CategoryAssignmentList from 'components/DishList';
 import AlbumSlider from 'components/AlbumSlider';
-import EditableCategoryTitle from 'components/EditableCategoryTitle';
-import EditableCategoryDescription from 'components/EditableCategoryDescription';
 import AlbumEditor from 'components/AlbumEditor';
+import EditableTitle from 'components/EditableTitle';
+import EditableCategoryDescription from 'components/EditableCategoryDescription';
 
 const CategoryPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
   const {
@@ -50,7 +50,7 @@ const CategoryPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
               <AlbumSlider album={category.attributes.images} />
             </Grid>
             <Grid item xs={6}>
-              <EditableCategoryTitle category={category} />
+              <EditableTitle data={category} updateData={updateCategory} />
               <EditableCategoryDescription category={category} />
               <AlbumEditor data={category} updateData={updateCategory} />
             </Grid>
