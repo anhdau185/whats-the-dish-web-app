@@ -8,7 +8,7 @@ import CategoryAssignmentList from 'components/DishList';
 import AlbumSlider from 'components/AlbumSlider';
 import AlbumEditor from 'components/AlbumEditor';
 import EditableTitle from 'components/EditableTitle';
-import EditableCategoryDescription from 'components/EditableCategoryDescription';
+import EditableDescription from 'components/EditableDescription';
 
 const CategoryPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
   const {
@@ -51,7 +51,7 @@ const CategoryPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
             </Grid>
             <Grid item xs={6}>
               <EditableTitle data={category} updateData={updateCategory} />
-              <EditableCategoryDescription category={category} />
+              <EditableDescription data={category} updateData={updateCategory} />
               <AlbumEditor data={category} updateData={updateCategory} />
             </Grid>
             {false && (
