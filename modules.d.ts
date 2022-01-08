@@ -1,4 +1,3 @@
-/* Declare modules here */
+/* Modules without an official declaration file are listed here */
 
-// e.g.
-// declare module 'react-file-base64';
+declare module 'redux-api-call';
