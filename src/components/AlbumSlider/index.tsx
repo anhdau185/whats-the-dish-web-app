@@ -7,7 +7,7 @@ import 'swiper/swiper.min.css';
 import 'swiper/modules/navigation/navigation.min.css';
 import 'swiper/modules/pagination/pagination.min.css';
 
-const DetailImage = styled.img`
+const AlbumImage = styled.img`
   display: block;
   object-fit: cover;
   width: 100%;
@@ -15,7 +15,7 @@ const DetailImage = styled.img`
   border-radius: 15px;
 `;
 
-const DetailImageSlider: FC<{ imageUrls: string[] }> = ({ imageUrls }) => {
+const AlbumSlider: FC<{ album: string[] }> = ({ album }) => {
   return (
     <Swiper
       modules={[Navigation, Pagination]}
@@ -26,15 +26,13 @@ const DetailImageSlider: FC<{ imageUrls: string[] }> = ({ imageUrls }) => {
       scrollbar={{ draggable: true }}
       style={{ borderRadius: 15 }}
     >
-      {imageUrls.map(
-        (item, index) => (
-          <SwiperSlide key={`detail-img-${index}`} style={{ textAlign: 'center' }}>
-            <DetailImage src={item} />
-          </SwiperSlide>
-        )
-      )}
+      {album.map((item, index) => (
+        <SwiperSlide key={`detail-img-${index}`} style={{ textAlign: 'center' }}>
+          <AlbumImage src={item} />
+        </SwiperSlide>
+      ))}
     </Swiper>
   );
 };
 
-export default DetailImageSlider;
+export default AlbumSlider;
