@@ -8,7 +8,7 @@ import CategoryAssignmentList from 'components/DishList';
 import AlbumSlider from 'components/AlbumSlider';
 import EditableCategoryTitle from 'components/EditableCategoryTitle';
 import EditableCategoryDescription from 'components/EditableCategoryDescription';
-import AlbumEditor from 'components/AlbumEditor/AlbumEditor';
+import AlbumEditor from 'components/AlbumEditor';
 
 const CategoryPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
   const {

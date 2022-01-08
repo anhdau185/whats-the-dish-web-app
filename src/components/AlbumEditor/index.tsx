@@ -9,7 +9,7 @@ import isEmpty from 'lodash/fp/isEmpty';
 import isEqual from 'lodash/fp/isEqual';
 import noop from 'lodash/fp/noop';
 
-import { Category, RawCategory } from 'models';
+import { Category, Dish, RawCategory, RawDish } from 'models';
 import useUpdateCategoryApi from 'hooks/useUpdateCategoryApi';
 
 import {
@@ -21,9 +21,11 @@ import {
 } from './styles';
 
 interface AlbumEditorProps {
-  data: Category;
+  data: Category | Dish;
   refetch?: () => void | Promise<void>;
 }
+
+type SubmittedData = RawCategory | RawDish;
 
 const MAX_IMAGES_ALLOWED = 5;
 
@@ -67,7 +69,7 @@ const AlbumEditor: FC<AlbumEditorProps> = ({ data, refetch = noop }) => {
 
     if (isEqual(compactedDisplayAlbum, actualAlbum)) return;
 
-    const dataToSubmit: RawCategory = {
+    const dataToSubmit: SubmittedData = {
       attributes: {
         images: compactedDisplayAlbum,
         title: data.attributes.title,
