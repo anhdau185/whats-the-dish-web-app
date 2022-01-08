@@ -32,8 +32,13 @@ const CategoryPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
     <Container maxWidth="lg">
       <Progress loading={fetchingCategory}>
         {errorOccurred && (
-          <Typography variant="h5" color="textSecondary">
-            An error occurred while fetching the category ({error?.message}).
+          <Typography
+            variant="h5"
+            color="textSecondary"
+            style={{ marginBottom: '0.5em' }}
+          >
+            An error occurred while fetching the category
+            {error?.message ? ` (${error?.message})` : ''}.
           </Typography>
         )}
         {dataIsReady && (

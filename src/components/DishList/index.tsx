@@ -1,12 +1,16 @@
 import React, { FC } from 'react';
 import { Grid, Typography } from '@material-ui/core';
+import styled from 'styled-components';
 import isEmpty from 'lodash/fp/isEmpty';
 import noop from 'lodash/fp/noop';
 
 import { Dish } from 'models';
 import DishItem from 'components/DishItem';
 
-import useStyles from './styles';
+const StyledGrid = styled(Grid)`
+  display: flex;
+  align-items: flex-start;
+`;
 
 interface DishListProps {
   dishes: Dish[];
@@ -20,36 +24,23 @@ const DishList: FC<DishListProps> = ({
   emptyText,
   noItemActions = false,
   refetchData = noop
-}) => {
-  const classes = useStyles();
-
-  return (
-    isEmpty(dishes)
-      ? (
-        <Typography variant="h5" color="textSecondary">
-          {emptyText || 'No dishes to display.'}
-        </Typography>
-      ) : (
-        <Grid
-          container
-          spacing={3}
-          alignItems="stretch"
-          className={classes.mainContainer}
-        >
-          {dishes.map(
-            dish => (
-              <Grid key={`dish-${dish.id}`} item xs={12} sm={6}>
-                <DishItem
-                  dish={dish}
-                  noActions={noItemActions}
-                  refetchData={refetchData}
-                />
-              </Grid>
-            )
-          )}
+}) =>
+  isEmpty(dishes) ? (
+    <Typography variant="h5" color="textSecondary">
+      {emptyText || 'No dishes to display.'}
+    </Typography>
+  ) : (
+    <StyledGrid container spacing={3} alignItems="stretch">
+      {dishes.map(dish => (
+        <Grid key={`dish-${dish.id}`} item xs={12} sm={6}>
+          <DishItem
+            dish={dish}
+            noActions={noItemActions}
+            refetchData={refetchData}
+          />
         </Grid>
-      )
+      ))}
+    </StyledGrid>
   );
-};
 
 export default DishList;
