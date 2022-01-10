@@ -17,16 +17,16 @@ interface FetchDishesApiHookOptions extends ApiHookOptions {
 interface FetchDishesHookResult {
   data: Dish[];
   includedData: Category[];
-  fetchData: (params?: FetchDishesApiOptions) => Promise<void>;
-  loading: boolean;
   error: any;
+  loading: boolean;
+  fetchData: (params?: FetchDishesApiOptions) => Promise<void>;
 }
 
 const useFetchDishesApi =
   (options?: FetchDishesApiHookOptions): FetchDishesHookResult => {
     const [response, setResponse] = useState<DishCollectionApiResponse | null>(null);
-    const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<any>(null);
+    const [loading, setLoading] = useState<boolean>(false);
 
     const onSuccess = options?.onSuccess || noop;
     const onFailure = options?.onFailure || noop;
@@ -38,12 +38,15 @@ const useFetchDishesApi =
     const fetchData = useCallback(
       async (params?: FetchDishesApiOptions) => {
         setLoading(true);
+
         try {
           const { data: response } = await api.fetchDishes(params);
+
           setResponse(response);
           onSuccess(response);
         } catch (error: any) {
           const safeError = error || {};
+
           setError(safeError);
           onFailure(safeError);
         } finally {
@@ -57,9 +60,9 @@ const useFetchDishesApi =
     return {
       data,
       includedData,
-      fetchData,
+      error,
       loading,
-      error
+      fetchData
     };
   };
 
