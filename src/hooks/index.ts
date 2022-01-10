@@ -1,12 +1,13 @@
+import useFetchCategoriesApi from './useFetchCategoriesApi';
+import useFetchDishesApi from './useFetchDishesApi';
+import useCreateCategoryApi from './useCreateCategoryApi';
+import useCreateDishApi from './useCreateDishApi';
 import useGetCategoryApi from './useGetCategoryApi';
 import useGetDishApi from './useGetDishApi';
-import useFetchDishesApi from './useFetchDishesApi';
-import useCreateDishApi from './useCreateDishApi';
-import useUpdateDishApi from './useUpdateDishApi';
-import useDeleteDishApi from './useDeleteDishApi';
 import useUpdateCategoryApi from './useUpdateCategoryApi';
-import useFetchCategoriesApi from './useFetchCategoriesApi';
-import useCreateCategoryApi from './useCreateCategoryApi';
+import useUpdateDishApi from './useUpdateDishApi';
+import useDeleteCategoryApi from './useDeleteCategoryApi';
+import useDeleteDishApi from './useDeleteDishApi';
 
 export interface ApiHookOptions {
   onSuccess?: (data?: any) => void;
@@ -15,13 +16,14 @@ export interface ApiHookOptions {
 }
 
 export {
+  useFetchCategoriesApi,
+  useFetchDishesApi,
+  useCreateCategoryApi,
+  useCreateDishApi,
   useGetCategoryApi,
   useGetDishApi,
-  useFetchDishesApi,
-  useCreateDishApi,
-  useUpdateDishApi,
-  useDeleteDishApi,
   useUpdateCategoryApi,
-  useFetchCategoriesApi,
-  useCreateCategoryApi
+  useUpdateDishApi,
+  useDeleteCategoryApi,
+  useDeleteDishApi
 };
