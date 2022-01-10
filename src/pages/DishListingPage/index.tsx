@@ -37,7 +37,7 @@ const DishListingPage: FC<EmptyProps> = () => {
               spacing={3}
             >
               <Grid item xs={12} sm={7}>
-                {errorOccurred ? (
+                {errorOccurred && (
                   <Typography
                     variant="h5"
                     color="textSecondary"
@@ -46,12 +46,11 @@ const DishListingPage: FC<EmptyProps> = () => {
                     An error occurred while fetching the dishes
                     {error?.message ? ` (${error?.message})` : ''}.
                   </Typography>
-                ) : (
-                  <DishList
-                    dishes={dishes}
-                    emptyText={isFetchingDishes ? `We're getting the dishes...` : undefined}
-                  />
                 )}
+                <DishList
+                  dishes={dishes}
+                  emptyText={isFetchingDishes ? `We're getting the dishes...` : undefined}
+                />
               </Grid>
               <Grid item xs={12} sm={4}>
                 <DishForm />
