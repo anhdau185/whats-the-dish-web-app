@@ -8,6 +8,9 @@ import categoriesReducer from './categoriesReducer';
 import currentCategoryReducer from './currentCategoryReducer';
 import currentDishReducer from './currentDishReducer';
 import appLoadingReducer from './appLoadingReducer';
+import fetchCategoriesApiCallReducer, {
+  FetchCategoriesApiCall
+} from './fetchCategoriesApiCallReducer';
 
 export interface GlobalState {
   testData: number;
@@ -15,6 +18,7 @@ export interface GlobalState {
   currentCategory: NullableCategory;
   currentDish: NullableDish;
   appLoading: boolean;
+  fetchCategoriesApiCall: FetchCategoriesApiCall;
 }
 
 type RootReducer =
@@ -25,7 +29,8 @@ const rootReducer: RootReducer = combineReducers({
   categories: categoriesReducer,
   currentCategory: currentCategoryReducer,
   currentDish: currentDishReducer,
-  appLoading: appLoadingReducer
+  appLoading: appLoadingReducer,
+  fetchCategoriesApiCall: fetchCategoriesApiCallReducer
 });
 
 export default rootReducer;
