@@ -5,8 +5,10 @@ import moment from 'moment';
 
 import { Category } from 'models';
 import { getCategoryImages } from 'utils';
+import { useDeleteCategoryApi, useFetchCategoriesApi } from 'hooks';
 import MoreMenu, { MoreMenuItems } from 'components/MoreMenu';
 
+import { DEFAULT_IMAGE_URL } from './constants';
 import {
   ImageWrapper,
   TimeOverlay,
@@ -14,9 +16,6 @@ import {
   StyledCard,
   StyledCardActions
 } from './styles';
-
-const DEFAULT_IMAGE_URL =
-  'https://dl.dropboxusercontent.com/s/m6acpdmoket5486/food-placeholder.png';
 
 interface CategoryItemProps {
   category: Category;
@@ -26,6 +25,16 @@ interface CategoryItemProps {
 const CategoryItem: FC<CategoryItemProps> = ({ category, noActions = false }) => {
   const history = useHistory();
   const [timeHovered, setTimeHovered] = useState<boolean>(false);
+  const { fetchData: fetchCategories } = useFetchCategoriesApi();
+  const { loading: isDeletingCategory, fetchData: deleteCategory } = useDeleteCategoryApi({
+    onSuccess: () => {
+      fetchCategories({
+        include_dishes: false,
+        order_by: 'title',
+        order_direction: 'asc'
+      });
+    }
+  });
 
   const categoryImage = useMemo(
     () => getCategoryImages(category).categoryImage || DEFAULT_IMAGE_URL,
@@ -39,12 +48,11 @@ const CategoryItem: FC<CategoryItemProps> = ({ category, noActions = false }) =>
 
   const menuItems = useMemo<MoreMenuItems>(
     () => ({
-      'Delete': () => {
-        if (!confirm('Delete this category?')) return;
-        // call delete api
+      Delete: () => {
+        if (confirm('Delete this category?')) deleteCategory(category.id);
       }
     }),
-    [category]
+    [category.id]
   );
 
   return (
@@ -85,6 +93,7 @@ const CategoryItem: FC<CategoryItemProps> = ({ category, noActions = false }) =>
         <Button
           size="small"
           color="primary"
+          disabled={isDeletingCategory}
           onClick={() => history.push(`/categories/${category.id}`)}
         >
           View details
