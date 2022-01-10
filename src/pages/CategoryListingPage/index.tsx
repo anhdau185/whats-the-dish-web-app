@@ -37,7 +37,7 @@ const CategoryListingPage: FC<EmptyProps> = () => {
               spacing={3}
             >
               <Grid item xs={12} sm={7}>
-                {errorOccurred ? (
+                {errorOccurred && (
                   <Typography
                     variant="h5"
                     color="textSecondary"
@@ -46,12 +46,11 @@ const CategoryListingPage: FC<EmptyProps> = () => {
                     An error occurred while fetching the categories
                     {error?.message ? ` (${error?.message})` : ''}.
                   </Typography>
-                ) : (
-                  <CategoryList
-                    categories={categories}
-                    emptyText={isFetchingCategories ? `We're getting the categories...` : undefined}
-                  />
                 )}
+                <CategoryList
+                  categories={categories}
+                  emptyText={isFetchingCategories ? `We're getting the categories...` : undefined}
+                />
               </Grid>
               <Grid item xs={12} sm={4}>
                 <CategoryForm />
