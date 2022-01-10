@@ -14,6 +14,30 @@ interface CategoryFormData {
   imageUrl: string;
 }
 
+const validateForm = (formData: CategoryFormData): boolean => {
+  if (!formData.name) {
+    window.alert('Category name should not be empty.');
+    return false;
+  }
+
+  if (formData.name.length > 50) {
+    window.alert('Category name should not be over 50 characters.');
+    return false;
+  }
+
+  if (formData.title.length > 70) {
+    window.alert('Title should be not be over 100 characters.');
+    return false;
+  }
+
+  if (formData.description.length > 150) {
+    window.alert('Description should be not be over 150 characters.');
+    return false;
+  }
+
+  return true;
+};
+
 const CategoryForm: FC<EmptyProps> = () => {
   const classes = useStyles();
   const [formData, setFormData] = useState<CategoryFormData>({
@@ -32,41 +56,22 @@ const CategoryForm: FC<EmptyProps> = () => {
     });
   }, []);
 
-  const validateForm = useCallback((): boolean => {
-    if (!formData.name) {
-      window.alert('Category name should not be empty.');
-      return false;
-    }
-
-    if (formData.name.length > 50) {
-      window.alert('Category name should not be over 50 characters.');
-      return false;
-    }
-
-    if (formData.title.length > 70) {
-      window.alert('Title should be not be over 100 characters.');
-      return false;
-    }
-
-    if (formData.description.length > 150) {
-      window.alert('Description should be not be over 150 characters.');
-      return false;
-    }
-
-    return true;
-  }, [formData]);
-
-  const { fetchData: refetchCategories } = useFetchCategoriesApi();
-  const { fetchData: createCategory } = useCreateCategoryApi({
-    onCompletion: () => {
-      clearForm();
-      refetchCategories();
-    }
-  });
+  const { fetchData: fetchCategories } = useFetchCategoriesApi();
+  const { loading: isCreatingCategory, fetchData: createCategory } =
+    useCreateCategoryApi({
+      onCompletion: () => {
+        clearForm();
+        fetchCategories({
+          include_dishes: false,
+          order_by: 'title',
+          order_direction: 'asc'
+        });
+      } 
+    });
 
   const handleSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!validateForm()) return;
+    if (!validateForm(formData)) return;
 
     const dataToSubmit: RawCategory = {
       attributes: {
@@ -93,7 +98,7 @@ const CategoryForm: FC<EmptyProps> = () => {
           align="center"
           style={{ marginBottom: 0 }}
         >
-          Create a Category
+          {isCreatingCategory ? 'Creating your category...' : 'Create a category'}
         </Typography>
         <TextField
           fullWidth
@@ -104,6 +109,7 @@ const CategoryForm: FC<EmptyProps> = () => {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setFormData({ ...formData, name: e.target.value });
           }}
+          disabled={isCreatingCategory}
         />
         <TextField
           fullWidth
@@ -114,6 +120,7 @@ const CategoryForm: FC<EmptyProps> = () => {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setFormData({ ...formData, title: e.target.value });
           }}
+          disabled={isCreatingCategory}
         />
         <TextField
           fullWidth
@@ -124,6 +131,7 @@ const CategoryForm: FC<EmptyProps> = () => {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setFormData({ ...formData, description: e.target.value });
           }}
+          disabled={isCreatingCategory}
         />
         <TextField
           fullWidth
@@ -135,6 +143,7 @@ const CategoryForm: FC<EmptyProps> = () => {
             setFormData({ ...formData, imageUrl: e.target.value });
           }}
           style={{ marginBottom: 16 }}
+          disabled={isCreatingCategory}
         />
         <Button
           fullWidth
@@ -143,6 +152,7 @@ const CategoryForm: FC<EmptyProps> = () => {
           variant="contained"
           color="primary"
           size="large"
+          disabled={isCreatingCategory}
         >
           Submit
         </Button>
@@ -152,6 +162,7 @@ const CategoryForm: FC<EmptyProps> = () => {
           color="secondary"
           size="small"
           onClick={clearForm}
+          disabled={isCreatingCategory}
         >
           Clear
         </Button>
