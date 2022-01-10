@@ -44,7 +44,6 @@ const CategoryItem: FC<CategoryItemProps> = ({ category, noActions = false }) =>
 
   const menuItems = useMemo<MoreMenuItems>(
     () => ({
-      'Edit': () => dispatch(setCurrentCategory(category)),
       'Delete': () => {
         if (confirm('Delete this category?')) {
           dispatch(
