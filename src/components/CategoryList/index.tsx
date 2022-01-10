@@ -24,7 +24,7 @@ const CategoryList: FC<CategoryListProps> = ({
 }) =>
   isEmpty(categories) ? (
     <Typography variant="h5" color="textSecondary">
-      {emptyText || 'No categories to display.'}
+      {emptyText || 'No categories to show.'}
     </Typography>
   ) : (
     <StyledGrid container spacing={3} alignItems="stretch">

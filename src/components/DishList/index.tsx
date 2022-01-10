@@ -27,7 +27,7 @@ const DishList: FC<DishListProps> = ({
 }) =>
   isEmpty(dishes) ? (
     <Typography variant="h5" color="textSecondary">
-      {emptyText || 'No dishes to display.'}
+      {emptyText || 'No dishes to show.'}
     </Typography>
   ) : (
     <StyledGrid container spacing={3} alignItems="stretch">
