@@ -1,16 +1,14 @@
 import React, { FC, useMemo, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import { Button, CardContent, Typography } from '@material-ui/core';
 import moment from 'moment';
 
 import { Dish } from 'models';
 import { getDishImages } from 'utils';
-import { useDeleteDishApi } from 'hooks';
-import setCurrentDish from 'actions/setCurrentDish';
-import removeCurrentDish from 'actions/removeCurrentDish';
+import { useDeleteDishApi, useFetchDishesApi } from 'hooks';
 import MoreMenu, { MoreMenuItems } from 'components/MoreMenu';
 
+import { DEFAULT_IMAGE_URL } from './constants';
 import {
   ImageWrapper,
   MoreButtonOverlay,
@@ -19,23 +17,24 @@ import {
   TimeOverlay
 } from './styles';
 
-const DEFAULT_IMAGE_URL =
-  'https://dl.dropboxusercontent.com/s/m6acpdmoket5486/food-placeholder.png';
-
 interface DishItemProps {
   dish: Dish;
   noActions?: boolean;
-  refetchData: () => void | Promise<void>;
 }
 
-const DishItem: FC<DishItemProps> = ({
-  dish,
-  noActions = false,
-  refetchData
-}) => {
+const DishItem: FC<DishItemProps> = ({ dish, noActions = false }) => {
   const history = useHistory();
-  const dispatch = useDispatch();
   const [timeHovered, setTimeHovered] = useState<boolean>(false);
+  const { fetchData: fetchDishes } = useFetchDishesApi();
+  const { loading: isDeletingDish, fetchData: deleteDish } = useDeleteDishApi({
+    onSuccess: () => {
+      fetchDishes({
+        include_categories: false,
+        order_by: 'title',
+        order_direction: 'asc'
+      });
+    }
+  });
 
   const dishImage = useMemo(
     () => getDishImages(dish).dishImage || DEFAULT_IMAGE_URL,
@@ -47,22 +46,13 @@ const DishItem: FC<DishItemProps> = ({
     [dish.attributes.createdAt]
   );
 
-  const { fetchData: deleteDish } = useDeleteDishApi({
-    onCompletion: () => {
-      dispatch(removeCurrentDish());
-      refetchData();
-    }
-  });
-
   const menuItems = useMemo<MoreMenuItems>(
     () => ({
-      'Edit': () => dispatch(setCurrentDish(dish)),
-      'Delete': () => {
-        if (confirm('Delete this dish?'))
-          deleteDish(dish.id);
+      Delete: () => {
+        if (confirm('Delete this dish?')) deleteDish(dish.id);
       }
     }),
-    [dish]
+    [dish.id]
   );
 
   return (
@@ -103,6 +93,7 @@ const DishItem: FC<DishItemProps> = ({
         <Button
           size="small"
           color="primary"
+          disabled={isDeletingDish}
           onClick={() => history.push(`/dishes/${dish.id}`)}
         >
           View details
