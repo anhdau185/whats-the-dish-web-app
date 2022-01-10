@@ -12,16 +12,16 @@ interface UpdateCategoryApiHookOptions extends ApiHookOptions {
 
 interface UpdateCategoryApiHookResult {
   data: NullableCategory;
-  fetchData: (id: string, category: RawCategory) => Promise<void>;
-  loading: boolean;
   error: any;
+  loading: boolean;
+  fetchData: (id: string, category: RawCategory) => Promise<void>;
 }
 
 const useUpdateCategoryApi =
   (options?: UpdateCategoryApiHookOptions): UpdateCategoryApiHookResult => {
     const [data, setData] = useState<NullableCategory>(null);
-    const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<any>(null);
+    const [loading, setLoading] = useState<boolean>(false);
 
     const onSuccess = options?.onSuccess || noop;
     const onFailure = options?.onFailure || noop;
@@ -29,12 +29,15 @@ const useUpdateCategoryApi =
 
     const fetchData = useCallback(async (id: string, category: RawCategory) => {
       setLoading(true);
+
       try {
         const { data: { data } } = await api.updateCategory(id, category);
+
         setData(data);
         onSuccess(data);
       } catch (error: any) {
         const safeError = error || {};
+
         setError(safeError);
         onFailure(safeError);
       } finally {
@@ -45,9 +48,9 @@ const useUpdateCategoryApi =
 
     return {
       data,
-      fetchData,
+      error,
       loading,
-      error
+      fetchData
     };
   };
 

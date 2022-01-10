@@ -17,16 +17,16 @@ interface GetCategoryApiHookOptions extends ApiHookOptions {
 interface GetCategoryHookResult {
   data: NullableCategory;
   includedData: Dish[];
-  fetchData: (id: string, params?: GetCategoryApiOptions) => Promise<void>;
-  loading: boolean;
   error: any;
+  loading: boolean;
+  fetchData: (id: string, params?: GetCategoryApiOptions) => Promise<void>;
 }
 
 const useGetCategoryApi =
   (options?: GetCategoryApiHookOptions): GetCategoryHookResult => {
     const [response, setResponse] = useState<SingleCategoryApiResponse | null>(null);
-    const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<any>(null);
+    const [loading, setLoading] = useState<boolean>(false);
 
     const onSuccess = options?.onSuccess || noop;
     const onFailure = options?.onFailure || noop;
@@ -38,12 +38,15 @@ const useGetCategoryApi =
     const fetchData = useCallback(
       async (id: string, params?: GetCategoryApiOptions) => {
         setLoading(true);
+
         try {
           const { data: response } = await api.getCategory(id, params);
+
           setResponse(response);
           onSuccess(response);
         } catch (error: any) {
           const safeError = error || {};
+
           setError(safeError);
           onFailure(safeError);
         } finally {
@@ -57,9 +60,9 @@ const useGetCategoryApi =
     return {
       data,
       includedData,
-      fetchData,
+      error,
       loading,
-      error
+      fetchData
     };
   };
 
