@@ -1,13 +1,9 @@
-import React, { FC, useCallback, useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { FC, useCallback, useState } from 'react';
 import { Button, Paper, TextField, Typography } from '@material-ui/core';
-import noop from 'lodash/fp/noop';
 
+import { EmptyProps } from 'utils';
 import { RawDish } from 'models';
-import { getDishImages } from 'utils';
-import { useCreateDishApi, useUpdateDishApi } from 'hooks';
-import { currentDishSelector } from 'reducers/state';
-import removeCurrentDish from 'actions/removeCurrentDish';
+import { useCreateDishApi, useFetchDishesApi } from 'hooks';
 
 import useStyles from './styles';
 
@@ -18,15 +14,32 @@ interface DishFormData {
   imageUrl: string;
   places: string;
 }
+const validateForm = (formData: DishFormData): boolean => {
+  if (!formData.name) {
+    window.alert('Dish name should not be empty.');
+    return false;
+  }
 
-const DishForm: FC<{ refetchData?: () => void | Promise<void> }> = ({
-  refetchData = noop
-}) => {
+  if (formData.name.length > 50) {
+    window.alert('Dish name should not be over 50 characters.');
+    return false;
+  }
+
+  if (formData.title.length > 70) {
+    window.alert('Title should be not be over 100 characters.');
+    return false;
+  }
+
+  if (formData.description.length > 150) {
+    window.alert('Description should be not be over 150 characters.');
+    return false;
+  }
+
+  return true;
+};
+
+const DishForm: FC<EmptyProps> = () => {
   const classes = useStyles();
-  const dispatch = useDispatch();
-  const currentDish = useSelector(currentDishSelector);
-  const anyDishSelected = currentDish != null;
-
   const [formData, setFormData] = useState<DishFormData>({
     name: '',
     title: '',
@@ -45,97 +58,34 @@ const DishForm: FC<{ refetchData?: () => void | Promise<void> }> = ({
     });
   }, []);
 
-  const onCompletion = useCallback(() => {
-    clearForm();
-    refetchData();
-  }, []);
-
-  const {
-    fetchData: createDish,
-    loading: creatingDish
-  } = useCreateDishApi({ onCompletion });
-
-  const {
-    fetchData: updateDish,
-    loading: updatingDish
-  } = useUpdateDishApi({ onCompletion });
-
-  const fetchingApi = creatingDish || updatingDish;
-
-  const validateForm = useCallback((): boolean => {
-    if (!formData.name) {
-      window.alert('Dish name should not be empty.');
-      return false;
-    }
-
-    if (formData.name.length > 50) {
-      window.alert('Dish name should not be over 50 characters.');
-      return false;
-    }
-
-    if (formData.title.length > 70) {
-      window.alert('Title should be not be over 100 characters.');
-      return false;
-    }
-
-    if (formData.description.length > 150) {
-      window.alert('Description should be not be over 150 characters.');
-      return false;
-    }
-
-    return true;
-  }, [formData]);
+  const { fetchData: fetchDishes } = useFetchDishesApi();
+  const { fetchData: createDish, loading: isCreatingDish } =
+    useCreateDishApi({
+      onSuccess: () => {
+        clearForm();
+        fetchDishes({
+          include_categories: false,
+          order_by: 'title',
+          order_direction: 'asc'
+        });
+      }
+    });
 
   const handleSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!validateForm(formData)) return;
 
-    if (!validateForm()) return;
-
-    if (anyDishSelected) {
-      const { dishAlbum } = getDishImages(currentDish);
-      const dataToSubmit: RawDish = {
-        attributes: {
-          name: formData.name,
-          title: formData.title || formData.name,
-          description: formData.description,
-          images: [formData.imageUrl, ...dishAlbum],
-          places: formData.places ? formData.places.split(',') : []
-        }
-      };
-
-      updateDish(currentDish.id, dataToSubmit);
-    } else {
-      const dataToSubmit: RawDish = {
-        attributes: {
-          name: formData.name,
-          title: formData.title || formData.name,
-          description: formData.description,
-          images: formData.imageUrl ? [formData.imageUrl] : [],
-          places: formData.places ? formData.places.split(',') : []
-        }
-      };
-
-      createDish(dataToSubmit);
-    }
-  }, [currentDish, formData]);
-
-  useEffect(() => {
-    if (anyDishSelected) {
-      setFormData({
-        name: currentDish.attributes.name,
-        title: currentDish.attributes.title,
-        description: currentDish.attributes.description || '',
-        imageUrl: currentDish.attributes.images[0] || '',
-        places: currentDish.attributes.places?.join(',') || ''
-      });
-    } else {
-      clearForm();
-    }
-  }, [currentDish]);
-
-  useEffect(() => () => {
-    dispatch(removeCurrentDish());
-  }, []);
+    const dataToSubmit: RawDish = {
+      attributes: {
+        name: formData.name,
+        title: formData.title || formData.name,
+        description: formData.description,
+        images: formData.imageUrl ? [formData.imageUrl] : [],
+        places: formData.places ? formData.places.split(',') : []
+      }
+    };
+    createDish(dataToSubmit);
+  }, [formData]);
 
   return (
     <Paper className={`${classes.root} ${classes.paper}`}>
@@ -147,34 +97,11 @@ const DishForm: FC<{ refetchData?: () => void | Promise<void> }> = ({
       >
         <Typography
           variant="h6"
-          className={classes.formHeading}
           align="center"
-          style={{ marginBottom: 0 }}
+          style={{ width: '100%', marginBottom: 0 }}
         >
-          {anyDishSelected ? 'Edit a Dish' : 'Create a Dish'}
+          {isCreatingDish ? 'Creating your dish...' : 'Create a dish'}
         </Typography>
-        {anyDishSelected && (
-          <>
-            <Typography
-              variant="body2"
-              align="center"
-              style={{ marginBottom: 8, width: '100%' }}
-            >
-              {'Now editing '}
-              <b>{currentDish.attributes.name}</b>
-            </Typography>
-            <Button
-              variant="outlined"
-              color="primary"
-              size="small"
-              style={{ marginBottom: 16 }}
-              onClick={() => dispatch(removeCurrentDish())}
-              disabled={fetchingApi}
-            >
-              Create a new dish
-            </Button>
-          </>
-        )}
         <TextField
           fullWidth
           name="name"
@@ -184,7 +111,7 @@ const DishForm: FC<{ refetchData?: () => void | Promise<void> }> = ({
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setFormData({ ...formData, name: e.target.value });
           }}
-          disabled={fetchingApi}
+          disabled={isCreatingDish}
         />
         <TextField
           fullWidth
@@ -195,7 +122,7 @@ const DishForm: FC<{ refetchData?: () => void | Promise<void> }> = ({
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setFormData({ ...formData, title: e.target.value });
           }}
-          disabled={fetchingApi}
+          disabled={isCreatingDish}
         />
         <TextField
           fullWidth
@@ -206,7 +133,7 @@ const DishForm: FC<{ refetchData?: () => void | Promise<void> }> = ({
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setFormData({ ...formData, description: e.target.value });
           }}
-          disabled={fetchingApi}
+          disabled={isCreatingDish}
         />
         <TextField
           fullWidth
@@ -218,7 +145,7 @@ const DishForm: FC<{ refetchData?: () => void | Promise<void> }> = ({
             setFormData({ ...formData, imageUrl: e.target.value });
           }}
           style={{ marginBottom: 16 }}
-          disabled={fetchingApi}
+          disabled={isCreatingDish}
         />
         <TextField
           fullWidth
@@ -229,7 +156,8 @@ const DishForm: FC<{ refetchData?: () => void | Promise<void> }> = ({
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setFormData({ ...formData, places: e.target.value });
           }}
-          disabled={fetchingApi}
+          style={{ marginBottom: 16 }}
+          disabled={isCreatingDish}
         />
         <Button
           fullWidth
@@ -238,9 +166,10 @@ const DishForm: FC<{ refetchData?: () => void | Promise<void> }> = ({
           variant="contained"
           color="primary"
           size="large"
-          disabled={fetchingApi}
+          style={{ marginBottom: 10 }}
+          disabled={isCreatingDish}
         >
-          {anyDishSelected ? 'Save' : 'Submit'}
+          {isCreatingDish ? 'Submitting...' : 'Submit'}
         </Button>
         <Button
           fullWidth
@@ -248,7 +177,7 @@ const DishForm: FC<{ refetchData?: () => void | Promise<void> }> = ({
           color="secondary"
           size="small"
           onClick={clearForm}
-          disabled={fetchingApi}
+          disabled={isCreatingDish}
         >
           Clear
         </Button>
