@@ -12,16 +12,16 @@ interface CreateDishApiHookOptions extends ApiHookOptions {
 
 interface CreateDishApiHookResult {
   data: NullableDish;
-  fetchData: (dish: RawDish) => Promise<void>;
-  loading: boolean;
   error: any;
+  loading: boolean;
+  fetchData: (dish: RawDish) => Promise<void>;
 }
 
 const useCreateDishApi =
   (options?: CreateDishApiHookOptions): CreateDishApiHookResult => {
     const [data, setData] = useState<NullableDish>(null);
-    const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<any>(null);
+    const [loading, setLoading] = useState<boolean>(false);
 
     const onSuccess = options?.onSuccess || noop;
     const onFailure = options?.onFailure || noop;
@@ -29,12 +29,17 @@ const useCreateDishApi =
 
     const fetchData = useCallback(async (dish: RawDish) => {
       setLoading(true);
+
       try {
-        const { data: { data } } = await api.createDish(dish);
-        setData(data);
-        onSuccess(data);
+        const {
+          data: { data: createdDish }
+        } = await api.createDish(dish);
+
+        setData(createdDish);
+        onSuccess(createdDish);
       } catch (error: any) {
         const safeError = error || {};
+
         setError(safeError);
         onFailure(safeError);
       } finally {
@@ -45,9 +50,9 @@ const useCreateDishApi =
 
     return {
       data,
-      fetchData,
       loading,
-      error
+      error,
+      fetchData
     };
   };
 
