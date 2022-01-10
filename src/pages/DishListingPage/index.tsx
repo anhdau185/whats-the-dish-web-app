@@ -1,21 +1,49 @@
 import React, { FC, useEffect } from 'react';
-import { Container, Grow, Grid } from '@material-ui/core';
+import { Container, Grow, Grid, Typography } from '@material-ui/core';
 
-import { useFetchDishesApi } from 'hooks';
+import { Dish } from 'models';
 import { EmptyProps } from 'utils';
+import { useFetchDishesApi } from 'hooks';
 import Progress from 'components/Progress';
 import DishList from 'components/DishList';
 import DishForm from 'components/DishForm';
 
+interface ListContentProps {
+  data: Dish[];
+  error: any;
+  loading: boolean;
+}
+
+const ListContent: FC<ListContentProps> = ({ data, error, loading }) => {
+  if (loading) return (
+    <Typography
+      variant="h5"
+      color="textSecondary"
+      style={{ marginBottom: '0.5em' }}
+    >
+      We&apos;re getting the dishes...
+    </Typography>
+  );
+
+  if (error != null) return (
+    <Typography
+      variant="h5"
+      color="textSecondary"
+      style={{ marginBottom: '0.5em' }}
+    >
+      An error occurred while fetching the dishes
+      {error?.message ? ` (${error?.message})` : ''}.
+    </Typography>
+  );
+
+  return <DishList dishes={data} />;
+};
+
 const DishListingPage: FC<EmptyProps> = () => {
-  const {
-    data: dishes,
-    loading: isFetchingDishes,
-    fetchData: fetchDishes
-  } = useFetchDishesApi();
+  const { data, error, loading, fetchData } = useFetchDishesApi();
 
   useEffect(() => {
-    fetchDishes({
+    fetchData({
       include_categories: false,
       order_by: 'title',
       order_direction: 'asc'
@@ -24,7 +52,7 @@ const DishListingPage: FC<EmptyProps> = () => {
 
   return (
     <Container maxWidth="lg">
-      <Progress loading={isFetchingDishes}>
+      <Progress loading={loading}>
         <Grow in>
           <Container>
             <Grid
@@ -34,10 +62,7 @@ const DishListingPage: FC<EmptyProps> = () => {
               spacing={3}
             >
               <Grid item xs={12} sm={7}>
-                <DishList
-                  dishes={dishes}
-                  emptyText={isFetchingDishes ? `We're getting the dishes...` : undefined}
-                />
+                <ListContent data={data} error={error} loading={loading} />
               </Grid>
               <Grid item xs={12} sm={4}>
                 <DishForm />
