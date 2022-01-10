@@ -162,7 +162,6 @@ const DishForm: FC<EmptyProps> = () => {
         <Button
           fullWidth
           type="submit"
-          className={classes.buttonSubmit}
           variant="contained"
           color="primary"
           size="large"
