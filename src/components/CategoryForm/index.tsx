@@ -1,10 +1,9 @@
 import React, { FC, useCallback, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { Button, Paper, TextField, Typography } from '@material-ui/core';
 
 import { EmptyProps } from 'utils';
 import { RawCategory } from 'models';
-import createCategory from 'actions/createCategory';
+import { useCreateCategoryApi, useFetchCategoriesApi } from 'hooks';
 
 import useStyles from './styles';
 
@@ -17,8 +16,6 @@ interface CategoryFormData {
 
 const CategoryForm: FC<EmptyProps> = () => {
   const classes = useStyles();
-  const dispatch = useDispatch();
-
   const [formData, setFormData] = useState<CategoryFormData>({
     name: '',
     title: '',
@@ -59,6 +56,14 @@ const CategoryForm: FC<EmptyProps> = () => {
     return true;
   }, [formData]);
 
+  const { fetchData: refetchCategories } = useFetchCategoriesApi();
+  const { fetchData: createCategory } = useCreateCategoryApi({
+    onCompletion: () => {
+      clearForm();
+      refetchCategories();
+    }
+  });
+
   const handleSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!validateForm()) return;
@@ -71,13 +76,7 @@ const CategoryForm: FC<EmptyProps> = () => {
         images: formData.imageUrl ? [formData.imageUrl] : []
       }
     };
-
-    dispatch(
-      createCategory({
-        category: dataToSubmit,
-        onCompletion: clearForm
-      })
-    );
+    createCategory(dataToSubmit);
   }, [formData]);
 
   return (
