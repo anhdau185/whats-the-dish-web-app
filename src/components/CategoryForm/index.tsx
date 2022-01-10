@@ -59,7 +59,7 @@ const CategoryForm: FC<EmptyProps> = () => {
   const { fetchData: fetchCategories } = useFetchCategoriesApi();
   const { loading: isCreatingCategory, fetchData: createCategory } =
     useCreateCategoryApi({
-      onCompletion: () => {
+      onSuccess: () => {
         clearForm();
         fetchCategories({
           include_dishes: false,
@@ -153,7 +153,7 @@ const CategoryForm: FC<EmptyProps> = () => {
           style={{ marginBottom: 10 }}
           disabled={isCreatingCategory}
         >
-          Submit
+          {isCreatingCategory ? 'Submitting...' : 'Submit'}
         </Button>
         <Button
           fullWidth
