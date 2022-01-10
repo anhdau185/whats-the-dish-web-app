@@ -16,8 +16,6 @@ import { ApiHookOptions } from '.';
 
 export interface FetchCategoriesHookOptions extends ApiHookOptions {
   onSuccess?: (data: Category[]) => void;
-  onFailure?: (error: any) => void;
-  onCompletion?: () => void;
 }
 
 interface FetchCategoriesHookResult extends FetchCategoriesApiCall {
