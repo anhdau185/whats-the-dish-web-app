@@ -7,7 +7,6 @@ import moment from 'moment';
 import { Category } from 'models';
 import { getCategoryImages } from 'utils';
 import deleteCategory from 'actions/deleteCategory';
-import removeCurrentCategory from 'actions/removeCurrentCategory';
 import MoreMenu, { MoreMenuItems } from 'components/MoreMenu';
 
 import {
