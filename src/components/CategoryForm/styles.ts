@@ -19,16 +19,5 @@ export default makeStyles((theme: Theme) => ({
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'center'
-  },
-  formHeading: {
-    marginBottom: '4px',
-    width: '100%'
-  },
-  fileInput: {
-    width: '97%',
-    margin: '10px 0'
-  },
-  buttonSubmit: {
-    marginBottom: 10
   }
 }));

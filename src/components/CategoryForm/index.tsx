@@ -94,9 +94,8 @@ const CategoryForm: FC<EmptyProps> = () => {
       >
         <Typography
           variant="h6"
-          className={classes.formHeading}
           align="center"
-          style={{ marginBottom: 0 }}
+          style={{ width: '100%', marginBottom: 0 }}
         >
           {isCreatingCategory ? 'Creating your category...' : 'Create a category'}
         </Typography>
@@ -148,10 +147,10 @@ const CategoryForm: FC<EmptyProps> = () => {
         <Button
           fullWidth
           type="submit"
-          className={classes.buttonSubmit}
           variant="contained"
           color="primary"
           size="large"
+          style={{ marginBottom: 10 }}
           disabled={isCreatingCategory}
         >
           Submit
