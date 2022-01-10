@@ -1,13 +1,10 @@
-import React, { FC, useCallback, useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { FC, useCallback, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Button, Paper, TextField, Typography } from '@material-ui/core';
 
-import { EmptyProps, getCategoryImages } from 'utils';
+import { EmptyProps } from 'utils';
 import { RawCategory } from 'models';
-import { currentCategorySelector } from 'reducers/state';
 import createCategory from 'actions/createCategory';
-import updateCategory from 'actions/updateCategory';
-import removeCurrentCategory from 'actions/removeCurrentCategory';
 
 import useStyles from './styles';
 
@@ -21,8 +18,6 @@ interface CategoryFormData {
 const CategoryForm: FC<EmptyProps> = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const currentCategory = useSelector(currentCategorySelector);
-  const anyCategorySelected = currentCategory != null;
 
   const [formData, setFormData] = useState<CategoryFormData>({
     name: '',
@@ -66,62 +61,24 @@ const CategoryForm: FC<EmptyProps> = () => {
 
   const handleSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     if (!validateForm()) return;
 
-    if (anyCategorySelected) {
-      const { categoryAlbum } = getCategoryImages(currentCategory);
-      const dataToSubmit: RawCategory = {
-        attributes: {
-          name: formData.name,
-          title: formData.title || formData.name,
-          description: formData.description,
-          images: [formData.imageUrl, ...categoryAlbum]
-        }
-      };
+    const dataToSubmit: RawCategory = {
+      attributes: {
+        name: formData.name,
+        title: formData.title || formData.name,
+        description: formData.description,
+        images: formData.imageUrl ? [formData.imageUrl] : []
+      }
+    };
 
-      dispatch(
-        updateCategory({
-          id: currentCategory.id,
-          category: dataToSubmit,
-          onCompletion: () => dispatch(removeCurrentCategory())
-        })
-      );
-    } else {
-      const dataToSubmit: RawCategory = {
-        attributes: {
-          name: formData.name,
-          title: formData.title || formData.name,
-          description: formData.description,
-          images: formData.imageUrl ? [formData.imageUrl] : []
-        }
-      };
-
-      dispatch(
-        createCategory({
-          category: dataToSubmit,
-          onCompletion: clearForm
-        })
-      );
-    }
-  }, [currentCategory, formData]);
-
-  useEffect(() => {
-    if (anyCategorySelected) {
-      setFormData({
-        name: currentCategory.attributes.name,
-        title: currentCategory.attributes.title,
-        description: currentCategory.attributes.description || '',
-        imageUrl: currentCategory.attributes.images[0] || ''
-      });
-    } else {
-      clearForm();
-    }
-  }, [currentCategory]);
-
-  useEffect(() => () => {
-    dispatch(removeCurrentCategory());
-  }, []);
+    dispatch(
+      createCategory({
+        category: dataToSubmit,
+        onCompletion: clearForm
+      })
+    );
+  }, [formData]);
 
   return (
     <Paper className={`${classes.root} ${classes.paper}`}>
@@ -137,29 +94,8 @@ const CategoryForm: FC<EmptyProps> = () => {
           align="center"
           style={{ marginBottom: 0 }}
         >
-          {anyCategorySelected ? 'Edit a Category' : 'Create a Category'}
+          Create a Category
         </Typography>
-        {anyCategorySelected && (
-          <>
-            <Typography
-              variant="body2"
-              align="center"
-              style={{ marginBottom: 8, width: '100%' }}
-            >
-              {'Now editing '}
-              <b>{currentCategory.attributes.name}</b>
-            </Typography>
-            <Button
-              variant="outlined"
-              color="primary"
-              size="small"
-              style={{ marginBottom: 16 }}
-              onClick={() => dispatch(removeCurrentCategory())}
-            >
-              Create a new category
-            </Button>
-          </>
-        )}
         <TextField
           fullWidth
           name="name"
@@ -209,7 +145,7 @@ const CategoryForm: FC<EmptyProps> = () => {
           color="primary"
           size="large"
         >
-          {anyCategorySelected ? 'Save' : 'Submit'}
+          Submit
         </Button>
         <Button
           fullWidth
