@@ -3,12 +3,12 @@ import noop from 'lodash/fp/noop';
 
 import * as api from 'api';
 import { FetchDishesApiOptions } from 'api/dishes';
-import { FetchDishesApiCall } from 'reducers/fetchDishesApiCallReducer';
 import { FetchDishesHookOptions } from 'hooks/useFetchDishesApi';
+import { GlobalState } from 'reducers';
+import { FetchDishesApiCall } from 'reducers/fetchDishesApiCallReducer';
+import { apiCallSelector } from 'reducers/state/fetchDishesApiCall';
 
 import { API_CALL_FETCH_DISHES } from './types';
-import { GlobalState } from 'reducers';
-import { apiCallSelector } from 'reducers/state/fetchDishesApiCall';
 
 export interface ApiCallFetchDishesAction extends Action<'API_CALL_FETCH_DISHES'> {
   payload: FetchDishesApiCall;
