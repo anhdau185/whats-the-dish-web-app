@@ -1,4 +1,3 @@
-import { UpdateCategoryAction } from './updateCategory';
 import { IncrementTestDataAction } from './incrementTestData';
 import { DecrementTestDataAction } from './decrementTestData';
 import { SetCurrentDishAction } from './setCurrentDish';
@@ -7,8 +6,7 @@ import { EnableAppLoadingAction } from './enableAppLoading';
 import { DisableAppLoadingAction } from './disableAppLoading';
 import { ApiCallFetchCategoriesAction } from './fetchCategoriesAC';
 
-type AppAction = UpdateCategoryAction
-  | IncrementTestDataAction
+type AppAction = IncrementTestDataAction
   | DecrementTestDataAction
   | SetCurrentDishAction
   | RemoveCurrentDishAction
@@ -17,7 +15,6 @@ type AppAction = UpdateCategoryAction
   | ApiCallFetchCategoriesAction;
 
 export type {
-  UpdateCategoryAction,
   IncrementTestDataAction,
   DecrementTestDataAction,
   SetCurrentDishAction,
