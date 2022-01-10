@@ -1,11 +1,11 @@
 import React, { FC, useCallback, useState } from 'react';
-import { Button, Paper, TextField, Typography } from '@material-ui/core';
+import { Button, TextField } from '@material-ui/core';
 
 import { EmptyProps } from 'utils';
 import { RawDish } from 'models';
 import { useCreateDishApi, useFetchDishesApi } from 'hooks';
 
-import useStyles from './styles';
+import { CustomPaper, StyledForm, FormHeading } from './styles';
 
 interface DishFormData {
   name: string;
@@ -39,7 +39,6 @@ const validateForm = (formData: DishFormData): boolean => {
 };
 
 const DishForm: FC<EmptyProps> = () => {
-  const classes = useStyles();
   const [formData, setFormData] = useState<DishFormData>({
     name: '',
     title: '',
@@ -88,20 +87,15 @@ const DishForm: FC<EmptyProps> = () => {
   }, [formData]);
 
   return (
-    <Paper className={`${classes.root} ${classes.paper}`}>
-      <form
-        autoComplete="off"
+    <CustomPaper>
+      <StyledForm
         noValidate
-        className={classes.form}
+        autoComplete="off"
         onSubmit={handleSubmit}
       >
-        <Typography
-          variant="h6"
-          align="center"
-          style={{ width: '100%', marginBottom: 0 }}
-        >
+        <FormHeading variant="h6" align="center">
           {isCreatingDish ? 'Creating your dish...' : 'Create a dish'}
-        </Typography>
+        </FormHeading>
         <TextField
           fullWidth
           name="name"
@@ -144,7 +138,6 @@ const DishForm: FC<EmptyProps> = () => {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setFormData({ ...formData, imageUrl: e.target.value });
           }}
-          style={{ marginBottom: 16 }}
           disabled={isCreatingDish}
         />
         <TextField
@@ -180,8 +173,8 @@ const DishForm: FC<EmptyProps> = () => {
         >
           Clear
         </Button>
-      </form>
-    </Paper>
+      </StyledForm>
+    </CustomPaper>
   );
 };
 
