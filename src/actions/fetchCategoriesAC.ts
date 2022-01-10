@@ -3,12 +3,12 @@ import noop from 'lodash/fp/noop';
 
 import * as api from 'api';
 import { FetchCategoriesApiOptions } from 'api/categories';
-import { FetchCategoriesApiCall } from 'reducers/fetchCategoriesApiCallReducer';
 import { FetchCategoriesHookOptions } from 'hooks/useFetchCategoriesApi';
+import { GlobalState } from 'reducers';
+import { FetchCategoriesApiCall } from 'reducers/fetchCategoriesApiCallReducer';
+import { apiCallSelector } from 'reducers/state/fetchCategoriesApiCall';
 
 import { API_CALL_FETCH_CATEGORIES } from './types';
-import { GlobalState } from 'reducers';
-import { apiCallSelector } from 'reducers/state/fetchCategoriesApiCall';
 
 export interface ApiCallFetchCategoriesAction extends Action<'API_CALL_FETCH_CATEGORIES'> {
   payload: FetchCategoriesApiCall;
