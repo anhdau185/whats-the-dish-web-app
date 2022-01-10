@@ -1,11 +1,11 @@
 import React, { FC, useCallback, useState } from 'react';
-import { Button, Paper, TextField, Typography } from '@material-ui/core';
+import { Button, TextField } from '@material-ui/core';
 
 import { EmptyProps } from 'utils';
 import { RawCategory } from 'models';
 import { useCreateCategoryApi, useFetchCategoriesApi } from 'hooks';
 
-import useStyles from './styles';
+import { CustomPaper, StyledForm, FormHeading } from './styles';
 
 interface CategoryFormData {
   name: string;
@@ -39,7 +39,6 @@ const validateForm = (formData: CategoryFormData): boolean => {
 };
 
 const CategoryForm: FC<EmptyProps> = () => {
-  const classes = useStyles();
   const [formData, setFormData] = useState<CategoryFormData>({
     name: '',
     title: '',
@@ -85,20 +84,11 @@ const CategoryForm: FC<EmptyProps> = () => {
   }, [formData]);
 
   return (
-    <Paper className={`${classes.root} ${classes.paper}`}>
-      <form
-        autoComplete="off"
-        noValidate
-        className={classes.form}
-        onSubmit={handleSubmit}
-      >
-        <Typography
-          variant="h6"
-          align="center"
-          style={{ width: '100%', marginBottom: 0 }}
-        >
+    <CustomPaper>
+      <StyledForm noValidate autoComplete="off" onSubmit={handleSubmit}>
+        <FormHeading variant="h6" align="center">
           {isCreatingCategory ? 'Creating your category...' : 'Create a category'}
-        </Typography>
+        </FormHeading>
         <TextField
           fullWidth
           name="name"
@@ -165,8 +155,8 @@ const CategoryForm: FC<EmptyProps> = () => {
         >
           Clear
         </Button>
-      </form>
-    </Paper>
+      </StyledForm>
+    </CustomPaper>
   );
 };
 
