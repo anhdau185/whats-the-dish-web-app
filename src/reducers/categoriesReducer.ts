@@ -3,18 +3,16 @@ import { Reducer } from 'redux';
 import { Category } from 'models';
 import {
   FetchCategoriesAction,
-  UpdateCategoryAction,
-  DeleteCategoryAction
+  UpdateCategoryAction
 } from 'actions';
 import {
   FETCH_ALL_CATEGORIES,
-  UPDATE_CATEGORY,
-  DELETE_CATEGORY
+  UPDATE_CATEGORY
 } from 'actions/types';
 
 type CategoriesReducer = Reducer<
   Category[],
-  FetchCategoriesAction | UpdateCategoryAction | DeleteCategoryAction
+  FetchCategoriesAction | UpdateCategoryAction
 >;
 
 const categoriesReducer: CategoriesReducer =
@@ -26,8 +24,6 @@ const categoriesReducer: CategoriesReducer =
         return prevState.map(
           item => item.id === action.payload.id ? action.payload : item
         );
-      case DELETE_CATEGORY:
-        return prevState.filter(item => item.id !== action.payload);
       default:
         return prevState;
     }

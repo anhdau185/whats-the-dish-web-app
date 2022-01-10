@@ -1,12 +1,10 @@
 import React, { FC, useMemo, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import { Button, CardContent, Typography } from '@material-ui/core';
 import moment from 'moment';
 
 import { Category } from 'models';
 import { getCategoryImages } from 'utils';
-import deleteCategory from 'actions/deleteCategory';
 import MoreMenu, { MoreMenuItems } from 'components/MoreMenu';
 
 import {
@@ -27,7 +25,6 @@ interface CategoryItemProps {
 
 const CategoryItem: FC<CategoryItemProps> = ({ category, noActions = false }) => {
   const history = useHistory();
-  const dispatch = useDispatch();
   const [timeHovered, setTimeHovered] = useState<boolean>(false);
 
   const categoryImage = useMemo(
