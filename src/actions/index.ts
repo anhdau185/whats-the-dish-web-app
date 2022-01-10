@@ -1,7 +1,6 @@
 import { FetchCategoriesAction } from './fetchAllCategories';
 import { UpdateCategoryAction } from './updateCategory';
 import { DeleteCategoryAction } from './deleteCategory';
-import { RemoveCurrentCategoryAction } from './removeCurrentCategory';
 import { IncrementTestDataAction } from './incrementTestData';
 import { DecrementTestDataAction } from './decrementTestData';
 import { SetCurrentDishAction } from './setCurrentDish';
@@ -13,7 +12,6 @@ import { ApiCallFetchCategoriesAction } from './fetchCategoriesAC';
 type AppAction = FetchCategoriesAction
   | UpdateCategoryAction
   | DeleteCategoryAction
-  | RemoveCurrentCategoryAction
   | IncrementTestDataAction
   | DecrementTestDataAction
   | SetCurrentDishAction
@@ -26,7 +24,6 @@ export type {
   FetchCategoriesAction,
   UpdateCategoryAction,
   DeleteCategoryAction,
-  RemoveCurrentCategoryAction,
   IncrementTestDataAction,
   DecrementTestDataAction,
   SetCurrentDishAction,
