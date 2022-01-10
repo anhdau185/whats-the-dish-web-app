@@ -26,7 +26,10 @@ const CategoryItem: FC<CategoryItemProps> = ({ category, noActions = false }) =>
   const history = useHistory();
   const [timeHovered, setTimeHovered] = useState<boolean>(false);
   const { fetchData: fetchCategories } = useFetchCategoriesApi();
-  const { loading: isDeletingCategory, fetchData: deleteCategory } = useDeleteCategoryApi({
+  const {
+    loading: isDeletingCategory,
+    fetchData: deleteCategory
+  } = useDeleteCategoryApi({
     onSuccess: () => {
       fetchCategories({
         include_dishes: false,
