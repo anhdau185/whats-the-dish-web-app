@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import { IconButton, Menu, MenuItem } from '@material-ui/core';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
-type ItemClickHandler = () => any;
+type ItemClickHandler = () => void;
 
 export interface MoreMenuItems {
   [itemName: string]: ItemClickHandler;
@@ -17,9 +17,9 @@ const MoreMenu: FC<MoreMenuProps> = ({ items, color = 'rgba(0, 0, 0, 1)' }) => {
   const [anchorElement, setAnchorElement] =
     useState<HTMLButtonElement | null>(null);
 
-  const handleClick =
-    (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
-      setAnchorElement(e.currentTarget);
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    setAnchorElement(e.currentTarget);
+  };
 
   const handleClose = () => setAnchorElement(null);
 
@@ -41,22 +41,20 @@ const MoreMenu: FC<MoreMenuProps> = ({ items, color = 'rgba(0, 0, 0, 1)' }) => {
         open={!!anchorElement}
         onClose={handleClose}
       >
-        {Object.keys(items).map(
-          (itemName: string, index: number) => {
-            const itemClickHandler: ItemClickHandler = items[itemName];
-            return (
-              <MenuItem
-                key={`${index}_${itemName}`}
-                onClick={() => {
-                  handleClose();
-                  itemClickHandler();
-                }}
-              >
-                {itemName}
-              </MenuItem>
-            );
-          }
-        )}
+        {Object.keys(items).map((itemName: string, index: number) => {
+          const itemClickHandler = items[itemName];
+          return (
+            <MenuItem
+              key={`${index}_${itemName}`}
+              onClick={() => {
+                handleClose();
+                itemClickHandler();
+              }}
+            >
+              {itemName}
+            </MenuItem>
+          );
+        })}
       </Menu>
     </>
   );
