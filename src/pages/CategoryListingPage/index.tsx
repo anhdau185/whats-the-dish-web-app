@@ -10,7 +10,7 @@ import CategoryForm from 'components/CategoryForm';
 const CategoryListingPage: FC<EmptyProps> = () => {
   const {
     data: categories,
-    loading: fetchingCategories,
+    loading: isFetchingCategories,
     fetchData: fetchCategories
   } = useFetchCategoriesApi();
 
@@ -24,7 +24,7 @@ const CategoryListingPage: FC<EmptyProps> = () => {
 
   return (
     <Container maxWidth="lg">
-      <Progress loading={fetchingCategories}>
+      <Progress loading={isFetchingCategories}>
         <Grow in>
           <Container>
             <Grid
