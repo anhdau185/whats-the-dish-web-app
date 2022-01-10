@@ -21,6 +21,7 @@ const CategoryPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
 
   const errorOccurred = error != null;
   const dataIsReady = category != null;
+
   const fetchCategoryWithOptions =
     () => fetchCategory(params.id, { include_dishes: true });
 

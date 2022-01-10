@@ -21,6 +21,7 @@ const DishPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
 
   const errorOccurred = error != null;
   const dataIsReady = dish != null;
+
   const fetchDishWithOptions =
     () => fetchDish(params.id, { include_categories: true });
 
