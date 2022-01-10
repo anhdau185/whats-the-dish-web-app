@@ -8,11 +8,15 @@ import appLoadingReducer from './appLoadingReducer';
 import fetchCategoriesApiCallReducer, {
   FetchCategoriesApiCall
 } from './fetchCategoriesApiCallReducer';
+import fetchDishesApiCallReducer, {
+  FetchDishesApiCall
+} from './fetchDishesApiCallReducer';
 
 export interface GlobalState {
   currentDish: NullableDish;
   appLoading: boolean;
   fetchCategoriesApiCall: FetchCategoriesApiCall;
+  fetchDishesApiCall: FetchDishesApiCall;
 }
 
 type RootReducer =
@@ -21,7 +25,8 @@ type RootReducer =
 const rootReducer: RootReducer = combineReducers({
   currentDish: currentDishReducer,
   appLoading: appLoadingReducer,
-  fetchCategoriesApiCall: fetchCategoriesApiCallReducer
+  fetchCategoriesApiCall: fetchCategoriesApiCallReducer,
+  fetchDishesApiCall: fetchDishesApiCallReducer
 });
 
 export default rootReducer;

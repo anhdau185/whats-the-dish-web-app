@@ -1,61 +1,38 @@
-import { useCallback, useState } from 'react';
-import noop from 'lodash/fp/noop';
+import { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { Dish, Category } from 'models';
-import * as api from 'api';
+import { Dish } from 'models';
+import { FetchDishesApiOptions } from 'api/dishes';
+import fetchDishesAC from 'actions/fetchDishesAC';
+import { FetchDishesApiCall } from 'reducers/fetchDishesApiCallReducer';
 import {
-  FetchDishesApiOptions,
-  DishCollectionApiResponse
-} from 'api/dishes';
+  dataSelector,
+  errorSelector,
+  includedDataSelector,
+  loadingSelector
+} from 'reducers/state/fetchDishesApiCall';
 
 import { ApiHookOptions } from '.';
 
-interface FetchDishesApiHookOptions extends ApiHookOptions {
-  onSuccess?: (data: DishCollectionApiResponse) => void;
+export interface FetchDishesHookOptions extends ApiHookOptions {
+  onSuccess?: (data: Dish[]) => void;
 }
 
-interface FetchDishesHookResult {
-  data: Dish[];
-  includedData: Category[];
-  error: any;
-  loading: boolean;
-  fetchData: (params?: FetchDishesApiOptions) => Promise<void>;
+interface FetchDishesHookResult extends FetchDishesApiCall {
+  fetchData: (params?: FetchDishesApiOptions) => void;
 }
 
 const useFetchDishesApi =
-  (options?: FetchDishesApiHookOptions): FetchDishesHookResult => {
-    const [response, setResponse] = useState<DishCollectionApiResponse | null>(null);
-    const [error, setError] = useState<any>(null);
-    const [loading, setLoading] = useState<boolean>(false);
+  (options?: FetchDishesHookOptions): FetchDishesHookResult => {
+    const dispatch = useDispatch();
+    const data = useSelector(dataSelector);
+    const includedData = useSelector(includedDataSelector);
+    const error = useSelector(errorSelector);
+    const loading = useSelector(loadingSelector);
 
-    const onSuccess = options?.onSuccess || noop;
-    const onFailure = options?.onFailure || noop;
-    const onCompletion = options?.onCompletion || noop;
-
-    const data = response?.data || [];
-    const includedData = response?.included || [];
-
-    const fetchData = useCallback(
-      async (params?: FetchDishesApiOptions) => {
-        setLoading(true);
-
-        try {
-          const { data: response } = await api.fetchDishes(params);
-
-          setResponse(response);
-          onSuccess(response);
-        } catch (error: any) {
-          const safeError = error || {};
-
-          setError(safeError);
-          onFailure(safeError);
-        } finally {
-          setLoading(false);
-          onCompletion();
-        }
-      },
-      []
-    );
+    const fetchData = useCallback((params?: FetchDishesApiOptions) => {
+      dispatch(fetchDishesAC({ ...options, ...params }));
+    }, [options]);
 
     return {
       data,
