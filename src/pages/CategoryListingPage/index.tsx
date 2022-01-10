@@ -36,7 +36,7 @@ const CategoryListingPage: FC<EmptyProps> = () => {
               <Grid item xs={12} sm={7}>
                 <CategoryList
                   categories={categories}
-                  emptyText="No categories created yet."
+                  emptyText={isFetchingCategories ? `We're getting the categories...` : undefined}
                 />
               </Grid>
               <Grid item xs={12} sm={4}>

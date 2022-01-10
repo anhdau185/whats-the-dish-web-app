@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
 import { Container, Grow, Grid } from '@material-ui/core';
 
 import { useFetchDishesApi } from 'hooks';
@@ -10,25 +10,21 @@ import DishForm from 'components/DishForm';
 const DishListingPage: FC<EmptyProps> = () => {
   const {
     data: dishes,
-    loading: fetchingDishes,
-    fetchData
+    loading: isFetchingDishes,
+    fetchData: fetchDishes
   } = useFetchDishesApi();
 
-  const fetchDishes = useCallback(() => {
-    fetchData({
+  useEffect(() => {
+    fetchDishes({
       include_categories: false,
       order_by: 'title',
       order_direction: 'asc'
     });
   }, []);
 
-  useEffect(() => {
-    fetchDishes();
-  }, []);
-
   return (
     <Container maxWidth="lg">
-      <Progress loading={fetchingDishes}>
+      <Progress loading={isFetchingDishes}>
         <Grow in>
           <Container>
             <Grid
@@ -40,12 +36,11 @@ const DishListingPage: FC<EmptyProps> = () => {
               <Grid item xs={12} sm={7}>
                 <DishList
                   dishes={dishes}
-                  emptyText="No dishes created yet."
-                  refetchData={fetchDishes}
+                  emptyText={isFetchingDishes ? `We're getting the dishes...` : undefined}
                 />
               </Grid>
               <Grid item xs={12} sm={4}>
-                <DishForm refetchData={fetchDishes} />
+                <DishForm />
               </Grid>
             </Grid>
           </Container>
