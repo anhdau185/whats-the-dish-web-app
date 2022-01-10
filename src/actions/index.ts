@@ -1,5 +1,4 @@
 import { FetchCategoriesAction } from './fetchAllCategories';
-import { CreateCategoryAction } from './createCategory';
 import { UpdateCategoryAction } from './updateCategory';
 import { DeleteCategoryAction } from './deleteCategory';
 import { SetCurrentCategoryAction } from './setCurrentCategory';
@@ -13,7 +12,6 @@ import { DisableAppLoadingAction } from './disableAppLoading';
 import { ApiCallFetchCategoriesAction } from './fetchCategoriesAC';
 
 type AppAction = FetchCategoriesAction
-  | CreateCategoryAction
   | UpdateCategoryAction
   | DeleteCategoryAction
   | SetCurrentCategoryAction
@@ -28,7 +26,6 @@ type AppAction = FetchCategoriesAction
 
 export type {
   FetchCategoriesAction,
-  CreateCategoryAction,
   UpdateCategoryAction,
   DeleteCategoryAction,
   SetCurrentCategoryAction,
