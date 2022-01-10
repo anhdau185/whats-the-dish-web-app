@@ -7,7 +7,6 @@ import moment from 'moment';
 import { Category } from 'models';
 import { getCategoryImages } from 'utils';
 import deleteCategory from 'actions/deleteCategory';
-import setCurrentCategory from 'actions/setCurrentCategory';
 import removeCurrentCategory from 'actions/removeCurrentCategory';
 import MoreMenu, { MoreMenuItems } from 'components/MoreMenu';
 
@@ -45,14 +44,8 @@ const CategoryItem: FC<CategoryItemProps> = ({ category, noActions = false }) =>
   const menuItems = useMemo<MoreMenuItems>(
     () => ({
       'Delete': () => {
-        if (confirm('Delete this category?')) {
-          dispatch(
-            deleteCategory({
-              id: category.id,
-              onCompletion: () => dispatch(removeCurrentCategory())
-            })
-          );
-        }
+        if (!confirm('Delete this category?')) return;
+        // call delete api
       }
     }),
     [category]
