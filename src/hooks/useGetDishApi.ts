@@ -17,16 +17,16 @@ interface GetDishApiHookOptions extends ApiHookOptions {
 interface GetDishHookResult {
   data: NullableDish;
   includedData: Category[];
-  fetchData: (id: string, params?: GetDishApiOptions) => Promise<void>;
-  loading: boolean;
   error: any;
+  loading: boolean;
+  fetchData: (id: string, params?: GetDishApiOptions) => Promise<void>;
 }
 
 const useGetDishApi =
   (options?: GetDishApiHookOptions): GetDishHookResult => {
     const [response, setResponse] = useState<SingleDishApiResponse | null>(null);
-    const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<any>(null);
+    const [loading, setLoading] = useState<boolean>(false);
 
     const onSuccess = options?.onSuccess || noop;
     const onFailure = options?.onFailure || noop;
@@ -38,12 +38,15 @@ const useGetDishApi =
     const fetchData = useCallback(
       async (id: string, params?: GetDishApiOptions) => {
         setLoading(true);
+
         try {
           const { data: response } = await api.getDish(id, params);
+
           setResponse(response);
           onSuccess(response);
         } catch (error: any) {
           const safeError = error || {};
+
           setError(safeError);
           onFailure(safeError);
         } finally {
@@ -57,9 +60,9 @@ const useGetDishApi =
     return {
       data,
       includedData,
-      fetchData,
+      error,
       loading,
-      error
+      fetchData
     };
   };
 

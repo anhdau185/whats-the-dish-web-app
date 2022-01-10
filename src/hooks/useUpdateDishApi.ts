@@ -12,16 +12,16 @@ interface UpdateDishApiHookOptions extends ApiHookOptions {
 
 interface UpdateDishApiHookResult {
   data: NullableDish;
-  fetchData: (id: string, dish: RawDish) => Promise<void>;
-  loading: boolean;
   error: any;
+  loading: boolean;
+  fetchData: (id: string, dish: RawDish) => Promise<void>;
 }
 
 const useUpdateDishApi =
   (options?: UpdateDishApiHookOptions): UpdateDishApiHookResult => {
     const [data, setData] = useState<NullableDish>(null);
-    const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<any>(null);
+    const [loading, setLoading] = useState<boolean>(false);
 
     const onSuccess = options?.onSuccess || noop;
     const onFailure = options?.onFailure || noop;
@@ -29,12 +29,15 @@ const useUpdateDishApi =
 
     const fetchData = useCallback(async (id: string, dish: RawDish) => {
       setLoading(true);
+
       try {
         const { data: { data } } = await api.updateDish(id, dish);
+
         setData(data);
         onSuccess(data);
       } catch (error: any) {
         const safeError = error || {};
+
         setError(safeError);
         onFailure(safeError);
       } finally {
@@ -45,9 +48,9 @@ const useUpdateDishApi =
 
     return {
       data,
-      fetchData,
+      error,
       loading,
-      error
+      fetchData
     };
   };
 
