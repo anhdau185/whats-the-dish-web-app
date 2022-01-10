@@ -10,6 +10,7 @@ import { SetCurrentDishAction } from './setCurrentDish';
 import { RemoveCurrentDishAction } from './removeCurrentDish';
 import { EnableAppLoadingAction } from './enableAppLoading';
 import { DisableAppLoadingAction } from './disableAppLoading';
+import { ApiCallFetchCategoriesAction } from './fetchCategoriesAC';
 
 type AppAction = FetchCategoriesAction
   | CreateCategoryAction
@@ -22,7 +23,8 @@ type AppAction = FetchCategoriesAction
   | SetCurrentDishAction
   | RemoveCurrentDishAction
   | EnableAppLoadingAction
-  | DisableAppLoadingAction;
+  | DisableAppLoadingAction
+  | ApiCallFetchCategoriesAction;
 
 export type {
   FetchCategoriesAction,
@@ -37,5 +39,6 @@ export type {
   RemoveCurrentDishAction,
   EnableAppLoadingAction,
   DisableAppLoadingAction,
-  AppAction
+  AppAction,
+  ApiCallFetchCategoriesAction
 };
