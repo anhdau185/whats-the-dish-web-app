@@ -15,7 +15,7 @@ const DishPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
     data: dish,
     includedData: categories,
     fetchData: fetchDish,
-    loading: fetchingDish,
+    loading: isFetchingDish,
     error
   } = useGetDishApi();
 
@@ -25,7 +25,7 @@ const DishPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
   const fetchDishWithOptions =
     () => fetchDish(params.id, { include_categories: true });
 
-  const { fetchData: updateDish, loading: updatingDish } =
+  const { fetchData: updateDish, loading: isUpdatingDish } =
     useUpdateDishApi({ onSuccess: fetchDishWithOptions });
 
   useEffect(() => {
@@ -34,7 +34,7 @@ const DishPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
 
   return (
     <Container maxWidth="lg">
-      <Progress loading={fetchingDish || updatingDish}>
+      <Progress loading={isFetchingDish || isUpdatingDish}>
         {errorOccurred && (
           <Typography
             variant="h5"

@@ -88,11 +88,7 @@ const DishForm: FC<EmptyProps> = () => {
 
   return (
     <CustomPaper>
-      <StyledForm
-        noValidate
-        autoComplete="off"
-        onSubmit={handleSubmit}
-      >
+      <StyledForm noValidate autoComplete="off" onSubmit={handleSubmit}>
         <FormHeading variant="h6" align="center">
           {isCreatingDish ? 'Creating your dish...' : 'Create a dish'}
         </FormHeading>
