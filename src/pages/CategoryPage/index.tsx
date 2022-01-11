@@ -15,7 +15,7 @@ const CategoryPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
     data: category,
     includedData: dishes,
     fetchData: fetchCategory,
-    loading: fetchingCategory,
+    loading: isFetchingCategory,
     error
   } = useGetCategoryApi();
 
@@ -25,7 +25,7 @@ const CategoryPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
   const fetchCategoryWithOptions =
     () => fetchCategory(params.id, { include_dishes: true });
 
-  const { fetchData: updateCategory, loading: updatingCategory } =
+  const { fetchData: updateCategory, loading: isUpdatingCategory } =
     useUpdateCategoryApi({ onSuccess: fetchCategoryWithOptions });
 
   useEffect(() => {
@@ -34,7 +34,7 @@ const CategoryPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
 
   return (
     <Container maxWidth="lg">
-      <Progress loading={fetchingCategory || updatingCategory}>
+      <Progress loading={isFetchingCategory || isUpdatingCategory}>
         {errorOccurred && (
           <Typography
             variant="h5"
