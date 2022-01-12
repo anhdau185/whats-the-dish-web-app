@@ -1,3 +1,5 @@
+import { Relationship } from '.';
+
 interface RawCategoryAttributes {
   name: string;
   title: string;
@@ -19,7 +21,9 @@ export interface Category {
   id: string;
   type?: 'categories';
   attributes: CategoryAttributes;
-  relationships?: Record<string, unknown>;
+  relationships?: {
+    dishes: Relationship;
+  };
 }
 
 export type NullableCategory = Category | null;

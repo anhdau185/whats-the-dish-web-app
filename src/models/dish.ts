@@ -1,3 +1,5 @@
+import { Relationship } from '.';
+
 interface RawDishAttributes {
   name: string;
   title: string;
@@ -20,7 +22,9 @@ export interface Dish {
   id: string;
   type?: 'dishes';
   attributes: DishAttributes;
-  relationships?: Record<string, unknown>;
+  relationships?: {
+    categories: Relationship;
+  };
 }
 
 export type NullableDish = Dish | null;
