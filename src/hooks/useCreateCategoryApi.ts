@@ -23,9 +23,9 @@ const useCreateCategoryApi =
     const [error, setError] = useState<any>(null);
     const [loading, setLoading] = useState<boolean>(false);
 
-    const onSuccess = options?.onSuccess || noop;
-    const onFailure = options?.onFailure || noop;
-    const onCompletion = options?.onCompletion || noop;
+    const onSuccess = options?.onSuccess ?? noop;
+    const onFailure = options?.onFailure ?? noop;
+    const onCompletion = options?.onCompletion ?? noop;
 
     const fetchData = useCallback(async (category: RawCategory) => {
       setLoading(true);

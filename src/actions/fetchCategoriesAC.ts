@@ -23,9 +23,9 @@ type FetchCategoriesActionCreator = (options?: FetchCategoriesACOptions) => (
 
 const fetchCategoriesAC: FetchCategoriesActionCreator =
   (options = {}) => async (dispatch, getState) => {
-    const onSuccess = options.onSuccess || noop;
-    const onFailure = options.onFailure || noop;
-    const onCompletion = options.onCompletion || noop;
+    const onSuccess = options.onSuccess ?? noop;
+    const onFailure = options.onFailure ?? noop;
+    const onCompletion = options.onCompletion ?? noop;
 
     dispatch({
       type: API_CALL_FETCH_CATEGORIES,

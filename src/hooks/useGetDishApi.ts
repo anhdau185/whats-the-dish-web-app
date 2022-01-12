@@ -28,12 +28,12 @@ const useGetDishApi =
     const [error, setError] = useState<any>(null);
     const [loading, setLoading] = useState<boolean>(false);
 
-    const onSuccess = options?.onSuccess || noop;
-    const onFailure = options?.onFailure || noop;
-    const onCompletion = options?.onCompletion || noop;
+    const onSuccess = options?.onSuccess ?? noop;
+    const onFailure = options?.onFailure ?? noop;
+    const onCompletion = options?.onCompletion ?? noop;
 
-    const data = response?.data || null;
-    const includedData = response?.included || [];
+    const data = response?.data ?? null;
+    const includedData = response?.included ?? [];
 
     const fetchData = useCallback(
       async (id: string, params?: GetDishApiOptions) => {
@@ -45,7 +45,7 @@ const useGetDishApi =
           setResponse(response);
           onSuccess(response);
         } catch (error: any) {
-          const safeError = error || {};
+          const safeError = error ?? {};
 
           setError(safeError);
           onFailure(safeError);

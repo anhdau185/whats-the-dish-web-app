@@ -23,9 +23,9 @@ const useCreateDishApi =
     const [error, setError] = useState<any>(null);
     const [loading, setLoading] = useState<boolean>(false);
 
-    const onSuccess = options?.onSuccess || noop;
-    const onFailure = options?.onFailure || noop;
-    const onCompletion = options?.onCompletion || noop;
+    const onSuccess = options?.onSuccess ?? noop;
+    const onFailure = options?.onFailure ?? noop;
+    const onCompletion = options?.onCompletion ?? noop;
 
     const fetchData = useCallback(async (dish: RawDish) => {
       setLoading(true);
@@ -38,7 +38,7 @@ const useCreateDishApi =
         setData(createdDish);
         onSuccess(createdDish);
       } catch (error: any) {
-        const safeError = error || {};
+        const safeError = error ?? {};
 
         setError(safeError);
         onFailure(safeError);
