@@ -1,8 +1,9 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useCallback } from 'react';
 import { Container, Grow, Grid, Typography } from '@material-ui/core';
 
 import { EmptyProps } from 'utils';
-import { useFetchDishesApi } from 'hooks';
+import { useDeleteDishApi, useFetchDishesApi } from 'hooks';
+import { MoreMenuItems } from 'components/MoreMenu';
 import Progress from 'components/Progress';
 import DishList from 'components/DishList';
 import DishForm from 'components/DishForm';
@@ -16,13 +17,29 @@ const DishListingPage: FC<EmptyProps> = () => {
   } = useFetchDishesApi();
 
   const errorOccurred = error != null;
-
-  useEffect(() => {
+  const fetchDishesWithOptions = useCallback(() => {
     fetchDishes({
       include_categories: false,
       order_by: 'title',
       order_direction: 'asc'
     });
+  }, []);
+
+  const { fetchData: deleteDish } = useDeleteDishApi({
+    onSuccess: fetchDishesWithOptions
+  });
+
+  const getItemActions = useCallback(
+    (dishId: string): MoreMenuItems => ({
+      Delete: () => {
+        if (window.confirm('Delete this dish?')) deleteDish(dishId);
+      }
+    }),
+    []
+  );
+
+  useEffect(() => {
+    fetchDishesWithOptions();
   }, []);
 
   return (
@@ -50,6 +67,7 @@ const DishListingPage: FC<EmptyProps> = () => {
                 <DishList
                   dishes={dishes}
                   emptyText={isFetchingDishes ? `We're getting the dishes...` : undefined}
+                  getItemActions={getItemActions}
                 />
               </Grid>
               <Grid item xs={12} sm={4}>

@@ -2,10 +2,10 @@ import React, { FC, useMemo, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button, CardContent, Typography } from '@material-ui/core';
 import moment from 'moment';
+import isEmpty from 'lodash/fp/isEmpty';
 
 import { Dish } from 'models';
 import { getDishImages } from 'utils';
-import { useDeleteDishApi, useFetchDishesApi } from 'hooks';
 import MoreMenu, { MoreMenuItems } from 'components/MoreMenu';
 
 import { DEFAULT_IMAGE_URL } from './constants';
@@ -19,22 +19,13 @@ import {
 
 interface DishItemProps {
   dish: Dish;
-  noActions?: boolean;
+  itemActions?: MoreMenuItems;
 }
 
-const DishItem: FC<DishItemProps> = ({ dish, noActions = false }) => {
+const DishItem: FC<DishItemProps> = ({ dish, itemActions = {} }) => {
   const history = useHistory();
   const [timeHovered, setTimeHovered] = useState<boolean>(false);
-  const { fetchData: fetchDishes } = useFetchDishesApi();
-  const { loading: isDeletingDish, fetchData: deleteDish } = useDeleteDishApi({
-    onSuccess: () => {
-      fetchDishes({
-        include_categories: false,
-        order_by: 'title',
-        order_direction: 'asc'
-      });
-    }
-  });
+  const hasItemActions = !isEmpty(itemActions);
 
   const dishImage = useMemo(
     () => getDishImages(dish).dishImage || DEFAULT_IMAGE_URL,
@@ -44,15 +35,6 @@ const DishItem: FC<DishItemProps> = ({ dish, noActions = false }) => {
   const creationDateTime = useMemo(
     () => moment(dish.attributes.createdAt).format('MMM D, YYYY h:mm a'),
     [dish.attributes.createdAt]
-  );
-
-  const menuItems = useMemo<MoreMenuItems>(
-    () => ({
-      Delete: () => {
-        if (confirm('Delete this dish?')) deleteDish(dish.id);
-      }
-    }),
-    [dish.id]
   );
 
   return (
@@ -76,9 +58,9 @@ const DishItem: FC<DishItemProps> = ({ dish, noActions = false }) => {
             : moment(dish.attributes.createdAt).fromNow()}
         </Typography>
       </TimeOverlay>
-      {!noActions && (
+      {hasItemActions && (
         <MoreButtonOverlay>
-          <MoreMenu items={menuItems} color="white" />
+          <MoreMenu color="white" items={itemActions} />
         </MoreButtonOverlay>
       )}
       <CardContent>
@@ -93,7 +75,6 @@ const DishItem: FC<DishItemProps> = ({ dish, noActions = false }) => {
         <Button
           size="small"
           color="primary"
-          disabled={isDeletingDish}
           onClick={() => history.push(`/dishes/${dish.id}`)}
         >
           View details
