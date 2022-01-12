@@ -1,10 +1,12 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useCallback, useEffect } from 'react';
 import styled from 'styled-components';
 import { Button, Container, Grid, Typography } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 
-import { useGetCategoryApi, useUpdateCategoryApi } from 'hooks';
+import { RawCategory } from 'models';
 import { RouterIdPageProps } from 'utils';
+import { useGetCategoryApi, useUpdateCategoryApi } from 'hooks';
+import { MoreMenuItems } from 'components/MoreMenu';
 import Progress from 'components/Progress';
 import CategoryAssignmentList from 'components/DishList';
 import AlbumSlider from 'components/AlbumSlider';
@@ -33,12 +35,34 @@ const CategoryPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
 
   const errorOccurred = error != null;
   const dataIsReady = category != null;
-
   const fetchCategoryWithOptions =
     () => fetchCategory(params.id, { include_dishes: true });
 
   const { fetchData: updateCategory, loading: isUpdatingCategory } =
     useUpdateCategoryApi({ onSuccess: fetchCategoryWithOptions });
+
+  const getItemActions = useCallback(
+    (dishId: string): MoreMenuItems => ({
+      'Unassign from category': () => {
+        if (!dataIsReady || !window.confirm('Unassign this dish?')) return;
+
+        const currentDishIds =
+          category.relationships?.dishes.data.map(item => item.id) ?? [];
+
+        const dataToSubmit: RawCategory = {
+          attributes: {
+            name: category.attributes.name,
+            title: category.attributes.title,
+            description: category.attributes.description,
+            images: category.attributes.images,
+            dish_ids: currentDishIds.filter(item => item !== dishId)
+          }
+        };
+        updateCategory(category.id, dataToSubmit);
+      }
+    }),
+    [category]
+  );
 
   useEffect(() => {
     fetchCategoryWithOptions();
@@ -81,9 +105,9 @@ const CategoryPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
                 </Button>
               </FlexWrapper>
               <CategoryAssignmentList
-                noItemActions
                 dishes={assignedDishes}
                 emptyText="There isn't any dish yet. Would you like to add one?"
+                getItemActions={getItemActions}
               />
             </Grid>
           </Grid>
