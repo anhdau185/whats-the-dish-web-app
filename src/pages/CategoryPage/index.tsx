@@ -1,5 +1,7 @@
 import React, { FC, useEffect } from 'react';
-import { Container, Grid, Typography } from '@material-ui/core';
+import styled from 'styled-components';
+import { Button, Container, Grid, Typography } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
 
 import { useGetCategoryApi, useUpdateCategoryApi } from 'hooks';
 import { RouterIdPageProps } from 'utils';
@@ -10,10 +12,20 @@ import AlbumEditor from 'components/AlbumEditor';
 import EditableTitle from 'components/EditableTitle';
 import EditableDescription from 'components/EditableDescription';
 
+const FlexWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+
+  button {
+    margin-left: 1rem;
+  }
+`;
+
 const CategoryPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
   const {
     data: category,
-    includedData: dishes,
+    includedData: assignedDishes,
     fetchData: fetchCategory,
     loading: isFetchingCategory,
     error
@@ -55,15 +67,25 @@ const CategoryPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
               <EditableDescription data={category} updateData={updateCategory} />
               <AlbumEditor data={category} updateData={updateCategory} />
             </Grid>
-            {false && (
-              <Grid item xs={12}>
-                <CategoryAssignmentList
-                  noItemActions
-                  dishes={dishes}
-                  emptyText="No dishes added to this category yet."
-                />
-              </Grid>
-            )}
+            <Grid item xs={12} style={{ marginTop: '1rem' }}>
+              <FlexWrapper>
+                <Typography variant="h5" color="textPrimary">
+                  Dishes assigned to this category
+                </Typography>
+                <Button
+                  color="primary"
+                  variant="contained"
+                  startIcon={<AddIcon />}
+                >
+                  Assign dishes
+                </Button>
+              </FlexWrapper>
+              <CategoryAssignmentList
+                noItemActions
+                dishes={assignedDishes}
+                emptyText="There isn't any dish yet. Would you like to add one?"
+              />
+            </Grid>
           </Grid>
         )}
       </Progress>
