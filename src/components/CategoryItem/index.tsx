@@ -40,7 +40,7 @@ const CategoryItem: FC<CategoryItemProps> = ({ category, noActions = false }) =>
   });
 
   const categoryImage = useMemo(
-    () => getCategoryImages(category).categoryImage || DEFAULT_IMAGE_URL,
+    () => getCategoryImages(category).categoryImage ?? DEFAULT_IMAGE_URL,
     [category]
   );
 

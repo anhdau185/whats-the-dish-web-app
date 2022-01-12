@@ -21,7 +21,7 @@ interface EditableDescriptionProps {
 }
 
 const EditableDescription: FC<EditableDescriptionProps> = ({ data, updateData }) => {
-  const originalValue = data.attributes.description || '';
+  const originalValue = data.attributes.description ?? '';
   const [displayValue, setDisplayValue] = useState<string>(originalValue);
   const [editMode, setEditMode] = useState<boolean>(false);
 

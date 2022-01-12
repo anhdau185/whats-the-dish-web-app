@@ -28,12 +28,12 @@ const useGetCategoryApi =
     const [error, setError] = useState<any>(null);
     const [loading, setLoading] = useState<boolean>(false);
 
-    const onSuccess = options?.onSuccess || noop;
-    const onFailure = options?.onFailure || noop;
-    const onCompletion = options?.onCompletion || noop;
+    const onSuccess = options?.onSuccess ?? noop;
+    const onFailure = options?.onFailure ?? noop;
+    const onCompletion = options?.onCompletion ?? noop;
 
-    const data = response?.data || null;
-    const includedData = response?.included || [];
+    const data = response?.data ?? null;
+    const includedData = response?.included ?? [];
 
     const fetchData = useCallback(
       async (id: string, params?: GetCategoryApiOptions) => {
@@ -45,7 +45,7 @@ const useGetCategoryApi =
           setResponse(response);
           onSuccess(response);
         } catch (error: any) {
-          const safeError = error || {};
+          const safeError = error ?? {};
 
           setError(safeError);
           onFailure(safeError);

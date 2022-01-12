@@ -28,7 +28,7 @@ const DishItem: FC<DishItemProps> = ({ dish, itemActions = {} }) => {
   const hasItemActions = !isEmpty(itemActions);
 
   const dishImage = useMemo(
-    () => getDishImages(dish).dishImage || DEFAULT_IMAGE_URL,
+    () => getDishImages(dish).dishImage ?? DEFAULT_IMAGE_URL,
     [dish]
   );
 

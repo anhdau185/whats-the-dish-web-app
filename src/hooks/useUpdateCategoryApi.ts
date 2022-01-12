@@ -23,9 +23,9 @@ const useUpdateCategoryApi =
     const [error, setError] = useState<any>(null);
     const [loading, setLoading] = useState<boolean>(false);
 
-    const onSuccess = options?.onSuccess || noop;
-    const onFailure = options?.onFailure || noop;
-    const onCompletion = options?.onCompletion || noop;
+    const onSuccess = options?.onSuccess ?? noop;
+    const onFailure = options?.onFailure ?? noop;
+    const onCompletion = options?.onCompletion ?? noop;
 
     const fetchData = useCallback(async (id: string, category: RawCategory) => {
       setLoading(true);
@@ -36,7 +36,7 @@ const useUpdateCategoryApi =
         setData(data);
         onSuccess(data);
       } catch (error: any) {
-        const safeError = error || {};
+        const safeError = error ?? {};
 
         setError(safeError);
         onFailure(safeError);
