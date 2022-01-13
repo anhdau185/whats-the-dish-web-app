@@ -6,9 +6,11 @@ export interface SetAppLoadingAction extends Action<'SET_APP_LOADING'> {
   payload: boolean;
 }
 
-const setAppLoading = (appLoading: boolean): SetAppLoadingAction => ({
+type SetAppLoadingActionCreator = (appLoading: boolean) => SetAppLoadingAction;
+
+const setAppLoadingAC: SetAppLoadingActionCreator = appLoading => ({
   type: SET_APP_LOADING,
   payload: appLoading
 });
 
-export default setAppLoading;
+export default setAppLoadingAC;
