@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect } from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Button, Container, Grid, Typography } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
@@ -13,6 +13,7 @@ import AlbumSlider from 'components/AlbumSlider';
 import AlbumEditor from 'components/AlbumEditor';
 import EditableTitle from 'components/EditableTitle';
 import EditableDescription from 'components/EditableDescription';
+import CategoryAssignmentDialog from 'components/CategoryAssignmentDialog';
 
 const FlexWrapper = styled.div`
   display: flex;
@@ -25,6 +26,7 @@ const FlexWrapper = styled.div`
 `;
 
 const CategoryPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
+  const [open, setOpen] = useState<boolean>(false);
   const {
     data: category,
     includedData: assignedDishes,
@@ -100,9 +102,16 @@ const CategoryPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
                   color="primary"
                   variant="contained"
                   startIcon={<AddIcon />}
+                  onClick={() => setOpen(true)}
                 >
                   Assign dishes
                 </Button>
+                <CategoryAssignmentDialog
+                  open={open}
+                  closeDialog={() => setOpen(false)}
+                  data={category}
+                  updateData={updateCategory}
+                />
               </FlexWrapper>
               <CategoryAssignmentList
                 dishes={assignedDishes}
