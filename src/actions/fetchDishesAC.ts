@@ -8,6 +8,7 @@ import { GlobalState } from 'reducers';
 import { FetchDishesApiCall } from 'reducers/fetchDishesApiCallReducer';
 import { apiCallSelector } from 'reducers/state/fetchDishesApiCall';
 
+import setAppLoadingAC, { SetAppLoadingAction } from './setAppLoadingAC';
 import { API_CALL_FETCH_DISHES } from './types';
 
 export interface ApiCallFetchDishesAction extends Action<'API_CALL_FETCH_DISHES'> {
@@ -17,7 +18,7 @@ export interface ApiCallFetchDishesAction extends Action<'API_CALL_FETCH_DISHES'
 interface FetchDishesACOptions extends FetchDishesApiOptions, FetchDishesHookOptions { }
 
 type FetchDishesActionCreator = (options?: FetchDishesACOptions) => (
-  dispatch: Dispatch<ApiCallFetchDishesAction>,
+  dispatch: Dispatch<ApiCallFetchDishesAction | SetAppLoadingAction>,
   getState: () => Readonly<GlobalState>
 ) => Promise<void>;
 
@@ -31,6 +32,7 @@ const fetchDishesAC: FetchDishesActionCreator =
       type: API_CALL_FETCH_DISHES,
       payload: { ...apiCallSelector(getState()), loading: true }
     });
+    dispatch(setAppLoadingAC(true));
 
     try {
       const { data: apiResponse } = await api.fetchDishes({
@@ -61,6 +63,7 @@ const fetchDishesAC: FetchDishesActionCreator =
         type: API_CALL_FETCH_DISHES,
         payload: { ...apiCallSelector(getState()), loading: false }
       });
+      dispatch(setAppLoadingAC(false));
       onCompletion();
     }
   };

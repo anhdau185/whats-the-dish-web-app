@@ -8,7 +8,7 @@ import {
   SingleDishApiResponse
 } from 'api/dishes';
 
-import { ApiHookOptions } from '.';
+import { ApiHookOptions, useAppLoading } from '.';
 
 interface GetDishHookOptions extends ApiHookOptions {
   onSuccess?: (data: SingleDishApiResponse) => void;
@@ -27,6 +27,7 @@ const useGetDishApi =
     const [response, setResponse] = useState<SingleDishApiResponse | null>(null);
     const [error, setError] = useState<any>(null);
     const [loading, setLoading] = useState<boolean>(false);
+    const { setLoading: setAppLoading } = useAppLoading();
 
     const onSuccess = options?.onSuccess ?? noop;
     const onFailure = options?.onFailure ?? noop;
@@ -38,6 +39,7 @@ const useGetDishApi =
     const fetchData = useCallback(
       async (id: string, params?: GetDishApiOptions) => {
         setLoading(true);
+        setAppLoading(true);
 
         try {
           const { data: response } = await api.getDish(id, params);
@@ -51,6 +53,7 @@ const useGetDishApi =
           onFailure(safeError);
         } finally {
           setLoading(false);
+          setAppLoading(false);
           onCompletion();
         }
       },

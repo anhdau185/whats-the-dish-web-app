@@ -8,7 +8,7 @@ import {
   SingleCategoryApiResponse
 } from 'api/categories';
 
-import { ApiHookOptions } from '.';
+import { ApiHookOptions, useAppLoading } from '.';
 
 interface GetCategoryHookOptions extends ApiHookOptions {
   onSuccess?: (data: SingleCategoryApiResponse) => void;
@@ -27,6 +27,7 @@ const useGetCategoryApi =
     const [response, setResponse] = useState<SingleCategoryApiResponse | null>(null);
     const [error, setError] = useState<any>(null);
     const [loading, setLoading] = useState<boolean>(false);
+    const { setLoading: setAppLoading } = useAppLoading();
 
     const onSuccess = options?.onSuccess ?? noop;
     const onFailure = options?.onFailure ?? noop;
@@ -38,6 +39,7 @@ const useGetCategoryApi =
     const fetchData = useCallback(
       async (id: string, params?: GetCategoryApiOptions) => {
         setLoading(true);
+        setAppLoading(true);
 
         try {
           const { data: response } = await api.getCategory(id, params);
@@ -51,6 +53,7 @@ const useGetCategoryApi =
           onFailure(safeError);
         } finally {
           setLoading(false);
+          setAppLoading(false);
           onCompletion();
         }
       },
