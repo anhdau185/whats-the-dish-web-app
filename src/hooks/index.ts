@@ -8,6 +8,7 @@ import useUpdateCategoryApi from './useUpdateCategoryApi';
 import useUpdateDishApi from './useUpdateDishApi';
 import useDeleteCategoryApi from './useDeleteCategoryApi';
 import useDeleteDishApi from './useDeleteDishApi';
+import useAppLoading from './useAppLoading';
 
 export interface ApiHookOptions {
   onSuccess?: (data?: any) => void;
@@ -25,5 +26,6 @@ export {
   useUpdateCategoryApi,
   useUpdateDishApi,
   useDeleteCategoryApi,
-  useDeleteDishApi
+  useDeleteDishApi,
+  useAppLoading
 };
