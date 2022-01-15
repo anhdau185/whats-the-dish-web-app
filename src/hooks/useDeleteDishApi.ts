@@ -5,18 +5,18 @@ import * as api from 'api';
 
 import { ApiHookOptions } from '.';
 
-interface DeleteDishApiHookOptions extends ApiHookOptions {
+interface DeleteDishHookOptions extends ApiHookOptions {
   onSuccess?: () => void;
 }
 
-interface DeleteDishApiHookResult {
+interface DeleteDishHookResult {
   error: any;
   loading: boolean;
   fetchData: (id: string) => Promise<void>;
 }
 
 const useDeleteDishApi =
-  (options?: DeleteDishApiHookOptions): DeleteDishApiHookResult => {
+  (options?: DeleteDishHookOptions): DeleteDishHookResult => {
     const [error, setError] = useState<any>(null);
     const [loading, setLoading] = useState<boolean>(false);
 

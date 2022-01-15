@@ -6,11 +6,11 @@ import { Category, NullableCategory, RawCategory } from 'models';
 
 import { ApiHookOptions } from '.';
 
-interface UpdateCategoryApiHookOptions extends ApiHookOptions {
+interface UpdateCategoryHookOptions extends ApiHookOptions {
   onSuccess?: (data: Category) => void;
 }
 
-interface UpdateCategoryApiHookResult {
+interface UpdateCategoryHookResult {
   data: NullableCategory;
   error: any;
   loading: boolean;
@@ -18,7 +18,7 @@ interface UpdateCategoryApiHookResult {
 }
 
 const useUpdateCategoryApi =
-  (options?: UpdateCategoryApiHookOptions): UpdateCategoryApiHookResult => {
+  (options?: UpdateCategoryHookOptions): UpdateCategoryHookResult => {
     const [data, setData] = useState<NullableCategory>(null);
     const [error, setError] = useState<any>(null);
     const [loading, setLoading] = useState<boolean>(false);
