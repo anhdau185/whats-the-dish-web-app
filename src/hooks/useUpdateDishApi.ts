@@ -6,11 +6,11 @@ import { Dish, NullableDish, RawDish } from 'models';
 
 import { ApiHookOptions } from '.';
 
-interface UpdateDishApiHookOptions extends ApiHookOptions {
+interface UpdateDishHookOptions extends ApiHookOptions {
   onSuccess?: (data: Dish) => void;
 }
 
-interface UpdateDishApiHookResult {
+interface UpdateDishHookResult {
   data: NullableDish;
   error: any;
   loading: boolean;
@@ -18,7 +18,7 @@ interface UpdateDishApiHookResult {
 }
 
 const useUpdateDishApi =
-  (options?: UpdateDishApiHookOptions): UpdateDishApiHookResult => {
+  (options?: UpdateDishHookOptions): UpdateDishHookResult => {
     const [data, setData] = useState<NullableDish>(null);
     const [error, setError] = useState<any>(null);
     const [loading, setLoading] = useState<boolean>(false);

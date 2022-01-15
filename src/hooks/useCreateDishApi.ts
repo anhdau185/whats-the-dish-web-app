@@ -6,11 +6,11 @@ import { Dish, NullableDish, RawDish } from 'models';
 
 import { ApiHookOptions } from '.';
 
-interface CreateDishApiHookOptions extends ApiHookOptions {
+interface CreateDishHookOptions extends ApiHookOptions {
   onSuccess?: (data: Dish) => void;
 }
 
-interface CreateDishApiHookResult {
+interface CreateDishHookResult {
   data: NullableDish;
   error: any;
   loading: boolean;
@@ -18,7 +18,7 @@ interface CreateDishApiHookResult {
 }
 
 const useCreateDishApi =
-  (options?: CreateDishApiHookOptions): CreateDishApiHookResult => {
+  (options?: CreateDishHookOptions): CreateDishHookResult => {
     const [data, setData] = useState<NullableDish>(null);
     const [error, setError] = useState<any>(null);
     const [loading, setLoading] = useState<boolean>(false);

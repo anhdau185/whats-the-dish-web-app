@@ -10,7 +10,7 @@ import {
 
 import { ApiHookOptions } from '.';
 
-interface GetCategoryApiHookOptions extends ApiHookOptions {
+interface GetCategoryHookOptions extends ApiHookOptions {
   onSuccess?: (data: SingleCategoryApiResponse) => void;
 }
 
@@ -23,7 +23,7 @@ interface GetCategoryHookResult {
 }
 
 const useGetCategoryApi =
-  (options?: GetCategoryApiHookOptions): GetCategoryHookResult => {
+  (options?: GetCategoryHookOptions): GetCategoryHookResult => {
     const [response, setResponse] = useState<SingleCategoryApiResponse | null>(null);
     const [error, setError] = useState<any>(null);
     const [loading, setLoading] = useState<boolean>(false);

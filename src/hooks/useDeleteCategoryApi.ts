@@ -5,18 +5,18 @@ import * as api from 'api';
 
 import { ApiHookOptions } from '.';
 
-interface DeleteCategoryApiHookOptions extends ApiHookOptions {
+interface DeleteCategoryHookOptions extends ApiHookOptions {
   onSuccess?: () => void;
 }
 
-interface DeleteCategoryApiHookResult {
+interface DeleteCategoryHookResult {
   error: any;
   loading: boolean;
   fetchData: (id: string) => Promise<void>;
 }
 
 const useDeleteCategoryApi =
-  (options?: DeleteCategoryApiHookOptions): DeleteCategoryApiHookResult => {
+  (options?: DeleteCategoryHookOptions): DeleteCategoryHookResult => {
     const [error, setError] = useState<any>(null);
     const [loading, setLoading] = useState<boolean>(false);
 

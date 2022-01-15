@@ -10,7 +10,7 @@ import {
 
 import { ApiHookOptions } from '.';
 
-interface GetDishApiHookOptions extends ApiHookOptions {
+interface GetDishHookOptions extends ApiHookOptions {
   onSuccess?: (data: SingleDishApiResponse) => void;
 }
 
@@ -23,7 +23,7 @@ interface GetDishHookResult {
 }
 
 const useGetDishApi =
-  (options?: GetDishApiHookOptions): GetDishHookResult => {
+  (options?: GetDishHookOptions): GetDishHookResult => {
     const [response, setResponse] = useState<SingleDishApiResponse | null>(null);
     const [error, setError] = useState<any>(null);
     const [loading, setLoading] = useState<boolean>(false);
