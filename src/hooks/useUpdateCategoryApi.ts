@@ -4,7 +4,7 @@ import noop from 'lodash/fp/noop';
 import * as api from 'api';
 import { Category, NullableCategory, RawCategory } from 'models';
 
-import { ApiHookOptions } from '.';
+import { ApiHookOptions, useAppLoading } from '.';
 
 interface UpdateCategoryHookOptions extends ApiHookOptions {
   onSuccess?: (data: Category) => void;
@@ -22,6 +22,7 @@ const useUpdateCategoryApi =
     const [data, setData] = useState<NullableCategory>(null);
     const [error, setError] = useState<any>(null);
     const [loading, setLoading] = useState<boolean>(false);
+    const { setLoading: setAppLoading } = useAppLoading();
 
     const onSuccess = options?.onSuccess ?? noop;
     const onFailure = options?.onFailure ?? noop;
@@ -29,6 +30,7 @@ const useUpdateCategoryApi =
 
     const fetchData = useCallback(async (id: string, category: RawCategory) => {
       setLoading(true);
+      setAppLoading(true);
 
       try {
         const { data: { data } } = await api.updateCategory(id, category);
@@ -42,6 +44,7 @@ const useUpdateCategoryApi =
         onFailure(safeError);
       } finally {
         setLoading(false);
+        setAppLoading(false);
         onCompletion();
       }
     }, []);

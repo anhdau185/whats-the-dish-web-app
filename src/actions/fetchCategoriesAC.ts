@@ -8,6 +8,7 @@ import { GlobalState } from 'reducers';
 import { FetchCategoriesApiCall } from 'reducers/fetchCategoriesApiCallReducer';
 import { apiCallSelector } from 'reducers/state/fetchCategoriesApiCall';
 
+import setAppLoadingAC, { SetAppLoadingAction } from './setAppLoadingAC';
 import { API_CALL_FETCH_CATEGORIES } from './types';
 
 export interface ApiCallFetchCategoriesAction extends Action<'API_CALL_FETCH_CATEGORIES'> {
@@ -17,7 +18,7 @@ export interface ApiCallFetchCategoriesAction extends Action<'API_CALL_FETCH_CAT
 interface FetchCategoriesACOptions extends FetchCategoriesApiOptions, FetchCategoriesHookOptions { }
 
 type FetchCategoriesActionCreator = (options?: FetchCategoriesACOptions) => (
-  dispatch: Dispatch<ApiCallFetchCategoriesAction>,
+  dispatch: Dispatch<ApiCallFetchCategoriesAction | SetAppLoadingAction>,
   getState: () => Readonly<GlobalState>
 ) => Promise<void>;
 
@@ -31,6 +32,7 @@ const fetchCategoriesAC: FetchCategoriesActionCreator =
       type: API_CALL_FETCH_CATEGORIES,
       payload: { ...apiCallSelector(getState()), loading: true }
     });
+    dispatch(setAppLoadingAC(true));
 
     try {
       const { data: apiResponse } = await api.fetchCategories({
@@ -61,6 +63,7 @@ const fetchCategoriesAC: FetchCategoriesActionCreator =
         type: API_CALL_FETCH_CATEGORIES,
         payload: { ...apiCallSelector(getState()), loading: false }
       });
+      dispatch(setAppLoadingAC(false));
       onCompletion();
     }
   };

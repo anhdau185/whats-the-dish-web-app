@@ -4,7 +4,7 @@ import noop from 'lodash/fp/noop';
 import * as api from 'api';
 import { Dish, NullableDish, RawDish } from 'models';
 
-import { ApiHookOptions } from '.';
+import { ApiHookOptions, useAppLoading } from '.';
 
 interface CreateDishHookOptions extends ApiHookOptions {
   onSuccess?: (data: Dish) => void;
@@ -22,6 +22,7 @@ const useCreateDishApi =
     const [data, setData] = useState<NullableDish>(null);
     const [error, setError] = useState<any>(null);
     const [loading, setLoading] = useState<boolean>(false);
+    const { setLoading: setAppLoading } = useAppLoading();
 
     const onSuccess = options?.onSuccess ?? noop;
     const onFailure = options?.onFailure ?? noop;
@@ -29,6 +30,7 @@ const useCreateDishApi =
 
     const fetchData = useCallback(async (dish: RawDish) => {
       setLoading(true);
+      setAppLoading(true);
 
       try {
         const {
@@ -44,6 +46,7 @@ const useCreateDishApi =
         onFailure(safeError);
       } finally {
         setLoading(false);
+        setAppLoading(false);
         onCompletion();
       }
     }, []);
