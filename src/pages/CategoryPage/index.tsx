@@ -17,7 +17,7 @@ import EditableDescription from 'components/EditableDescription';
 const FlexWrapper = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 
   button {
     margin-left: 1rem;
@@ -91,7 +91,7 @@ const CategoryPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
               <EditableDescription data={category} updateData={updateCategory} />
               <AlbumEditor data={category} updateData={updateCategory} />
             </Grid>
-            <Grid item xs={12} style={{ marginTop: '1rem' }}>
+            <Grid item xs={12} style={{ margin: '1.5rem 0' }}>
               <FlexWrapper>
                 <Typography variant="h5" color="textPrimary">
                   Dishes assigned to this category
