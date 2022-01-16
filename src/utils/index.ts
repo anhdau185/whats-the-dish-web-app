@@ -1,3 +1,4 @@
+import { GridSize } from '@material-ui/core';
 import isEmpty from 'lodash/fp/isEmpty';
 
 import { Category, Dish } from 'models';
@@ -10,6 +11,14 @@ export interface RouterIdPageProps {
   match: {
     params: { id: string }
   }
+}
+
+export interface BreakpointSet {
+  xs?: GridSize;
+  sm?: GridSize;
+  md?: GridSize;
+  lg?: GridSize;
+  xl?: GridSize;
 }
 
 interface CategoryImages {

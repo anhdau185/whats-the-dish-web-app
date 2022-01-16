@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import isEmpty from 'lodash/fp/isEmpty';
 
 import { Dish } from 'models';
+import { BreakpointSet } from 'utils';
 import { MoreMenuItems } from 'components/MoreMenu';
 import DishItem from 'components/DishItem';
 
@@ -16,12 +17,14 @@ interface DishListProps {
   dishes: Dish[];
   emptyText?: string;
   getItemActions?: (dishId: string) => MoreMenuItems
+  itemBreakpoints?: BreakpointSet
 }
 
 const DishList: FC<DishListProps> = ({
   dishes,
   emptyText,
-  getItemActions
+  getItemActions,
+  itemBreakpoints
 }) => {
   const hasItemActions = getItemActions != null;
 
@@ -33,7 +36,7 @@ const DishList: FC<DishListProps> = ({
     ) : (
       <StyledGrid container spacing={3} alignItems="stretch">
         {dishes.map(dish => (
-          <Grid key={`dish-${dish.id}`} item xs={12} sm={6} md={3}>
+          <Grid item key={`dish-${dish.id}`} {...itemBreakpoints}>
             <DishItem
               dish={dish}
               itemActions={hasItemActions ? getItemActions(dish.id) : undefined}
