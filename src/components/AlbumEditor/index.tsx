@@ -1,5 +1,10 @@
 import React, { FC, useCallback, useState } from 'react';
-import { AccordionSummary, InputAdornment, Typography } from '@material-ui/core';
+import {
+  AccordionSummary,
+  InputAdornment,
+  Typography,
+  IconButton
+} from '@material-ui/core';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import Check from '@material-ui/icons/Check';
 import Close from '@material-ui/icons/Close';
@@ -32,14 +37,6 @@ const generateDisplayAlbum = (actualAlbum: string[]): string[] =>
   Array<string>(MAX_IMAGES_ALLOWED).fill('').map(
     (emptyValue, index) => actualAlbum[index] || emptyValue
   );
-
-const textFieldLeftIcon = {
-  startAdornment: (
-    <InputAdornment position="start">
-      <Photo />
-    </InputAdornment>
-  )
-};
 
 const AlbumEditor: FC<AlbumEditorProps> = ({ data, updateData }) => {
   const actualAlbum = data.attributes.images;
@@ -110,7 +107,29 @@ const AlbumEditor: FC<AlbumEditorProps> = ({ data, updateData }) => {
               disabled={disabled}
               label={isFirst ? 'Primary image' : undefined}
               placeholder={placeholder}
-              InputProps={textFieldLeftIcon}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Photo />
+                  </InputAdornment>
+                ),
+                endAdornment: (
+                  <InputAdornment position="end" style={{ marginLeft: 4 }}>
+                    <IconButton
+                      style={{ padding: 2 }}
+                      disabled={disabled}
+                      onClick={() => {
+                        const newDisplayAlbum = displayAlbum.map(
+                          (val, idx) => idx === index ? '' : val
+                        );
+                        setDisplayAlbum(newDisplayAlbum);
+                      }}
+                    >
+                      <Close />
+                    </IconButton>
+                  </InputAdornment>
+                )
+              }}
               value={value}
               onChange={onChange(index)}
             />
