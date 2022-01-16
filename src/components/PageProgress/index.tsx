@@ -7,11 +7,11 @@ const StyledProgress = styled(LinearProgress)`
   margin-bottom: 1rem;
 `;
 
-const Progress: FC<{ loading: boolean }> = ({ loading, children }) => (
+const PageProgress: FC<{ loading: boolean }> = ({ loading, children }) => (
   <>
     <StyledProgress style={{ visibility: loading ? 'visible' : 'hidden' }} />
     {children}
   </>
 );
 
-export default Progress;
+export default PageProgress;
