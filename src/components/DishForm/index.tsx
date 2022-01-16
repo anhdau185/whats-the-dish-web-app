@@ -80,7 +80,9 @@ const DishForm: FC<EmptyProps> = () => {
         title: formData.title || formData.name,
         description: formData.description,
         images: formData.imageUrl ? [formData.imageUrl] : [],
-        places: formData.places ? formData.places.split(',') : []
+        places: formData.places
+          ? formData.places.split(',').map(item => item.trim())
+          : []
       }
     };
     createDish(dataToSubmit);
