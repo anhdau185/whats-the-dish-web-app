@@ -3,7 +3,6 @@ import { Container, Grow, Grid, Typography } from '@material-ui/core';
 
 import { EmptyProps } from 'utils';
 import { useFetchCategoriesApi } from 'hooks';
-import Progress from 'components/Progress';
 import CategoryList from 'components/CategoryList';
 import CategoryForm from 'components/CategoryForm';
 
@@ -27,38 +26,36 @@ const CategoryListingPage: FC<EmptyProps> = () => {
 
   return (
     <Container maxWidth="lg">
-      <Progress loading={isFetchingCategories}>
-        <Grow in>
-          <Container>
-            <Grid
-              container
-              justifyContent="space-between"
-              alignItems="stretch"
-              spacing={3}
-            >
-              <Grid item xs={12} sm={7}>
-                {errorOccurred && (
-                  <Typography
-                    variant="h5"
-                    color="textSecondary"
-                    style={{ marginBottom: '0.5em' }}
-                  >
-                    An error occurred while fetching the categories
-                    {error?.message ? ` (${error?.message})` : ''}.
-                  </Typography>
-                )}
-                <CategoryList
-                  categories={categories}
-                  emptyText={isFetchingCategories ? `We're getting the categories...` : undefined}
-                />
-              </Grid>
-              <Grid item xs={12} sm={4}>
-                <CategoryForm />
-              </Grid>
+      <Grow in>
+        <Container>
+          <Grid
+            container
+            justifyContent="space-between"
+            alignItems="stretch"
+            spacing={3}
+          >
+            <Grid item xs={12} sm={7}>
+              {errorOccurred && (
+                <Typography
+                  variant="h5"
+                  color="textSecondary"
+                  style={{ marginBottom: '0.5em' }}
+                >
+                  An error occurred while fetching the categories
+                  {error?.message ? ` (${error?.message})` : ''}.
+                </Typography>
+              )}
+              <CategoryList
+                categories={categories}
+                emptyText={isFetchingCategories ? `We're getting the categories...` : undefined}
+              />
             </Grid>
-          </Container>
-        </Grow>
-      </Progress>
+            <Grid item xs={12} sm={4}>
+              <CategoryForm />
+            </Grid>
+          </Grid>
+        </Container>
+      </Grow>
     </Container>
   );
 };

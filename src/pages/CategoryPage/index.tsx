@@ -7,7 +7,6 @@ import { RawCategory } from 'models';
 import { RouterIdPageProps } from 'utils';
 import { useGetCategoryApi, useUpdateCategoryApi } from 'hooks';
 import { MoreMenuItems } from 'components/MoreMenu';
-import Progress from 'components/Progress';
 import CategoryAssignmentList from 'components/DishList';
 import AlbumSlider from 'components/AlbumSlider';
 import AlbumEditor from 'components/AlbumEditor';
@@ -31,7 +30,6 @@ const CategoryPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
     data: category,
     includedData: assignedDishes,
     fetchData: fetchCategory,
-    loading: isFetchingCategory,
     error
   } = useGetCategoryApi();
 
@@ -40,7 +38,7 @@ const CategoryPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
   const fetchCategoryWithOptions =
     () => fetchCategory(params.id, { include_dishes: true });
 
-  const { fetchData: updateCategory, loading: isUpdatingCategory } =
+  const { fetchData: updateCategory } =
     useUpdateCategoryApi({ onSuccess: fetchCategoryWithOptions });
 
   const getItemActions = useCallback(
@@ -72,56 +70,54 @@ const CategoryPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
 
   return (
     <Container maxWidth="lg">
-      <Progress loading={isFetchingCategory || isUpdatingCategory}>
-        {errorOccurred && (
-          <Typography
-            variant="h5"
-            color="textSecondary"
-            style={{ marginBottom: '0.5em' }}
-          >
-            An error occurred while fetching the category
-            {error?.message ? ` (${error?.message})` : ''}.
-          </Typography>
-        )}
-        {dataIsReady && (
-          <Grid container spacing={4}>
-            <Grid item xs={6}>
-              <AlbumSlider album={category.attributes.images} />
-            </Grid>
-            <Grid item xs={6}>
-              <EditableTitle data={category} updateData={updateCategory} />
-              <EditableDescription data={category} updateData={updateCategory} />
-              <AlbumEditor data={category} updateData={updateCategory} />
-            </Grid>
-            <Grid item xs={12} style={{ margin: '1.5rem 0' }}>
-              <FlexWrapper>
-                <Typography variant="h5" color="textPrimary">
-                  Dishes assigned to this category
-                </Typography>
-                <Button
-                  color="primary"
-                  variant="contained"
-                  startIcon={<AddIcon />}
-                  onClick={() => setOpen(true)}
-                >
-                  Assign dishes
-                </Button>
-                <CategoryAssignmentDialog
-                  open={open}
-                  closeDialog={() => setOpen(false)}
-                  data={category}
-                  updateData={updateCategory}
-                />
-              </FlexWrapper>
-              <CategoryAssignmentList
-                dishes={assignedDishes}
-                emptyText="There isn't any dish yet. Would you like to add one?"
-                getItemActions={getItemActions}
-              />
-            </Grid>
+      {errorOccurred && (
+        <Typography
+          variant="h5"
+          color="textSecondary"
+          style={{ marginBottom: '0.5em' }}
+        >
+          An error occurred while fetching the category
+          {error?.message ? ` (${error?.message})` : ''}.
+        </Typography>
+      )}
+      {dataIsReady && (
+        <Grid container spacing={4}>
+          <Grid item xs={6}>
+            <AlbumSlider album={category.attributes.images} />
           </Grid>
-        )}
-      </Progress>
+          <Grid item xs={6}>
+            <EditableTitle data={category} updateData={updateCategory} />
+            <EditableDescription data={category} updateData={updateCategory} />
+            <AlbumEditor data={category} updateData={updateCategory} />
+          </Grid>
+          <Grid item xs={12} style={{ margin: '1.5rem 0' }}>
+            <FlexWrapper>
+              <Typography variant="h5" color="textPrimary">
+                Dishes assigned to this category
+              </Typography>
+              <Button
+                color="primary"
+                variant="contained"
+                startIcon={<AddIcon />}
+                onClick={() => setOpen(true)}
+              >
+                Assign dishes
+              </Button>
+              <CategoryAssignmentDialog
+                open={open}
+                closeDialog={() => setOpen(false)}
+                data={category}
+                updateData={updateCategory}
+              />
+            </FlexWrapper>
+            <CategoryAssignmentList
+              dishes={assignedDishes}
+              emptyText="There isn't any dish yet. Would you like to add one?"
+              getItemActions={getItemActions}
+            />
+          </Grid>
+        </Grid>
+      )}
     </Container>
   );
 };
