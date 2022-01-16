@@ -54,7 +54,7 @@ export const CustomTextField = styled(TextField)<CustomTextFieldProps>`
     ${({ isFirst, isLast }) => getTextFieldStyles(isFirst, isLast)}
 
     > div {
-      padding-left: 8px;
+      padding: 0 8px;
     }
   }
 `;
