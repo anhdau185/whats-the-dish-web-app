@@ -114,6 +114,7 @@ const CategoryPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
               dishes={assignedDishes}
               emptyText="There isn't any dish yet. Would you like to add one?"
               getItemActions={getItemActions}
+              itemBreakpoints={{ xs: 12, sm: 6, md: 3 }}
             />
           </Grid>
         </Grid>
