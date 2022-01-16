@@ -1,5 +1,6 @@
 import React, { FC, useEffect } from 'react';
 import { Container, Grid, Typography } from '@material-ui/core';
+import isEmpty from 'lodash/fp/isEmpty';
 
 import { useGetDishApi, useUpdateDishApi } from 'hooks';
 import { RouterIdPageProps } from 'utils';
@@ -8,6 +9,21 @@ import AlbumSlider from 'components/AlbumSlider';
 import AlbumEditor from 'components/AlbumEditor';
 import EditableTitle from 'components/EditableTitle';
 import EditableDescription from 'components/EditableDescription';
+
+const Places: FC<{ places: string[] }> = ({ places }) => (
+  <div style={{ marginBottom: '1rem' }}>
+    <Typography variant="body1" color="textSecondary" style={{ marginBottom: '0.25rem' }}>
+      Where to find:
+    </Typography>
+    <ul style={{ margin: 0 }}>
+      {places.map((item, index) => (
+        <li key={`place-${index}`}>
+          <Typography variant="body1" color="textSecondary">{item}</Typography>
+        </li>
+      ))}
+    </ul>
+  </div>
+);
 
 const DishPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
   const {
@@ -19,6 +35,7 @@ const DishPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
 
   const errorOccurred = error != null;
   const dataIsReady = dish != null;
+  const places = dish?.attributes.places ?? [];
 
   const fetchDishWithOptions =
     () => fetchDish(params.id, { include_categories: true });
@@ -50,6 +67,7 @@ const DishPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
           <Grid item xs={6}>
             <EditableTitle data={dish} updateData={updateDish} />
             <EditableDescription data={dish} updateData={updateDish} />
+            {!isEmpty(places) && <Places places={places} />}
             <AlbumEditor data={dish} updateData={updateDish} />
           </Grid>
           {false && (
