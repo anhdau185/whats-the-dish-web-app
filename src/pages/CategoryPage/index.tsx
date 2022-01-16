@@ -9,8 +9,7 @@ import AlbumSlider from 'components/AlbumSlider';
 import AlbumEditor from 'components/AlbumEditor';
 import EditableTitle from 'components/EditableTitle';
 import EditableDescription from 'components/EditableDescription';
-
-import CategoryAssignment from './CategoryAssignment';
+import CategoryAssignment from 'components/CategoryAssignment';
 
 const CategoryPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
   const {
