@@ -20,7 +20,7 @@ interface CategoryAssignmentDialogProps {
   closeDialog: () => void;
   data: Category;
   updateData:
-  (id: string, submittedData: RawCategory) => void | Promise<void>;
+    (id: string, submittedData: RawCategory) => void | Promise<void>;
 }
 
 const CategoryAssignmentDialog: FC<CategoryAssignmentDialogProps> = ({
