@@ -1,31 +1,18 @@
-import React, { FC, useCallback, useEffect, useState } from 'react';
-import styled from 'styled-components';
-import { Button, Container, Grid, Typography } from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
+import React, { FC, useCallback, useEffect } from 'react';
+import { Container, Grid, Typography } from '@material-ui/core';
 
 import { RawCategory } from 'models';
 import { RouterIdPageProps } from 'utils';
 import { useGetCategoryApi, useUpdateCategoryApi } from 'hooks';
 import { MoreMenuItems } from 'components/MoreMenu';
-import CategoryAssignmentList from 'components/DishList';
 import AlbumSlider from 'components/AlbumSlider';
 import AlbumEditor from 'components/AlbumEditor';
 import EditableTitle from 'components/EditableTitle';
 import EditableDescription from 'components/EditableDescription';
-import CategoryAssignmentDialog from 'components/CategoryAssignmentDialog';
 
-const FlexWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  margin-bottom: 1.5rem;
-
-  button {
-    margin-left: 1rem;
-  }
-`;
+import CategoryAssignment from './CategoryAssignment';
 
 const CategoryPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
-  const [open, setOpen] = useState<boolean>(false);
   const {
     data: category,
     includedData: assignedDishes,
@@ -91,30 +78,11 @@ const CategoryPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
             <AlbumEditor data={category} updateData={updateCategory} />
           </Grid>
           <Grid item xs={12} style={{ margin: '1.5rem 0' }}>
-            <FlexWrapper>
-              <Typography variant="h5" color="textPrimary">
-                Dishes assigned to this category
-              </Typography>
-              <Button
-                color="primary"
-                variant="contained"
-                startIcon={<AddIcon />}
-                onClick={() => setOpen(true)}
-              >
-                Assign dishes
-              </Button>
-              <CategoryAssignmentDialog
-                open={open}
-                closeDialog={() => setOpen(false)}
-                data={category}
-                updateData={updateCategory}
-              />
-            </FlexWrapper>
-            <CategoryAssignmentList
-              dishes={assignedDishes}
-              emptyText="There isn't any dish yet. Would you like to add one?"
+            <CategoryAssignment
+              category={category}
+              assignedDishes={assignedDishes}
+              updateCategory={updateCategory}
               getItemActions={getItemActions}
-              itemBreakpoints={{ xs: 12, sm: 6, md: 3 }}
             />
           </Grid>
         </Grid>
