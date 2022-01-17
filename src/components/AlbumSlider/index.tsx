@@ -11,8 +11,8 @@ const AlbumImage = styled.img`
   display: block;
   object-fit: cover;
   width: 100%;
-  height: 100%;
-  border-radius: 15px;
+  height: 480px;
+  border-radius: 10px;
 `;
 
 const AlbumSlider: FC<{ album: string[] }> = ({ album }) => {
@@ -24,7 +24,7 @@ const AlbumSlider: FC<{ album: string[] }> = ({ album }) => {
       navigation
       pagination={{ clickable: true, dynamicBullets: true }}
       scrollbar={{ draggable: true }}
-      style={{ borderRadius: 15 }}
+      style={{ borderRadius: 10 }}
     >
       {album.map((item, index) => (
         <SwiperSlide key={`detail-img-${index}`} style={{ textAlign: 'center' }}>
