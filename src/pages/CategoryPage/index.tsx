@@ -10,6 +10,7 @@ import AlbumEditor from 'components/AlbumEditor';
 import EditableTitle from 'components/EditableTitle';
 import EditableDescription from 'components/EditableDescription';
 import CategoryAssignment from 'components/CategoryAssignment';
+import BackToListButton from 'components/BackToListButton';
 
 const CategoryPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
   const {
@@ -57,6 +58,7 @@ const CategoryPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
 
   return (
     <Container maxWidth="lg">
+      <BackToListButton href="/categories" />
       {!dataIsReady && isFetchingCategory && (
         <Typography
           variant="h5"

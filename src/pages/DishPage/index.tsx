@@ -9,6 +9,7 @@ import AlbumSlider from 'components/AlbumSlider';
 import AlbumEditor from 'components/AlbumEditor';
 import EditableTitle from 'components/EditableTitle';
 import EditableDescription from 'components/EditableDescription';
+import BackToListButton from 'components/BackToListButton';
 
 const Places: FC<{ places: string[] }> = ({ places }) => (
   <div style={{ marginBottom: '1rem' }}>
@@ -50,6 +51,7 @@ const DishPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
 
   return (
     <Container maxWidth="lg">
+      <BackToListButton href="/dishes" />
       {!dataIsReady && isFetchingDish && (
         <Typography
           variant="h5"
