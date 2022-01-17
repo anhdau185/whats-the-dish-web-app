@@ -1,26 +1,18 @@
 import React, { FC } from 'react';
 import { Navigation, Pagination, Autoplay } from 'swiper';
-import { Swiper, SwiperSlide } from 'swiper/react/swiper-react';
-import styled from 'styled-components';
+import { SwiperSlide } from 'swiper/react/swiper-react';
 import isEmpty from 'lodash/fp/isEmpty';
 
+import { AlbumImage, CustomSwiper } from './styles';
 import { DEFAULT_IMAGE_URL } from './constants';
 
 import 'swiper/swiper.min.css';
 import 'swiper/modules/navigation/navigation.min.css';
 import 'swiper/modules/pagination/pagination.min.css';
 
-const AlbumImage = styled.img`
-  display: block;
-  object-fit: cover;
-  width: 100%;
-  height: 480px;
-  border-radius: 10px;
-`;
-
 const AlbumSlider: FC<{ album: string[] }> = ({ album }) => {
   return (
-    <Swiper
+    <CustomSwiper
       modules={[Navigation, Pagination, Autoplay]}
       spaceBetween={25}
       slidesPerView={1}
@@ -40,7 +32,7 @@ const AlbumSlider: FC<{ album: string[] }> = ({ album }) => {
           <AlbumImage src={item} />
         </SwiperSlide>
       ))}
-    </Swiper>
+    </CustomSwiper>
   );
 };
 
