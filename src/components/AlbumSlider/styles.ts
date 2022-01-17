@@ -1,6 +1,8 @@
 import { Swiper } from 'swiper/react/swiper-react';
 import styled from 'styled-components';
 
+import { APP_ACCENT_COLOR } from 'utils/constants';
+
 export const CustomSwiper = styled(Swiper)`
 .swiper-button-prev,
 .swiper-button-next {
@@ -23,7 +25,7 @@ export const CustomSwiper = styled(Swiper)`
 }
 
 .swiper-pagination-bullet.swiper-pagination-bullet-active-main {
-  background: rgb(126, 197, 254);
+  background: ${APP_ACCENT_COLOR};
 }
 `;
 

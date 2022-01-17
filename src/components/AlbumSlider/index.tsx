@@ -3,8 +3,9 @@ import { Navigation, Pagination, Autoplay } from 'swiper';
 import { SwiperSlide } from 'swiper/react/swiper-react';
 import isEmpty from 'lodash/fp/isEmpty';
 
+import { DEFAULT_IMAGE_URL } from 'utils/constants';
+
 import { AlbumImage, CustomSwiper } from './styles';
-import { DEFAULT_IMAGE_URL } from './constants';
 
 import 'swiper/swiper.min.css';
 import 'swiper/modules/navigation/navigation.min.css';

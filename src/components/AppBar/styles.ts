@@ -1,6 +1,8 @@
 import { AppBar, Typography } from '@material-ui/core';
 import styled from 'styled-components';
 
+import { APP_ACCENT_COLOR } from 'utils/constants';
+
 export const WTDAppBar = styled(AppBar)`
   && {
     display: flex;
@@ -23,7 +25,7 @@ export const AppBarIcon = styled.img`
 
 export const AppBarHeading = styled(Typography)`
   && {
-    color: rgb(126, 197, 254);
+    color: ${APP_ACCENT_COLOR};
     font-weight: 300;
   }
 `;

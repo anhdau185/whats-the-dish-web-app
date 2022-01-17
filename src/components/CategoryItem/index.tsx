@@ -5,10 +5,10 @@ import moment from 'moment';
 
 import { Category } from 'models';
 import { getCategoryImages } from 'utils';
+import { DEFAULT_IMAGE_URL } from 'utils/constants';
 import { useDeleteCategoryApi, useFetchCategoriesApi } from 'hooks';
 import MoreMenu, { MoreMenuItems } from 'components/MoreMenu';
 
-import { DEFAULT_IMAGE_URL } from './constants';
 import {
   ImageWrapper,
   TimeOverlay,
