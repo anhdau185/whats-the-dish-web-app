@@ -15,6 +15,7 @@ const CategoryPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
   const {
     data: category,
     includedData: assignedDishes,
+    loading: isFetchingCategory,
     fetchData: fetchCategory,
     error
   } = useGetCategoryApi();
@@ -56,6 +57,15 @@ const CategoryPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
 
   return (
     <Container maxWidth="lg">
+      {!dataIsReady && isFetchingCategory && (
+        <Typography
+          variant="h5"
+          color="textSecondary"
+          style={{ marginBottom: '0.5em' }}
+        >
+          We&apos;re fetching the category...
+        </Typography>
+      )}
       {errorOccurred && (
         <Typography
           variant="h5"

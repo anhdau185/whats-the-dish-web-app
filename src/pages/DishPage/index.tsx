@@ -29,6 +29,7 @@ const DishPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
   const {
     data: dish,
     includedData: categories,
+    loading: isFetchingDish,
     fetchData: fetchDish,
     error
   } = useGetDishApi();
@@ -49,6 +50,15 @@ const DishPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
 
   return (
     <Container maxWidth="lg">
+      {!dataIsReady && isFetchingDish && (
+        <Typography
+          variant="h5"
+          color="textSecondary"
+          style={{ marginBottom: '0.5em' }}
+        >
+          We&apos;re fetching the dish...
+        </Typography>
+      )}
       {errorOccurred && (
         <Typography
           variant="h5"

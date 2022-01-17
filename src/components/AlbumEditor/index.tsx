@@ -94,7 +94,7 @@ const AlbumEditor: FC<AlbumEditorProps> = ({ data, updateData }) => {
             !isEmpty(nextValue) || (!isFirst && isEmpty(value) && isEmpty(prevValue));
 
           const placeholder = !disabled
-            ? (isFirst ? 'Enter your primary image URL' : 'Enter your next image URL')
+            ? (isFirst ? 'Enter your primary image URL' : 'Enter another image URL')
             : undefined;
 
           return (
