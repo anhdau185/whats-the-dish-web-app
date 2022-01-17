@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { APP_ACCENT_COLOR } from 'utils/constants';
+
 export const StyledWrapper = styled.div`
   padding: 5rem 0;
   text-align: center;
@@ -8,7 +10,7 @@ export const StyledWrapper = styled.div`
     margin-bottom: 1rem;
 
     span {
-      color: rgb(126, 197, 254);
+      color: ${APP_ACCENT_COLOR};
     }
   }
 

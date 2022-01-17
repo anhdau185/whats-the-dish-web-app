@@ -6,9 +6,9 @@ import isEmpty from 'lodash/fp/isEmpty';
 
 import { Dish } from 'models';
 import { getDishImages } from 'utils';
+import { DEFAULT_IMAGE_URL } from 'utils/constants';
 import MoreMenu, { MoreMenuItems } from 'components/MoreMenu';
 
-import { DEFAULT_IMAGE_URL } from './constants';
 import {
   ImageWrapper,
   MoreButtonOverlay,
