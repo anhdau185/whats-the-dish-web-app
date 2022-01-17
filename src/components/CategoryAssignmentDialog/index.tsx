@@ -87,7 +87,7 @@ const CategoryAssignmentDialog: FC<CategoryAssignmentDialogProps> = ({
               key={item.id}
               label={item.attributes.title}
               checked={includes(item.id, selectedIds)}
-              control={<Checkbox color="primary" onChange={handleChange(item.id)} />}
+              control={<Checkbox color="secondary" onChange={handleChange(item.id)} />}
             />
           ))}
         </FormGroup>

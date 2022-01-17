@@ -22,7 +22,7 @@ const AppProgress: FC<EmptyProps> = () => {
 
   return (
     <StyledProgress
-      color="secondary"
+      color="primary"
       style={{ visibility: loading ? 'visible' : 'hidden' }}
     />
   );
