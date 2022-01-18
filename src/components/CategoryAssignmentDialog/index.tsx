@@ -14,7 +14,7 @@ import {
 } from '@material-ui/core';
 
 import { Category, RawCategory } from 'models';
-import { useAppLoading, useFetchDishesApi } from 'hooks';
+import { useFetchDishesApi } from 'hooks';
 
 interface CategoryAssignmentDialogProps {
   open: boolean;
@@ -33,8 +33,8 @@ const CategoryAssignmentDialog: FC<CategoryAssignmentDialogProps> = ({
   const initialSelectedIds =
     data.relationships?.dishes.data.map(item => item.id) ?? [];
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
-  const { loading: appLoading } = useAppLoading();
-  const { data: dishes, fetchData: fetchDishes } = useFetchDishesApi();
+  const { data: dishes, loading: isFetchingDishes, fetchData: fetchDishes } =
+    useFetchDishesApi();
 
   const handleChange = useCallback(
     (targetId: string) =>
@@ -84,7 +84,7 @@ const CategoryAssignmentDialog: FC<CategoryAssignmentDialogProps> = ({
       <DialogTitle>Assign dishes to the category</DialogTitle>
       <DialogContent dividers>
         <FormGroup>
-          {isEmpty(dishes) && appLoading && (
+          {isEmpty(dishes) && isFetchingDishes && (
             <Typography variant="body1" color="textSecondary">
               Hang tight, we&apos;re fetching the dishes...
             </Typography>
