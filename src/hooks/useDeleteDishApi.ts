@@ -31,6 +31,8 @@ const useDeleteDishApi =
 
       try {
         await api.deleteDish(id);
+
+        setError(null);
         onSuccess();
       } catch (error: any) {
         const safeError = error ?? {};

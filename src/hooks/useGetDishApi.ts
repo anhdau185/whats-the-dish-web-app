@@ -45,6 +45,7 @@ const useGetDishApi =
           const { data: response } = await api.getDish(id, params);
 
           setResponse(response);
+          setError(null);
           onSuccess(response);
         } catch (error: any) {
           const safeError = error ?? {};

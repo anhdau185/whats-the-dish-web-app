@@ -45,6 +45,7 @@ const useGetCategoryApi =
           const { data: response } = await api.getCategory(id, params);
 
           setResponse(response);
+          setError(null);
           onSuccess(response);
         } catch (error: any) {
           const safeError = error ?? {};

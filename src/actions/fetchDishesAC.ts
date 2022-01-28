@@ -46,7 +46,8 @@ const fetchDishesAC: FetchDishesActionCreator =
         payload: {
           ...apiCallSelector(getState()),
           data: apiResponse.data,
-          includedData: apiResponse.included
+          includedData: apiResponse.included,
+          error: null
         }
       });
       onSuccess(apiResponse.data);

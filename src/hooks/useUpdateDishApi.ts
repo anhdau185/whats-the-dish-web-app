@@ -36,6 +36,7 @@ const useUpdateDishApi =
         const { data: { data } } = await api.updateDish(id, dish);
 
         setData(data);
+        setError(null);
         onSuccess(data);
       } catch (error: any) {
         const safeError = error ?? {};

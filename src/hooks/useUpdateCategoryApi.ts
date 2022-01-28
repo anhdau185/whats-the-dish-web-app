@@ -36,6 +36,7 @@ const useUpdateCategoryApi =
         const { data: { data } } = await api.updateCategory(id, category);
 
         setData(data);
+        setError(null);
         onSuccess(data);
       } catch (error: any) {
         const safeError = error ?? {};
