@@ -1,10 +1,11 @@
-import React, { FC, useEffect } from 'react';
-import { Container, Grow, Grid, Typography } from '@material-ui/core';
+import React, { FC, useCallback, useEffect } from 'react';
+import { Container, Grow, Grid } from '@material-ui/core';
 
 import { EmptyProps } from 'utils';
 import { useFetchCategoriesApi } from 'hooks';
 import CategoryList from 'components/CategoryList';
 import CategoryForm from 'components/CategoryForm';
+import ErrorNotice from 'components/ErrorNotice';
 
 const CategoryListingPage: FC<EmptyProps> = () => {
   const {
@@ -15,13 +16,16 @@ const CategoryListingPage: FC<EmptyProps> = () => {
   } = useFetchCategoriesApi();
 
   const errorOccurred = error != null;
-
-  useEffect(() => {
+  const fetchCategoriesWithOptions = useCallback(() => {
     fetchCategories({
       include_dishes: false,
       order_by: 'title',
       order_direction: 'asc'
     });
+  }, []);
+
+  useEffect(() => {
+    fetchCategoriesWithOptions();
   }, []);
 
   return (
@@ -36,14 +40,10 @@ const CategoryListingPage: FC<EmptyProps> = () => {
           >
             <Grid item xs={12} sm={7}>
               {errorOccurred && (
-                <Typography
-                  variant="h5"
-                  color="textSecondary"
-                  style={{ marginBottom: '0.5em' }}
-                >
+                <ErrorNotice fetchData={fetchCategoriesWithOptions}>
                   An error occurred while fetching the categories
                   {error?.message ? ` (${error?.message})` : ''}.
-                </Typography>
+                </ErrorNotice>
               )}
               <CategoryList
                 categories={categories}

@@ -1,11 +1,12 @@
 import React, { FC, useEffect, useCallback } from 'react';
-import { Container, Grow, Grid, Typography } from '@material-ui/core';
+import { Container, Grow, Grid } from '@material-ui/core';
 
 import { EmptyProps } from 'utils';
 import { useDeleteDishApi, useFetchDishesApi } from 'hooks';
 import { MoreMenuItems } from 'components/MoreMenu';
 import DishList from 'components/DishList';
 import DishForm from 'components/DishForm';
+import ErrorNotice from 'components/ErrorNotice';
 
 const DishListingPage: FC<EmptyProps> = () => {
   const {
@@ -53,14 +54,10 @@ const DishListingPage: FC<EmptyProps> = () => {
           >
             <Grid item xs={12} sm={7}>
               {errorOccurred && (
-                <Typography
-                  variant="h5"
-                  color="textSecondary"
-                  style={{ marginBottom: '0.5em' }}
-                >
+                <ErrorNotice fetchData={fetchDishesWithOptions}>
                   An error occurred while fetching the dishes
                   {error?.message ? ` (${error?.message})` : ''}.
-                </Typography>
+                </ErrorNotice>
               )}
               <DishList
                 dishes={dishes}
