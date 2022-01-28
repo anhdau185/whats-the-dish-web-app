@@ -11,6 +11,7 @@ import EditableTitle from 'components/EditableTitle';
 import EditableDescription from 'components/EditableDescription';
 import CategoryAssignment from 'components/CategoryAssignment';
 import BackToListButton from 'components/BackToListButton';
+import ErrorNotice from 'components/ErrorNotice';
 
 const CategoryPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
   const {
@@ -23,8 +24,10 @@ const CategoryPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
 
   const errorOccurred = error != null;
   const dataIsReady = category != null;
-  const fetchCategoryWithOptions =
-    () => fetchCategory(params.id, { include_dishes: true });
+  const fetchCategoryWithOptions = useCallback(
+    () => fetchCategory(params.id, { include_dishes: true }),
+    []
+  );
 
   const { fetchData: updateCategory } =
     useUpdateCategoryApi({ onSuccess: fetchCategoryWithOptions });
@@ -69,14 +72,10 @@ const CategoryPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
         </Typography>
       )}
       {errorOccurred && (
-        <Typography
-          variant="h5"
-          color="textSecondary"
-          style={{ marginBottom: '0.5em' }}
-        >
+        <ErrorNotice fetchData={fetchCategoryWithOptions}>
           An error occurred while fetching the category
           {error?.message ? ` (${error?.message})` : ''}.
-        </Typography>
+        </ErrorNotice>
       )}
       {dataIsReady && (
         <Grid container spacing={4}>

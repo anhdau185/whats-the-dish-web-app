@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useCallback, useEffect } from 'react';
 import { Container, Grid, Typography } from '@material-ui/core';
 import isEmpty from 'lodash/fp/isEmpty';
 
@@ -10,6 +10,7 @@ import AlbumEditor from 'components/AlbumEditor';
 import EditableTitle from 'components/EditableTitle';
 import EditableDescription from 'components/EditableDescription';
 import BackToListButton from 'components/BackToListButton';
+import ErrorNotice from 'components/ErrorNotice';
 
 const Places: FC<{ places: string[] }> = ({ places }) => (
   <div style={{ marginBottom: '1rem' }}>
@@ -38,9 +39,10 @@ const DishPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
   const errorOccurred = error != null;
   const dataIsReady = dish != null;
   const places = dish?.attributes.places ?? [];
-
-  const fetchDishWithOptions =
-    () => fetchDish(params.id, { include_categories: true });
+  const fetchDishWithOptions = useCallback (
+    () => fetchDish(params.id, { include_categories: true }),
+    []
+  );
 
   const { fetchData: updateDish } =
     useUpdateDishApi({ onSuccess: fetchDishWithOptions });
@@ -62,14 +64,10 @@ const DishPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
         </Typography>
       )}
       {errorOccurred && (
-        <Typography
-          variant="h5"
-          color="textSecondary"
-          style={{ marginBottom: '0.5em' }}
-        >
+        <ErrorNotice fetchData={fetchDishWithOptions}>
           An error occurred while fetching the dish
           {error?.message ? ` (${error?.message})` : ''}.
-        </Typography>
+        </ErrorNotice>
       )}
       {dataIsReady && (
         <Grid container spacing={4}>
