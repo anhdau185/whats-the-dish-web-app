@@ -38,6 +38,7 @@ const useCreateDishApi =
         } = await api.createDish(dish);
 
         setData(createdDish);
+        setError(null);
         onSuccess(createdDish);
       } catch (error: any) {
         const safeError = error ?? {};

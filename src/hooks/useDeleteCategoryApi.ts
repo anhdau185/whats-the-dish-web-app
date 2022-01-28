@@ -31,6 +31,8 @@ const useDeleteCategoryApi =
 
       try {
         await api.deleteCategory(id);
+
+        setError(null);
         onSuccess();
       } catch (error: any) {
         const safeError = error ?? {};

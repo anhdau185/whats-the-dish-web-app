@@ -38,6 +38,7 @@ const useCreateCategoryApi =
         } = await api.createCategory(category);
 
         setData(createdCategory);
+        setError(null);
         onSuccess(createdCategory);
       } catch (error: any) {
         const safeError = error ?? {};
