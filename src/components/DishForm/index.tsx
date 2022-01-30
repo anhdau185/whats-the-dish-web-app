@@ -1,5 +1,6 @@
 import React, { FC, useCallback, useState } from 'react';
 import { Button, TextField } from '@material-ui/core';
+import isEmpty from 'lodash/fp/isEmpty';
 
 import { EmptyProps } from 'utils';
 import { RawDish } from 'models';
@@ -81,7 +82,10 @@ const DishForm: FC<EmptyProps> = () => {
         description: formData.description,
         images: formData.imageUrl ? [formData.imageUrl] : [],
         places: formData.places
-          ? formData.places.split(',').map(item => item.trim())
+          ? formData.places
+            .split(',')
+            .map(item => item.trim())
+            .filter(item => !isEmpty(item))
           : []
       }
     };

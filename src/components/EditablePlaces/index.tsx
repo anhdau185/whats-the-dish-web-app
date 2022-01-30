@@ -55,7 +55,10 @@ const EditablePlaces: FC<EditablePlacesProps> = ({ places, data, updateData }) =
         description: data.attributes.description,
         images: data.attributes.images,
         places: !isEmpty(displayValue)
-          ? displayValue.split(',').map(item => item.trim())
+          ? displayValue
+            .split(',')
+            .map(item => item.trim())
+            .filter(item => !isEmpty(item))
           : []
       }
     };
