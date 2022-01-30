@@ -2,7 +2,8 @@ import { useCallback, useState } from 'react';
 import noop from 'lodash/fp/noop';
 
 import * as api from 'api';
-import { Category, NullableCategory, RawCategory } from 'models';
+import { Nullable } from 'utils';
+import { Category, RawCategory } from 'models';
 
 import { ApiHookOptions, useAppLoading } from '.';
 
@@ -11,7 +12,7 @@ interface CreateCategoryHookOptions extends ApiHookOptions {
 }
 
 interface CreateCategoryHookResult {
-  data: NullableCategory;
+  data: Nullable<Category>;
   error: any;
   loading: boolean;
   fetchData: (category: RawCategory) => Promise<void>;
@@ -19,7 +20,7 @@ interface CreateCategoryHookResult {
 
 const useCreateCategoryApi =
   (options?: CreateCategoryHookOptions): CreateCategoryHookResult => {
-    const [data, setData] = useState<NullableCategory>(null);
+    const [data, setData] = useState<Nullable<Category>>(null);
     const [error, setError] = useState<any>(null);
     const [loading, setLoading] = useState<boolean>(false);
     const { setLoading: setAppLoading } = useAppLoading();

@@ -1,7 +1,8 @@
 import { useCallback, useState } from 'react';
 import noop from 'lodash/fp/noop';
 
-import { NullableCategory, Dish } from 'models';
+import { Nullable } from 'utils';
+import { Category, Dish } from 'models';
 import * as api from 'api';
 import {
   GetCategoryApiOptions,
@@ -15,7 +16,7 @@ interface GetCategoryHookOptions extends ApiHookOptions {
 }
 
 interface GetCategoryHookResult {
-  data: NullableCategory;
+  data: Nullable<Category>;
   includedData: Dish[];
   error: any;
   loading: boolean;

@@ -1,3 +1,5 @@
+import { Nullable } from 'utils';
+
 import { Relationship } from '.';
 
 interface RawCategoryAttributes {
@@ -29,5 +31,3 @@ export interface Category {
     dishes: Relationship;
   };
 }
-
-export type NullableCategory = Category | null;

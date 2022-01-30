@@ -1,4 +1,4 @@
-import { Category, RawCategory, PartialRawCategory, NullableCategory } from './category';
+import { Category, RawCategory, PartialRawCategory } from './category';
 import { Dish, RawDish, PartialRawDish, NullableDish } from './dish';
 import { HomeItem } from './homeItem';
 
@@ -13,7 +13,6 @@ export type {
   Category,
   RawCategory,
   PartialRawCategory,
-  NullableCategory,
   Dish,
   RawDish,
   PartialRawDish,
