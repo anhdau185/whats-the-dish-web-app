@@ -3,6 +3,7 @@ import { Typography, TextField } from '@material-ui/core';
 import Edit from '@material-ui/icons/Edit';
 import Check from '@material-ui/icons/Check';
 import Close from '@material-ui/icons/Close';
+import isEmpty from 'lodash/fp/isEmpty';
 
 import { Category, Dish, RawCategory, RawDish } from 'models';
 
@@ -37,7 +38,12 @@ const EditableDescription: FC<EditableDescriptionProps> = ({ data, updateData })
 
   const saveNewValue = useCallback(() => {
     setEditMode(false);
+
     if (displayValue === originalValue) return;
+    if (isEmpty(displayValue) && !window.confirm('Empty out description?')) {
+      setDisplayValue(originalValue);
+      return;
+    }
 
     const dataToSubmit: SubmittedData = {
       attributes: {
