@@ -5,7 +5,7 @@ import Check from '@material-ui/icons/Check';
 import Close from '@material-ui/icons/Close';
 import isEmpty from 'lodash/fp/isEmpty';
 
-import { Category, Dish, RawCategory, RawDish } from 'models';
+import { Category, Dish, PartialRawCategory, PartialRawDish } from 'models';
 
 import {
   StyledIconButton,
@@ -13,12 +13,14 @@ import {
   TitleWrapper
 } from './styles';
 
-type SubmittedData = RawCategory | RawDish;
+type SubmittedData = PartialRawCategory | PartialRawDish;
 
 interface EditableTitleProps {
   data: Category | Dish;
-  updateData:
-    (id: string, submittedData: SubmittedData) => void | Promise<void>;
+  updateData: (
+    id: string,
+    submittedData: SubmittedData
+  ) => void | Promise<void>;
 }
 
 const EditableTitle: FC<EditableTitleProps> = ({ data, updateData }) => {
@@ -48,10 +50,7 @@ const EditableTitle: FC<EditableTitleProps> = ({ data, updateData }) => {
 
     const dataToSubmit: SubmittedData = {
       attributes: {
-        title: displayValue,
-        name: data.attributes.name,
-        images: data.attributes.images,
-        description: data.attributes.description
+        title: displayValue
       }
     };
     updateData(data.id, dataToSubmit);

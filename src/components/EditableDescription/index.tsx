@@ -5,7 +5,7 @@ import Check from '@material-ui/icons/Check';
 import Close from '@material-ui/icons/Close';
 import isEmpty from 'lodash/fp/isEmpty';
 
-import { Category, Dish, RawCategory, RawDish } from 'models';
+import { Category, Dish, PartialRawCategory, PartialRawDish } from 'models';
 
 import {
   EditModeWrapper,
@@ -13,12 +13,14 @@ import {
   StyledIconButton
 } from './styles';
 
-type SubmittedData = RawCategory | RawDish;
+type SubmittedData = PartialRawCategory | PartialRawDish;
 
 interface EditableDescriptionProps {
   data: Category | Dish;
-  updateData:
-    (id: string, submittedData: SubmittedData) => void | Promise<void>;
+  updateData: (
+    id: string,
+    submittedData: SubmittedData
+  ) => void | Promise<void>;
 }
 
 const EditableDescription: FC<EditableDescriptionProps> = ({ data, updateData }) => {
@@ -47,10 +49,7 @@ const EditableDescription: FC<EditableDescriptionProps> = ({ data, updateData })
 
     const dataToSubmit: SubmittedData = {
       attributes: {
-        description: displayValue,
-        name: data.attributes.name,
-        title: data.attributes.title,
-        images: data.attributes.images
+        description: displayValue
       }
     };
     updateData(data.id, dataToSubmit);

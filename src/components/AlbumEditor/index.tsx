@@ -13,7 +13,7 @@ import compact from 'lodash/fp/compact';
 import isEmpty from 'lodash/fp/isEmpty';
 import isEqual from 'lodash/fp/isEqual';
 
-import { Category, Dish, RawCategory, RawDish } from 'models';
+import { Category, Dish, PartialRawCategory, PartialRawDish } from 'models';
 
 import {
   CustomAccordion,
@@ -23,12 +23,14 @@ import {
   StyledIconButton
 } from './styles';
 
-type SubmittedData = RawCategory | RawDish;
+type SubmittedData = PartialRawCategory | PartialRawDish;
 
 interface AlbumEditorProps {
   data: Category | Dish;
-  updateData:
-    (id: string, submittedData: SubmittedData) => void | Promise<void>;
+  updateData: (
+    id: string,
+    submittedData: SubmittedData
+  ) => void | Promise<void>;
 }
 
 const MAX_IMAGES_ALLOWED = 5;
@@ -64,10 +66,7 @@ const AlbumEditor: FC<AlbumEditorProps> = ({ data, updateData }) => {
 
     const dataToSubmit: SubmittedData = {
       attributes: {
-        images: compactedDisplayAlbum,
-        title: data.attributes.title,
-        name: data.attributes.name,
-        description: data.attributes.description
+        images: compactedDisplayAlbum
       }
     };
     updateData(data.id, dataToSubmit);
