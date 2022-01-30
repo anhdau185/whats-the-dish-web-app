@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 import noop from 'lodash/fp/noop';
 
 import * as api from 'api';
-import { Dish, NullableDish, RawDish } from 'models';
+import { Dish, NullableDish, PartialRawDish } from 'models';
 
 import { ApiHookOptions, useAppLoading } from '.';
 
@@ -14,7 +14,7 @@ interface UpdateDishHookResult {
   data: NullableDish;
   error: any;
   loading: boolean;
-  fetchData: (id: string, dish: RawDish) => Promise<void>;
+  fetchData: (id: string, dish: PartialRawDish) => Promise<void>;
 }
 
 const useUpdateDishApi =
@@ -28,7 +28,7 @@ const useUpdateDishApi =
     const onFailure = options?.onFailure ?? noop;
     const onCompletion = options?.onCompletion ?? noop;
 
-    const fetchData = useCallback(async (id: string, dish: RawDish) => {
+    const fetchData = useCallback(async (id: string, dish: PartialRawDish) => {
       setLoading(true);
       setAppLoading(true);
 

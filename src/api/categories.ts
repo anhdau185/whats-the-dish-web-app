@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 
-import { Category, RawCategory, Dish } from 'models';
+import { Category, RawCategory, Dish, PartialRawCategory } from 'models';
 
 import { CommonApiResponse, BASE_URL } from '.';
 
@@ -43,7 +43,7 @@ export const getCategory =
     axios.get(`${BASE_URL}/categories/${id}`, { params });
 
 export const updateCategory =
-  (id: string, category: RawCategory): Promise<UpdateCategoryApiResponse> =>
+  (id: string, category: PartialRawCategory): Promise<UpdateCategoryApiResponse> =>
     axios.patch(`${BASE_URL}/categories/${id}`, category);
 
 export const deleteCategory =

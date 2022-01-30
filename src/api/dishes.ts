@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 
-import { Dish, RawDish, Category } from 'models';
+import { Dish, RawDish, Category, PartialRawDish } from 'models';
 
 import { CommonApiResponse, BASE_URL } from '.';
 
@@ -43,7 +43,7 @@ export const getDish =
     axios.get(`${BASE_URL}/dishes/${id}`, { params });
 
 export const updateDish =
-  (id: string, dish: RawDish): Promise<UpdateDishApiResponse> =>
+  (id: string, dish: PartialRawDish): Promise<UpdateDishApiResponse> =>
     axios.patch(`${BASE_URL}/dishes/${id}`, dish);
 
 export const deleteDish =
