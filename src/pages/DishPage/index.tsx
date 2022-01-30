@@ -24,7 +24,7 @@ const DishPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
   const errorOccurred = error != null;
   const dataIsReady = dish != null;
   const places = dish?.attributes.places ?? [];
-  const fetchDishWithOptions = useCallback (
+  const fetchDishWithOptions = useCallback(
     () => fetchDish(params.id, { include_categories: true }),
     []
   );
@@ -65,15 +65,20 @@ const DishPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
             <EditablePlaces places={places} data={dish} updateData={updateDish} />
             <AlbumEditor data={dish} updateData={updateDish} />
           </Grid>
-          {false && (
-            <Grid item xs={12}>
-              <CategoryList
-                noItemActions
-                categories={categories}
-                emptyText="This dish has not yet been added to any categories."
-              />
-            </Grid>
-          )}
+          <Grid item xs={12} style={{ margin: '1.5rem 0' }}>
+            <Typography
+              variant="h5"
+              color="textPrimary"
+              style={{ marginBottom: '1.5rem' }}
+            >
+              Categories this dish is assigned to
+            </Typography>
+            <CategoryList
+              categories={categories}
+              emptyText="This dish has not yet been added to any categories."
+              itemBreakpoints={{ xs: 12, sm: 6, md: 3 }}
+            />
+          </Grid>
         </Grid>
       )}
     </Container>

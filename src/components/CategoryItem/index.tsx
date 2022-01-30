@@ -6,7 +6,6 @@ import moment from 'moment';
 import { Category } from 'models';
 import { getCategoryImages } from 'utils';
 import { DEFAULT_IMAGE_URL } from 'utils/constants';
-import { useDeleteCategoryApi, useFetchCategoriesApi } from 'hooks';
 import MoreMenu, { MoreMenuItems } from 'components/MoreMenu';
 
 import {
@@ -19,23 +18,13 @@ import {
 
 interface CategoryItemProps {
   category: Category;
-  noActions?: boolean;
+  itemActions?: MoreMenuItems;
 }
 
-const CategoryItem: FC<CategoryItemProps> = ({ category, noActions = false }) => {
+const CategoryItem: FC<CategoryItemProps> = ({ category, itemActions }) => {
   const history = useHistory();
   const [timeHovered, setTimeHovered] = useState<boolean>(false);
-  const { fetchData: fetchCategories } = useFetchCategoriesApi();
-  const { loading: isDeletingCategory, fetchData: deleteCategory } =
-    useDeleteCategoryApi({
-      onSuccess: () => {
-        fetchCategories({
-          include_dishes: false,
-          order_by: 'title',
-          order_direction: 'asc'
-        });
-      }
-    });
+  const hasItemActions = itemActions != null;
 
   const categoryImage = useMemo(
     () => getCategoryImages(category).categoryImage ?? DEFAULT_IMAGE_URL,
@@ -45,15 +34,6 @@ const CategoryItem: FC<CategoryItemProps> = ({ category, noActions = false }) =>
   const creationDateTime = useMemo(
     () => moment(category.attributes.createdAt).format('MMM D, YYYY h:mm a'),
     [category.attributes.createdAt]
-  );
-
-  const menuItems = useMemo<MoreMenuItems>(
-    () => ({
-      Delete: () => {
-        if (confirm('Delete this category?')) deleteCategory(category.id);
-      }
-    }),
-    [category.id]
   );
 
   return (
@@ -77,9 +57,9 @@ const CategoryItem: FC<CategoryItemProps> = ({ category, noActions = false }) =>
             : moment(category.attributes.createdAt).fromNow()}
         </Typography>
       </TimeOverlay>
-      {!noActions && (
+      {hasItemActions && (
         <MoreButtonOverlay>
-          <MoreMenu items={menuItems} color="white" />
+          <MoreMenu color="white" items={itemActions} />
         </MoreButtonOverlay>
       )}
       <CardContent>
@@ -94,7 +74,6 @@ const CategoryItem: FC<CategoryItemProps> = ({ category, noActions = false }) =>
         <Button
           size="small"
           color="primary"
-          disabled={isDeletingCategory}
           onClick={() => history.push(`/categories/${category.id}`)}
         >
           View details
