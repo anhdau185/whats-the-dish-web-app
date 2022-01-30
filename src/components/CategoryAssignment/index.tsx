@@ -12,7 +12,7 @@ interface CategoryAssignmentProps {
   category: Category;
   assignedDishes: Dish[];
   updateCategory: (id: string, submittedData: RawCategory) => void | Promise<void>;
-  getItemActions: (dishId: string) => MoreMenuItems;
+  getItemActions?: (dishId: string) => MoreMenuItems;
 }
 
 const FlexWrapper = styled.div`

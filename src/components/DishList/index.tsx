@@ -16,8 +16,8 @@ const StyledGrid = styled(Grid)`
 interface DishListProps {
   dishes: Dish[];
   emptyText?: string;
-  getItemActions?: (dishId: string) => MoreMenuItems
-  itemBreakpoints?: BreakpointSet
+  getItemActions?: (dishId: string) => MoreMenuItems;
+  itemBreakpoints?: BreakpointSet;
 }
 
 const DishList: FC<DishListProps> = ({
@@ -28,23 +28,21 @@ const DishList: FC<DishListProps> = ({
 }) => {
   const hasItemActions = getItemActions != null;
 
-  return (
-    isEmpty(dishes) ? (
-      <Typography variant="h5" color="textSecondary">
-        {emptyText || 'No dishes to show.'}
-      </Typography>
-    ) : (
-      <StyledGrid container spacing={3} alignItems="stretch">
-        {dishes.map(dish => (
-          <Grid item key={`dish-${dish.id}`} {...itemBreakpoints}>
-            <DishItem
-              dish={dish}
-              itemActions={hasItemActions ? getItemActions(dish.id) : undefined}
-            />
-          </Grid>
-        ))}
-      </StyledGrid>
-    )
+  return isEmpty(dishes) ? (
+    <Typography variant="h5" color="textSecondary">
+      {emptyText || 'No dishes to show.'}
+    </Typography>
+  ) : (
+    <StyledGrid container spacing={3} alignItems="stretch">
+      {dishes.map(dish => (
+        <Grid item key={`dish-${dish.id}`} {...itemBreakpoints}>
+          <DishItem
+            dish={dish}
+            itemActions={hasItemActions ? getItemActions(dish.id) : undefined}
+          />
+        </Grid>
+      ))}
+    </StyledGrid>
   );
 };
 
