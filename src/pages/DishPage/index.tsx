@@ -1,6 +1,5 @@
 import React, { FC, useCallback, useEffect } from 'react';
 import { Container, Grid, Typography } from '@material-ui/core';
-import isEmpty from 'lodash/fp/isEmpty';
 
 import { useGetDishApi, useUpdateDishApi } from 'hooks';
 import { RouterIdPageProps } from 'utils';
@@ -11,21 +10,7 @@ import EditableTitle from 'components/EditableTitle';
 import EditableDescription from 'components/EditableDescription';
 import BackToListButton from 'components/BackToListButton';
 import ErrorNotice from 'components/ErrorNotice';
-
-const Places: FC<{ places: string[] }> = ({ places }) => (
-  <div style={{ marginBottom: '1rem' }}>
-    <Typography variant="body1" color="textSecondary" style={{ marginBottom: '0.25rem' }}>
-      Where to find:
-    </Typography>
-    <ul style={{ margin: 0 }}>
-      {places.map((item, index) => (
-        <li key={`place-${index}`}>
-          <Typography variant="body1" color="textSecondary">{item}</Typography>
-        </li>
-      ))}
-    </ul>
-  </div>
-);
+import EditablePlaces from 'components/EditablePlaces';
 
 const DishPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
   const {
@@ -77,7 +62,7 @@ const DishPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
           <Grid item xs={6}>
             <EditableTitle data={dish} updateData={updateDish} />
             <EditableDescription data={dish} updateData={updateDish} />
-            {!isEmpty(places) && <Places places={places} />}
+            <EditablePlaces places={places} data={dish} updateData={updateDish} />
             <AlbumEditor data={dish} updateData={updateDish} />
           </Grid>
           {false && (

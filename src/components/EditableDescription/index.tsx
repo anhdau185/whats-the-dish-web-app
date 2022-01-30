@@ -33,7 +33,7 @@ const EditableDescription: FC<EditableDescriptionProps> = ({ data, updateData })
   };
 
   const onChange =
-    (e: React.ChangeEvent<HTMLInputElement>) => setDisplayValue(e.target.value);
+    (e: React.ChangeEvent<HTMLTextAreaElement>) => setDisplayValue(e.target.value);
 
   const saveNewValue = useCallback(() => {
     setEditMode(false);
@@ -81,7 +81,7 @@ const EditableDescription: FC<EditableDescriptionProps> = ({ data, updateData })
       >
         {displayValue || 'No description.'}
       </Typography>
-      <StyledIconButton onClick={enterEditMode} style={{ marginLeft: 3 }}>
+      <StyledIconButton onClick={enterEditMode} style={{ marginLeft: 4 }}>
         <Edit />
       </StyledIconButton>
     </NormalModeWrapper>

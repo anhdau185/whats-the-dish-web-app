@@ -1,17 +1,8 @@
 import styled from 'styled-components';
 import { IconButton, TextField } from '@material-ui/core';
 
-export const TitleWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  min-height: 60px;
-  margin-bottom: 0.25rem;
-`;
-
 export const StyledTextField = styled(TextField)`
-  > div {
-    font-size: 2.125rem;
-  }
+  width: 100%;
 `;
 
 export const StyledIconButton = styled(IconButton)`
@@ -19,4 +10,13 @@ export const StyledIconButton = styled(IconButton)`
     padding: 8px;
     height: max-content;
   }
+`;
+
+export const EditModeWrapper = styled.div`
+  display: block;
+  width: 80%;
+`;
+
+export const ViewModeWrapper = styled.div`
+  display: flex;
 `;
