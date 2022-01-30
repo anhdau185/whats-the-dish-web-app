@@ -18,6 +18,10 @@ export interface RawDish {
   attributes: RawDishAttributes;
 }
 
+export interface PartialRawDish {
+  attributes: Partial<RawDishAttributes>;
+}
+
 export interface Dish {
   id: string;
   type?: 'dishes';

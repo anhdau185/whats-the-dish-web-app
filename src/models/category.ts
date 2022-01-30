@@ -17,6 +17,10 @@ export interface RawCategory {
   attributes: RawCategoryAttributes;
 }
 
+export interface PartialRawCategory {
+  attributes: Partial<RawCategoryAttributes>;
+}
+
 export interface Category {
   id: string;
   type?: 'categories';
