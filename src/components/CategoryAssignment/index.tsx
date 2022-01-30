@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Button, Typography } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 
-import { Category, Dish, RawCategory } from 'models';
+import { Category, Dish, PartialRawCategory } from 'models';
 import { MoreMenuItems } from 'components/MoreMenu';
 import CategoryAssignmentList from 'components/DishList';
 import CategoryAssignmentDialog from 'components/CategoryAssignmentDialog';
@@ -11,7 +11,10 @@ import CategoryAssignmentDialog from 'components/CategoryAssignmentDialog';
 interface CategoryAssignmentProps {
   category: Category;
   assignedDishes: Dish[];
-  updateCategory: (id: string, submittedData: RawCategory) => void | Promise<void>;
+  updateCategory: (
+    id: string,
+    submittedData: PartialRawCategory
+  ) => void | Promise<void>;
   getItemActions?: (dishId: string) => MoreMenuItems;
 }
 

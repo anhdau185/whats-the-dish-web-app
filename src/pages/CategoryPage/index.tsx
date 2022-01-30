@@ -1,7 +1,7 @@
 import React, { FC, useCallback, useEffect } from 'react';
 import { Container, Grid, Typography } from '@material-ui/core';
 
-import { RawCategory } from 'models';
+import { PartialRawCategory } from 'models';
 import { RouterIdPageProps } from 'utils';
 import { useGetCategoryApi, useUpdateCategoryApi } from 'hooks';
 import { MoreMenuItems } from 'components/MoreMenu';
@@ -40,12 +40,8 @@ const CategoryPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
         const currentDishIds =
           category.relationships?.dishes.data.map(item => item.id) ?? [];
 
-        const dataToSubmit: RawCategory = {
+        const dataToSubmit: PartialRawCategory = {
           attributes: {
-            name: category.attributes.name,
-            title: category.attributes.title,
-            description: category.attributes.description,
-            images: category.attributes.images,
             dish_ids: currentDishIds.filter(item => item !== dishId)
           }
         };

@@ -11,7 +11,7 @@ import Close from '@material-ui/icons/Close';
 import HelpOutline from '@material-ui/icons/HelpOutline';
 import isEmpty from 'lodash/fp/isEmpty';
 
-import { Dish, RawDish } from 'models';
+import { Dish, PartialRawDish } from 'models';
 
 import {
   StyledTextField,
@@ -23,8 +23,10 @@ import {
 interface EditablePlacesProps {
   places: string[];
   data: Dish;
-  updateData:
-    (id: string, submittedData: RawDish) => void | Promise<void>;
+  updateData: (
+    id: string,
+    submittedData: PartialRawDish
+  ) => void | Promise<void>;
 }
 
 const EditablePlaces: FC<EditablePlacesProps> = ({ places, data, updateData }) => {
@@ -52,12 +54,8 @@ const EditablePlaces: FC<EditablePlacesProps> = ({ places, data, updateData }) =
       return;
     }
 
-    const dataToSubmit: RawDish = {
+    const dataToSubmit: PartialRawDish = {
       attributes: {
-        name: data.attributes.name,
-        title: data.attributes.title,
-        description: data.attributes.description,
-        images: data.attributes.images,
         places: !isEmpty(displayValue)
           ? displayValue
             .split(',')

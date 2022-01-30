@@ -13,15 +13,17 @@ import {
   Typography
 } from '@material-ui/core';
 
-import { Category, RawCategory } from 'models';
+import { Category, PartialRawCategory } from 'models';
 import { useFetchDishesApi } from 'hooks';
 
 interface CategoryAssignmentDialogProps {
   open: boolean;
   closeDialog: () => void;
   data: Category;
-  updateData:
-    (id: string, submittedData: RawCategory) => void | Promise<void>;
+  updateData: (
+    id: string,
+    submittedData: PartialRawCategory
+  ) => void | Promise<void>;
 }
 
 const CategoryAssignmentDialog: FC<CategoryAssignmentDialogProps> = ({
@@ -53,12 +55,8 @@ const CategoryAssignmentDialog: FC<CategoryAssignmentDialogProps> = ({
   }, [data, selectedIds]);
 
   const handleSubmit = useCallback(() => {
-    const dataToSubmit: RawCategory = {
+    const dataToSubmit: PartialRawCategory = {
       attributes: {
-        name: data.attributes.name,
-        title: data.attributes.title,
-        description: data.attributes.description,
-        images: data.attributes.images,
         dish_ids: selectedIds
       }
     };
