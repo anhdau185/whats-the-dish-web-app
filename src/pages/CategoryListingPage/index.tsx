@@ -2,7 +2,8 @@ import React, { FC, useCallback, useEffect } from 'react';
 import { Container, Grow, Grid } from '@material-ui/core';
 
 import { EmptyProps } from 'utils';
-import { useFetchCategoriesApi } from 'hooks';
+import { useDeleteCategoryApi, useFetchCategoriesApi } from 'hooks';
+import { MoreMenuItems } from 'components/MoreMenu';
 import CategoryList from 'components/CategoryList';
 import CategoryForm from 'components/CategoryForm';
 import ErrorNotice from 'components/ErrorNotice';
@@ -23,6 +24,19 @@ const CategoryListingPage: FC<EmptyProps> = () => {
       order_direction: 'asc'
     });
   }, []);
+
+  const { fetchData: deleteCategory } = useDeleteCategoryApi({
+    onSuccess: fetchCategoriesWithOptions
+  });
+
+  const getItemActions = useCallback(
+    (categoryId: string): MoreMenuItems => ({
+      Delete: () => {
+        if (window.confirm('Delete this category?')) deleteCategory(categoryId);
+      }
+    }),
+    []
+  );
 
   useEffect(() => {
     fetchCategoriesWithOptions();
@@ -48,6 +62,8 @@ const CategoryListingPage: FC<EmptyProps> = () => {
               <CategoryList
                 categories={categories}
                 emptyText={isFetchingCategories ? `We're getting the categories...` : undefined}
+                getItemActions={getItemActions}
+                itemBreakpoints={{ xs: 12, sm: 6 }}
               />
             </Grid>
             <Grid item xs={12} sm={4}>
