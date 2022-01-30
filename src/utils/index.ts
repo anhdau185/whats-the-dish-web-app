@@ -7,6 +7,8 @@ export interface EmptyProps {
   [props: string]: never;
 }
 
+export type Nullable<T> = T | null;
+
 export interface RouterIdPageProps {
   match: {
     params: { id: string }

@@ -75,7 +75,7 @@ const EditableTitle: FC<EditableTitleProps> = ({ data, updateData }) => {
       ) : (
         <>
           <Typography variant="h4">{displayValue}</Typography>
-          <StyledIconButton onClick={enterEditMode} style={{ marginLeft: 3 }}>
+          <StyledIconButton onClick={enterEditMode} style={{ marginLeft: 8 }}>
             <Edit />
           </StyledIconButton>
         </>
