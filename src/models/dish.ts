@@ -30,5 +30,3 @@ export interface Dish {
     categories: Relationship;
   };
 }
-
-export type NullableDish = Dish | null;
