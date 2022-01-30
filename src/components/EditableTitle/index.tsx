@@ -3,6 +3,7 @@ import { Typography } from '@material-ui/core';
 import Edit from '@material-ui/icons/Edit';
 import Check from '@material-ui/icons/Check';
 import Close from '@material-ui/icons/Close';
+import isEmpty from 'lodash/fp/isEmpty';
 
 import { Category, Dish, RawCategory, RawDish } from 'models';
 
@@ -37,7 +38,13 @@ const EditableTitle: FC<EditableTitleProps> = ({ data, updateData }) => {
 
   const saveNewValue = useCallback(() => {
     setEditMode(false);
+
     if (displayValue === originalValue) return;
+    if (isEmpty(displayValue)) {
+      window.alert('Title must not be empty.');
+      setDisplayValue(originalValue);
+      return;
+    }
 
     const dataToSubmit: SubmittedData = {
       attributes: {

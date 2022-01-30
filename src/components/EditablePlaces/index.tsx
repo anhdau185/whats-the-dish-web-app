@@ -45,8 +45,12 @@ const EditablePlaces: FC<EditablePlacesProps> = ({ places, data, updateData }) =
 
   const saveNewValue = () => {
     setEditMode(false);
+
     if (displayValue === originalValue) return;
-    if (isEmpty(displayValue) && !window.confirm('Remove all existing places?')) return;
+    if (isEmpty(displayValue) && !window.confirm('Remove all existing places?')) {
+      setDisplayValue(originalValue);
+      return;
+    }
 
     const dataToSubmit: RawDish = {
       attributes: {
