@@ -1,8 +1,9 @@
 import { useCallback, useState } from 'react';
 import noop from 'lodash/fp/noop';
 
-import { NullableDish, Category } from 'models';
 import * as api from 'api';
+import { Nullable } from 'utils';
+import { Category, Dish } from 'models';
 import {
   GetDishApiOptions,
   SingleDishApiResponse
@@ -15,7 +16,7 @@ interface GetDishHookOptions extends ApiHookOptions {
 }
 
 interface GetDishHookResult {
-  data: NullableDish;
+  data: Nullable<Dish>;
   includedData: Category[];
   error: any;
   loading: boolean;

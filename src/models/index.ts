@@ -1,5 +1,5 @@
 import { Category, RawCategory, PartialRawCategory } from './category';
-import { Dish, RawDish, PartialRawDish, NullableDish } from './dish';
+import { Dish, RawDish, PartialRawDish } from './dish';
 import { HomeItem } from './homeItem';
 
 interface Relationship {
@@ -16,7 +16,6 @@ export type {
   Dish,
   RawDish,
   PartialRawDish,
-  NullableDish,
   HomeItem,
   Relationship
 };

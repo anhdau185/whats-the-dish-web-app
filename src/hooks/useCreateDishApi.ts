@@ -2,7 +2,8 @@ import { useCallback, useState } from 'react';
 import noop from 'lodash/fp/noop';
 
 import * as api from 'api';
-import { Dish, NullableDish, RawDish } from 'models';
+import { Nullable } from 'utils';
+import { Dish, RawDish } from 'models';
 
 import { ApiHookOptions, useAppLoading } from '.';
 
@@ -11,7 +12,7 @@ interface CreateDishHookOptions extends ApiHookOptions {
 }
 
 interface CreateDishHookResult {
-  data: NullableDish;
+  data: Nullable<Dish>;
   error: any;
   loading: boolean;
   fetchData: (dish: RawDish) => Promise<void>;
@@ -19,7 +20,7 @@ interface CreateDishHookResult {
 
 const useCreateDishApi =
   (options?: CreateDishHookOptions): CreateDishHookResult => {
-    const [data, setData] = useState<NullableDish>(null);
+    const [data, setData] = useState<Nullable<Dish>>(null);
     const [error, setError] = useState<any>(null);
     const [loading, setLoading] = useState<boolean>(false);
     const { setLoading: setAppLoading } = useAppLoading();
