@@ -58,7 +58,7 @@ const ActionMenu: FC<ActionMenuProps> = ({ items, color = 'rgba(0,0,0,1)' }) => 
               }}
             >
               {ActionIcon && (
-                <ListItemIcon>
+                <ListItemIcon style={{ minWidth: 34 }}>
                   <ActionIcon />
                 </ListItemIcon>
               )}
