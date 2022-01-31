@@ -6,7 +6,7 @@ import moment from 'moment';
 import { Category } from 'models';
 import { getCategoryImages } from 'utils';
 import { DEFAULT_IMAGE_URL } from 'utils/constants';
-import MoreMenu, { MoreMenuItems } from 'components/MoreMenu';
+import ActionMenu, { ActionMenuItems } from 'components/ActionMenu';
 
 import {
   ImageWrapper,
@@ -18,7 +18,7 @@ import {
 
 interface CategoryItemProps {
   category: Category;
-  itemActions?: MoreMenuItems;
+  itemActions?: ActionMenuItems;
 }
 
 const CategoryItem: FC<CategoryItemProps> = ({ category, itemActions }) => {
@@ -59,7 +59,7 @@ const CategoryItem: FC<CategoryItemProps> = ({ category, itemActions }) => {
       </TimeOverlay>
       {hasItemActions && (
         <MoreButtonOverlay>
-          <MoreMenu color="white" items={itemActions} />
+          <ActionMenu color="white" items={itemActions} />
         </MoreButtonOverlay>
       )}
       <CardContent>

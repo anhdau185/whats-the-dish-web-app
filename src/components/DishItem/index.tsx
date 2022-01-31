@@ -6,7 +6,7 @@ import moment from 'moment';
 import { Dish } from 'models';
 import { getDishImages } from 'utils';
 import { DEFAULT_IMAGE_URL } from 'utils/constants';
-import MoreMenu, { MoreMenuItems } from 'components/MoreMenu';
+import ActionMenu, { ActionMenuItems } from 'components/ActionMenu';
 
 import {
   ImageWrapper,
@@ -18,7 +18,7 @@ import {
 
 interface DishItemProps {
   dish: Dish;
-  itemActions?: MoreMenuItems;
+  itemActions?: ActionMenuItems;
 }
 
 const DishItem: FC<DishItemProps> = ({ dish, itemActions = {} }) => {
@@ -59,7 +59,7 @@ const DishItem: FC<DishItemProps> = ({ dish, itemActions = {} }) => {
       </TimeOverlay>
       {hasItemActions && (
         <MoreButtonOverlay>
-          <MoreMenu color="white" items={itemActions} />
+          <ActionMenu color="white" items={itemActions} />
         </MoreButtonOverlay>
       )}
       <CardContent>

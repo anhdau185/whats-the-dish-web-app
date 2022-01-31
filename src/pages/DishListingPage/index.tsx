@@ -3,7 +3,7 @@ import { Container, Grow, Grid } from '@material-ui/core';
 
 import { EmptyProps } from 'utils';
 import { useDeleteDishApi, useFetchDishesApi } from 'hooks';
-import { MoreMenuItems } from 'components/MoreMenu';
+import { ActionMenuItems } from 'components/ActionMenu';
 import DishList from 'components/DishList';
 import DishForm from 'components/DishForm';
 import ErrorNotice from 'components/ErrorNotice';
@@ -30,7 +30,7 @@ const DishListingPage: FC<EmptyProps> = () => {
   });
 
   const getItemActions = useCallback(
-    (dishId: string): MoreMenuItems => ({
+    (dishId: string): ActionMenuItems => ({
       Delete: {
         handler: () => {
           if (window.confirm('Delete this dish?')) deleteDish(dishId);

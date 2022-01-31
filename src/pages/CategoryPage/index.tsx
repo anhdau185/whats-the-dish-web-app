@@ -4,7 +4,7 @@ import { Container, Grid, Typography } from '@material-ui/core';
 import { PartialRawCategory } from 'models';
 import { RouterIdPageProps } from 'utils';
 import { useGetCategoryApi, useUpdateCategoryApi } from 'hooks';
-import { MoreMenuItems } from 'components/MoreMenu';
+import { ActionMenuItems } from 'components/ActionMenu';
 import AlbumSlider from 'components/AlbumSlider';
 import AlbumEditor from 'components/AlbumEditor';
 import EditableTitle from 'components/EditableTitle';
@@ -33,7 +33,7 @@ const CategoryPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
     useUpdateCategoryApi({ onSuccess: fetchCategoryWithOptions });
 
   const getItemActions = useCallback(
-    (dishId: string): MoreMenuItems => ({
+    (dishId: string): ActionMenuItems => ({
       'Unassign from category': {
         handler: () => {
           if (!dataIsReady || !window.confirm('Unassign this dish?')) return;

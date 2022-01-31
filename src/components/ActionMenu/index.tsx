@@ -3,19 +3,19 @@ import { IconButton, ListItemIcon, ListItemText, Menu, MenuItem } from '@materia
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import { SvgIconComponent } from '@material-ui/icons';
 
-export interface MoreMenuItems {
+export interface ActionMenuItems {
   [actionName: string]: {
     icon?: SvgIconComponent;
     handler?: () => void;
   };
 }
 
-interface MoreMenuProps {
-  items: MoreMenuItems;
+interface ActionMenuProps {
+  items: ActionMenuItems;
   color?: string;
 }
 
-const MoreMenu: FC<MoreMenuProps> = ({ items, color = 'rgba(0,0,0,1)' }) => {
+const ActionMenu: FC<ActionMenuProps> = ({ items, color = 'rgba(0,0,0,1)' }) => {
   const [anchorElement, setAnchorElement] =
     useState<HTMLButtonElement | null>(null);
 
@@ -71,4 +71,4 @@ const MoreMenu: FC<MoreMenuProps> = ({ items, color = 'rgba(0,0,0,1)' }) => {
   );
 };
 
-export default MoreMenu;
+export default ActionMenu;
