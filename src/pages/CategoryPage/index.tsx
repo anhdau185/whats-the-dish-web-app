@@ -1,5 +1,6 @@
 import React, { FC, useCallback, useEffect } from 'react';
 import { Container, Grid, Typography } from '@material-ui/core';
+import RemoveIcon from '@material-ui/icons/RemoveCircleOutline';
 
 import { PartialRawCategory } from 'models';
 import { RouterIdPageProps } from 'utils';
@@ -35,6 +36,7 @@ const CategoryPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
   const getItemActions = useCallback(
     (dishId: string): ActionMenuItems => ({
       'Unassign from category': {
+        icon: RemoveIcon,
         handler: () => {
           if (!dataIsReady || !window.confirm('Unassign this dish?')) return;
   

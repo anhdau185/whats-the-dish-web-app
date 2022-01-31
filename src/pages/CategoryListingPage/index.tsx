@@ -1,5 +1,6 @@
 import React, { FC, useCallback, useEffect } from 'react';
 import { Container, Grow, Grid } from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 import { EmptyProps } from 'utils';
 import { useDeleteCategoryApi, useFetchCategoriesApi } from 'hooks';
@@ -32,6 +33,7 @@ const CategoryListingPage: FC<EmptyProps> = () => {
   const getItemActions = useCallback(
     (categoryId: string): ActionMenuItems => ({
       Delete: {
+        icon: DeleteIcon,
         handler: () => {
           if (window.confirm('Delete this category?')) deleteCategory(categoryId);
         }

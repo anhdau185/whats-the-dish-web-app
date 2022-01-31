@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useCallback } from 'react';
 import { Container, Grow, Grid } from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 import { EmptyProps } from 'utils';
 import { useDeleteDishApi, useFetchDishesApi } from 'hooks';
@@ -32,6 +33,7 @@ const DishListingPage: FC<EmptyProps> = () => {
   const getItemActions = useCallback(
     (dishId: string): ActionMenuItems => ({
       Delete: {
+        icon: DeleteIcon,
         handler: () => {
           if (window.confirm('Delete this dish?')) deleteDish(dishId);
         }
