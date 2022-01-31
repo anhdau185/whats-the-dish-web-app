@@ -31,8 +31,10 @@ const CategoryListingPage: FC<EmptyProps> = () => {
 
   const getItemActions = useCallback(
     (categoryId: string): MoreMenuItems => ({
-      Delete: () => {
-        if (window.confirm('Delete this category?')) deleteCategory(categoryId);
+      Delete: {
+        handler: () => {
+          if (window.confirm('Delete this category?')) deleteCategory(categoryId);
+        }
       }
     }),
     []
