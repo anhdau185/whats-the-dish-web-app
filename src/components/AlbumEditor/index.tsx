@@ -5,10 +5,10 @@ import {
   Typography,
   IconButton
 } from '@material-ui/core';
-import ExpandMore from '@material-ui/icons/ExpandMore';
-import Check from '@material-ui/icons/Check';
-import Close from '@material-ui/icons/Close';
-import Photo from '@material-ui/icons/Photo';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import CheckIcon from '@material-ui/icons/Check';
+import CloseIcon from '@material-ui/icons/Close';
+import PhotoIcon from '@material-ui/icons/Photo';
 import compact from 'lodash/fp/compact';
 import isEmpty from 'lodash/fp/isEmpty';
 import isEqual from 'lodash/fp/isEqual';
@@ -79,7 +79,7 @@ const AlbumEditor: FC<AlbumEditorProps> = ({ data, updateData }) => {
 
   return (
     <CustomAccordion expanded={expanded} onChange={() => setExpanded(!expanded)}>
-      <AccordionSummary expandIcon={<ExpandMore />}>
+      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
         <Typography variant="h6">Edit album...</Typography>
       </AccordionSummary>
       <CustomAccordionDetails>
@@ -109,7 +109,7 @@ const AlbumEditor: FC<AlbumEditorProps> = ({ data, updateData }) => {
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <Photo />
+                    <PhotoIcon />
                   </InputAdornment>
                 ),
                 endAdornment: (
@@ -124,7 +124,7 @@ const AlbumEditor: FC<AlbumEditorProps> = ({ data, updateData }) => {
                         setDisplayAlbum(newDisplayAlbum);
                       }}
                     >
-                      <Close />
+                      <CloseIcon />
                     </IconButton>
                   </InputAdornment>
                 )
@@ -137,10 +137,10 @@ const AlbumEditor: FC<AlbumEditorProps> = ({ data, updateData }) => {
       </CustomAccordionDetails>
       <CustomAccordionActions>
         <StyledIconButton onClick={saveAlbum}>
-          <Check />
+          <CheckIcon />
         </StyledIconButton>
         <StyledIconButton onClick={reset}>
-          <Close />
+          <CloseIcon />
         </StyledIconButton>
       </CustomAccordionActions>
     </CustomAccordion>

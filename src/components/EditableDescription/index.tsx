@@ -1,8 +1,8 @@
 import React, { FC, useCallback, useState } from 'react';
 import { Typography, TextField } from '@material-ui/core';
-import Edit from '@material-ui/icons/Edit';
-import Check from '@material-ui/icons/Check';
-import Close from '@material-ui/icons/Close';
+import EditIcon from '@material-ui/icons/Edit';
+import CheckIcon from '@material-ui/icons/Check';
+import CloseIcon from '@material-ui/icons/Close';
 import isEmpty from 'lodash/fp/isEmpty';
 
 import { Category, Dish, PartialRawCategory, PartialRawDish } from 'models';
@@ -69,10 +69,10 @@ const EditableDescription: FC<EditableDescriptionProps> = ({ data, updateData })
       />
       <div style={{ marginTop: 5 }}>
         <StyledIconButton onClick={saveNewValue}>
-          <Check />
+          <CheckIcon />
         </StyledIconButton>
         <StyledIconButton onClick={exitEditMode}>
-          <Close />
+          <CloseIcon />
         </StyledIconButton>
       </div>
     </EditModeWrapper>
@@ -87,7 +87,7 @@ const EditableDescription: FC<EditableDescriptionProps> = ({ data, updateData })
         {displayValue || 'No description.'}
       </Typography>
       <StyledIconButton onClick={enterEditMode} style={{ marginLeft: 4 }}>
-        <Edit />
+        <EditIcon />
       </StyledIconButton>
     </NormalModeWrapper>
   );
