@@ -5,7 +5,7 @@ import isEmpty from 'lodash/fp/isEmpty';
 
 import { Category } from 'models';
 import { BreakpointSet } from 'utils';
-import { MoreMenuItems } from 'components/MoreMenu';
+import { ActionMenuItems } from 'components/ActionMenu';
 import CategoryItem from 'components/CategoryItem';
 
 const StyledGrid = styled(Grid)`
@@ -16,7 +16,7 @@ const StyledGrid = styled(Grid)`
 interface CategoryListProps {
   categories: Category[];
   emptyText?: string;
-  getItemActions?: (categoryId: string) => MoreMenuItems;
+  getItemActions?: (categoryId: string) => ActionMenuItems;
   itemBreakpoints?: BreakpointSet;
 }
 

@@ -4,7 +4,7 @@ import { Button, Typography } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 
 import { Category, Dish, PartialRawCategory } from 'models';
-import { MoreMenuItems } from 'components/MoreMenu';
+import { ActionMenuItems } from 'components/ActionMenu';
 import CategoryAssignmentList from 'components/DishList';
 import CategoryAssignmentDialog from 'components/CategoryAssignmentDialog';
 
@@ -15,7 +15,7 @@ interface CategoryAssignmentProps {
     id: string,
     submittedData: PartialRawCategory
   ) => void | Promise<void>;
-  getItemActions?: (dishId: string) => MoreMenuItems;
+  getItemActions?: (dishId: string) => ActionMenuItems;
 }
 
 const FlexWrapper = styled.div`

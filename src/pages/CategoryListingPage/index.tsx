@@ -3,7 +3,7 @@ import { Container, Grow, Grid } from '@material-ui/core';
 
 import { EmptyProps } from 'utils';
 import { useDeleteCategoryApi, useFetchCategoriesApi } from 'hooks';
-import { MoreMenuItems } from 'components/MoreMenu';
+import { ActionMenuItems } from 'components/ActionMenu';
 import CategoryList from 'components/CategoryList';
 import CategoryForm from 'components/CategoryForm';
 import ErrorNotice from 'components/ErrorNotice';
@@ -30,7 +30,7 @@ const CategoryListingPage: FC<EmptyProps> = () => {
   });
 
   const getItemActions = useCallback(
-    (categoryId: string): MoreMenuItems => ({
+    (categoryId: string): ActionMenuItems => ({
       Delete: {
         handler: () => {
           if (window.confirm('Delete this category?')) deleteCategory(categoryId);

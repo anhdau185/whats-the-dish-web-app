@@ -5,7 +5,7 @@ import isEmpty from 'lodash/fp/isEmpty';
 
 import { Dish } from 'models';
 import { BreakpointSet } from 'utils';
-import { MoreMenuItems } from 'components/MoreMenu';
+import { ActionMenuItems } from 'components/ActionMenu';
 import DishItem from 'components/DishItem';
 
 const StyledGrid = styled(Grid)`
@@ -16,7 +16,7 @@ const StyledGrid = styled(Grid)`
 interface DishListProps {
   dishes: Dish[];
   emptyText?: string;
-  getItemActions?: (dishId: string) => MoreMenuItems;
+  getItemActions?: (dishId: string) => ActionMenuItems;
   itemBreakpoints?: BreakpointSet;
 }
 
