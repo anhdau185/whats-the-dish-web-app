@@ -53,7 +53,7 @@ const EditableDescription: FC<EditableDescriptionProps> = ({ data, updateData })
       }
     };
     updateData(data.id, dataToSubmit);
-  }, [data, displayValue, originalValue]);
+  }, [data.id, displayValue, originalValue]);
 
   return editMode ? (
     <EditModeWrapper>

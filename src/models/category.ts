@@ -1,5 +1,3 @@
-import { Nullable } from 'utils';
-
 import { Relationship } from '.';
 
 interface RawCategoryAttributes {
