@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect, useState } from 'react';
+import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import isEmpty from 'lodash/fp/isEmpty';
 import includes from 'lodash/fp/includes';
 import {
@@ -32,8 +32,11 @@ const CategoryAssignmentDialog: FC<CategoryAssignmentDialogProps> = ({
   data,
   updateData
 }) => {
-  const initialSelectedIds =
-    data.relationships?.dishes.data.map(item => item.id) ?? [];
+  const initialSelectedIds = useMemo(
+    () => data.relationships?.dishes.data.map(item => item.id) ?? [],
+    [data]
+  );
+
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const { data: dishes, loading: isFetchingDishes, fetchData: fetchDishes } =
     useFetchDishesApi();
@@ -52,7 +55,7 @@ const CategoryAssignmentDialog: FC<CategoryAssignmentDialogProps> = ({
   const handleCancel = useCallback(() => {
     setSelectedIds(initialSelectedIds);
     closeDialog();
-  }, [data, selectedIds]);
+  }, [initialSelectedIds]);
 
   const handleSubmit = useCallback(() => {
     const dataToSubmit: PartialRawCategory = {
@@ -62,7 +65,7 @@ const CategoryAssignmentDialog: FC<CategoryAssignmentDialogProps> = ({
     };
     updateData(data.id, dataToSubmit);
     closeDialog();
-  }, [data, selectedIds]);
+  }, [data.id, selectedIds]);
 
   useEffect(() => {
     if (open && isEmpty(dishes))
@@ -75,7 +78,7 @@ const CategoryAssignmentDialog: FC<CategoryAssignmentDialogProps> = ({
 
   useEffect(() => {
     setSelectedIds(initialSelectedIds);
-  }, [data]);
+  }, [initialSelectedIds]);
 
   return (
     <Dialog maxWidth="xs" open={open}>

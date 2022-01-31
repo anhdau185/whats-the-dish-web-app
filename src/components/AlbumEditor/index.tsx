@@ -70,12 +70,12 @@ const AlbumEditor: FC<AlbumEditorProps> = ({ data, updateData }) => {
       }
     };
     updateData(data.id, dataToSubmit);
-  }, [displayAlbum, data]);
+  }, [displayAlbum, data.id]);
 
-  const reset = () => {
+  const reset = useCallback(() => {
     setExpanded(false);
     setDisplayAlbum(generateDisplayAlbum(actualAlbum));
-  };
+  }, [actualAlbum]);
 
   return (
     <CustomAccordion expanded={expanded} onChange={() => setExpanded(!expanded)}>

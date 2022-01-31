@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useCallback, useState } from 'react';
 import {
   IconButton,
   InputAdornment,
@@ -45,7 +45,7 @@ const EditablePlaces: FC<EditablePlacesProps> = ({ places, data, updateData }) =
   const onChange =
     (e: React.ChangeEvent<HTMLInputElement>) => setDisplayValue(e.target.value);
 
-  const saveNewValue = () => {
+  const saveNewValue = useCallback(() => {
     setEditMode(false);
 
     if (displayValue === originalValue) return;
@@ -65,7 +65,7 @@ const EditablePlaces: FC<EditablePlacesProps> = ({ places, data, updateData }) =
       }
     };
     updateData(data.id, dataToSubmit);
-  };
+  }, [data.id, displayValue, originalValue]);
 
   return (
     <div style={{ marginBottom: '1.5rem' }}>
