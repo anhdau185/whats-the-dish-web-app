@@ -5,10 +5,10 @@ import {
   Snackbar,
   Typography
 } from '@material-ui/core';
-import Edit from '@material-ui/icons/Edit';
-import Check from '@material-ui/icons/Check';
-import Close from '@material-ui/icons/Close';
-import HelpOutline from '@material-ui/icons/HelpOutline';
+import EditIcon from '@material-ui/icons/Edit';
+import CheckIcon from '@material-ui/icons/Check';
+import CloseIcon from '@material-ui/icons/Close';
+import HelpIcon from '@material-ui/icons/HelpOutline';
 import isEmpty from 'lodash/fp/isEmpty';
 
 import { Dish, PartialRawDish } from 'models';
@@ -89,14 +89,14 @@ const EditablePlaces: FC<EditablePlacesProps> = ({ places, data, updateData }) =
                     style={{ padding: 2 }}
                     onClick={() => setShowHelpText(true)}
                   >
-                    <HelpOutline />
+                    <HelpIcon />
                   </IconButton>
                   <Snackbar
                     open={showHelpText}
                     message="Enter your places separated by commas"
                     action={
                       <StyledIconButton onClick={() => setShowHelpText(false)}>
-                        <Close style={{ color: '#fff' }} />
+                        <CloseIcon style={{ color: '#fff' }} />
                       </StyledIconButton>
                     }
                   />
@@ -106,10 +106,10 @@ const EditablePlaces: FC<EditablePlacesProps> = ({ places, data, updateData }) =
           />
           <div style={{ marginTop: 4 }}>
             <StyledIconButton onClick={saveNewValue}>
-              <Check />
+              <CheckIcon />
             </StyledIconButton>
             <StyledIconButton onClick={exitEditMode}>
-              <Close />
+              <CloseIcon />
             </StyledIconButton>
           </div>
         </EditModeWrapper>
@@ -133,7 +133,7 @@ const EditablePlaces: FC<EditablePlacesProps> = ({ places, data, updateData }) =
             </Typography>
           )}
           <StyledIconButton onClick={enterEditMode} style={{ marginLeft: 8 }}>
-            <Edit />
+            <EditIcon />
           </StyledIconButton>
         </ViewModeWrapper>
       )}
