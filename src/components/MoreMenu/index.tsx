@@ -1,11 +1,13 @@
 import React, { FC, useState } from 'react';
-import { IconButton, Menu, MenuItem } from '@material-ui/core';
+import { IconButton, ListItemIcon, ListItemText, Menu, MenuItem } from '@material-ui/core';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-
-type ItemClickHandler = () => void;
+import { SvgIconComponent } from '@material-ui/icons';
 
 export interface MoreMenuItems {
-  [itemName: string]: ItemClickHandler;
+  [actionName: string]: {
+    icon?: SvgIconComponent;
+    handler?: () => void;
+  };
 }
 
 interface MoreMenuProps {
@@ -13,7 +15,7 @@ interface MoreMenuProps {
   color?: string;
 }
 
-const MoreMenu: FC<MoreMenuProps> = ({ items, color = 'rgba(0, 0, 0, 1)' }) => {
+const MoreMenu: FC<MoreMenuProps> = ({ items, color = 'rgba(0,0,0,1)' }) => {
   const [anchorElement, setAnchorElement] =
     useState<HTMLButtonElement | null>(null);
 
@@ -41,17 +43,26 @@ const MoreMenu: FC<MoreMenuProps> = ({ items, color = 'rgba(0, 0, 0, 1)' }) => {
         open={!!anchorElement}
         onClose={handleClose}
       >
-        {Object.keys(items).map((itemName: string, index: number) => {
-          const itemClickHandler = items[itemName];
+        {Object.keys(items).map((actionName: string, index: number) => {
+          const {
+            icon: ActionIcon,
+            handler: actionHandler
+          } = items[actionName];
+
           return (
             <MenuItem
-              key={`${index}_${itemName}`}
+              key={`${index}_${actionName}`}
               onClick={() => {
                 handleClose();
-                itemClickHandler();
+                if (actionHandler) actionHandler();
               }}
             >
-              {itemName}
+              {ActionIcon && (
+                <ListItemIcon>
+                  <ActionIcon />
+                </ListItemIcon>
+              )}
+              <ListItemText>{actionName}</ListItemText>
             </MenuItem>
           );
         })}

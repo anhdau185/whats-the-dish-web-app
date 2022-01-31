@@ -31,8 +31,10 @@ const DishListingPage: FC<EmptyProps> = () => {
 
   const getItemActions = useCallback(
     (dishId: string): MoreMenuItems => ({
-      Delete: () => {
-        if (window.confirm('Delete this dish?')) deleteDish(dishId);
+      Delete: {
+        handler: () => {
+          if (window.confirm('Delete this dish?')) deleteDish(dishId);
+        }
       }
     }),
     []

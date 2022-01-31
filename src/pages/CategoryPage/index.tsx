@@ -34,18 +34,20 @@ const CategoryPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
 
   const getItemActions = useCallback(
     (dishId: string): MoreMenuItems => ({
-      'Unassign from category': () => {
-        if (!dataIsReady || !window.confirm('Unassign this dish?')) return;
-
-        const currentDishIds =
-          category.relationships?.dishes.data.map(item => item.id) ?? [];
-
-        const dataToSubmit: PartialRawCategory = {
-          attributes: {
-            dish_ids: currentDishIds.filter(item => item !== dishId)
-          }
-        };
-        updateCategory(category.id, dataToSubmit);
+      'Unassign from category': {
+        handler: () => {
+          if (!dataIsReady || !window.confirm('Unassign this dish?')) return;
+  
+          const currentDishIds =
+            category.relationships?.dishes.data.map(item => item.id) ?? [];
+  
+          const dataToSubmit: PartialRawCategory = {
+            attributes: {
+              dish_ids: currentDishIds.filter(item => item !== dishId)
+            }
+          };
+          updateCategory(category.id, dataToSubmit);
+        }
       }
     }),
     [category]
