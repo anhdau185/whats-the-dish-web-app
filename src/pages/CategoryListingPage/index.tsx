@@ -56,7 +56,7 @@ const CategoryListingPage: FC<EmptyProps> = () => {
             alignItems="stretch"
             spacing={3}
           >
-            <Grid item xs={12} sm={7}>
+            <Grid item xs={12} lg={7}>
               {errorOccurred && (
                 <ErrorNotice fetchData={fetchCategoriesWithOptions}>
                   An error occurred while fetching the categories
@@ -70,7 +70,7 @@ const CategoryListingPage: FC<EmptyProps> = () => {
                 itemBreakpoints={{ xs: 12, sm: 6 }}
               />
             </Grid>
-            <Grid item xs={12} sm={4}>
+            <Grid item xs={12} lg={4}>
               <CategoryForm />
             </Grid>
           </Grid>
