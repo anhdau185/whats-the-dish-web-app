@@ -1,5 +1,5 @@
 import React, { FC, useCallback, useState } from 'react';
-import { Typography, TextField } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
@@ -9,8 +9,9 @@ import { Category, Dish, PartialRawCategory, PartialRawDish } from 'models';
 
 import {
   EditModeWrapper,
-  NormalModeWrapper,
-  StyledIconButton
+  ViewModeWrapper,
+  StyledIconButton,
+  StyledTextArea
 } from './styles';
 
 type SubmittedData = PartialRawCategory | PartialRawDish;
@@ -57,7 +58,7 @@ const EditableDescription: FC<EditableDescriptionProps> = ({ data, updateData })
 
   return editMode ? (
     <EditModeWrapper>
-      <TextField
+      <StyledTextArea
         multiline
         variant="standard"
         value={displayValue}
@@ -65,7 +66,6 @@ const EditableDescription: FC<EditableDescriptionProps> = ({ data, updateData })
         inputRef={(input?: HTMLTextAreaElement) => {
           if (input) input.focus();
         }}
-        style={{ width: '75%' }}
       />
       <div style={{ marginTop: 5 }}>
         <StyledIconButton onClick={saveNewValue}>
@@ -77,19 +77,19 @@ const EditableDescription: FC<EditableDescriptionProps> = ({ data, updateData })
       </div>
     </EditModeWrapper>
   ) : (
-    <NormalModeWrapper>
+    <ViewModeWrapper>
       <Typography
         variant="body1"
         color="textSecondary"
         component="pre"
-        style={{ lineHeight: 'normal' }}
+        style={{ lineHeight: 'normal', whiteSpace: 'pre-line' }}
       >
         {displayValue || 'No description.'}
       </Typography>
       <StyledIconButton onClick={enterEditMode} style={{ marginLeft: 4 }}>
         <EditIcon />
       </StyledIconButton>
-    </NormalModeWrapper>
+    </ViewModeWrapper>
   );
 };
 

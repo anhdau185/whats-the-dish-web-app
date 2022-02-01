@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { IconButton } from '@material-ui/core';
+import { IconButton, TextField } from '@material-ui/core';
 
 export const StyledIconButton = styled(IconButton)`
   && {
@@ -8,15 +8,28 @@ export const StyledIconButton = styled(IconButton)`
   }
 `;
 
-export const NormalModeWrapper = styled.div`
+export const StyledTextArea = styled(TextField)`
+  width: 100%;
+
+  @media (min-width: 768px) {
+    width: 80%;
+  }
+`;
+
+export const ViewModeWrapper = styled.div`
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   min-height: 42px;
   margin-bottom: 1.25rem;
+  width: 100%;
+
+  @media (min-width: 768px) {
+    width: 90%;
+  }
 `;
 
 export const EditModeWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.5rem;
 `;
