@@ -10,7 +10,9 @@ import { Category, Dish, PartialRawCategory, PartialRawDish } from 'models';
 import {
   StyledIconButton,
   StyledTextField,
-  TitleWrapper
+  EditModeWrapper,
+  ViewModeWrapper,
+  EditModeButtons
 } from './styles';
 
 type SubmittedData = PartialRawCategory | PartialRawDish;
@@ -56,37 +58,33 @@ const EditableTitle: FC<EditableTitleProps> = ({ data, updateData }) => {
     updateData(data.id, dataToSubmit);
   }, [data.id, displayValue, originalValue]);
 
-  return (
-    <TitleWrapper>
-      {editMode ? (
-        <>
-          <StyledTextField
-            size="medium"
-            variant="standard"
-            value={displayValue}
-            onChange={onChange}
-            inputRef={(input?: HTMLInputElement) => {
-              if (input) input.focus();
-            }}
-          />
-          <div style={{ marginLeft: 0 }}>
-            <StyledIconButton onClick={saveNewValue}>
-              <CheckIcon />
-            </StyledIconButton>
-            <StyledIconButton onClick={exitEditMode}>
-              <CloseIcon />
-            </StyledIconButton>
-          </div>
-        </>
-      ) : (
-        <>
-          <Typography variant="h4">{displayValue}</Typography>
-          <StyledIconButton onClick={enterEditMode} style={{ marginLeft: 8 }}>
-            <EditIcon />
-          </StyledIconButton>
-        </>
-      )}
-    </TitleWrapper>
+  return editMode ? (
+    <EditModeWrapper>
+      <StyledTextField
+        size="medium"
+        variant="standard"
+        value={displayValue}
+        onChange={onChange}
+        inputRef={(input?: HTMLInputElement) => {
+          if (input) input.focus();
+        }}
+      />
+      <EditModeButtons>
+        <StyledIconButton onClick={saveNewValue}>
+          <CheckIcon />
+        </StyledIconButton>
+        <StyledIconButton onClick={exitEditMode}>
+          <CloseIcon />
+        </StyledIconButton>
+      </EditModeButtons>
+    </EditModeWrapper>
+  ) : (
+    <ViewModeWrapper>
+      <Typography variant="h4">{displayValue}</Typography>
+      <StyledIconButton onClick={enterEditMode} style={{ marginLeft: 8 }}>
+        <EditIcon />
+      </StyledIconButton>
+    </ViewModeWrapper>
   );
 };
 
