@@ -23,6 +23,14 @@ export const CustomAccordion = styled(Accordion)`
     @media (min-width: 768px) {
       width: 80%;
     }
+
+    @media (min-width: 960px) {
+      width: 90%;
+    }
+  
+    @media (min-width: 1280px) {
+      width: 80%;
+    }
   }
 `;
 

@@ -79,10 +79,10 @@ const CategoryPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
       )}
       {dataIsReady && (
         <Grid container spacing={4}>
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             <AlbumSlider album={category.attributes.images} />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             <EditableTitle data={category} updateData={updateCategory} />
             <EditableDescription data={category} updateData={updateCategory} />
             <AlbumEditor data={category} updateData={updateCategory} />

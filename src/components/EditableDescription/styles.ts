@@ -14,6 +14,14 @@ export const StyledTextArea = styled(TextField)`
   @media (min-width: 768px) {
     width: 80%;
   }
+
+  @media (min-width: 960px) {
+    width: 90%;
+  }
+
+  @media (min-width: 1280px) {
+    width: 80%;
+  }
 `;
 
 export const ViewModeWrapper = styled.div`
@@ -24,6 +32,14 @@ export const ViewModeWrapper = styled.div`
   width: 100%;
 
   @media (min-width: 768px) {
+    width: 90%;
+  }
+
+  @media (min-width: 960px) {
+    width: 100%;
+  }
+
+  @media (min-width: 1280px) {
     width: 90%;
   }
 `;
