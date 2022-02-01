@@ -11,7 +11,11 @@ export const WTDAppBar = styled(AppBar)`
     align-items: center;
     border-radius: 15px;
     padding: 4px;
-    margin: 30px 0;
+    margin: 20px 0;
+
+    @media (min-width: 768px) {
+      margin: 30px 0;
+    }
   }
 `;
 
@@ -27,5 +31,10 @@ export const AppBarHeading = styled(Typography)`
   && {
     color: ${APP_ACCENT_COLOR};
     font-weight: 300;
+    font-size: 2rem;
+
+    @media (min-width: 768px) {
+      font-size: 3rem;
+    }
   }
 `;
