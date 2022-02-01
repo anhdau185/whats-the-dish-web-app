@@ -18,7 +18,7 @@ export const ImageWrapper = styled.div`
   img {
     display: block;
     object-fit: cover;
-    width: 330px;
+    width: 360px;
     height: 240px;
     z-index: 0;
   }
