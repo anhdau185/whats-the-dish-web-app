@@ -1,5 +1,4 @@
 import React, { FC, useState } from 'react';
-import styled from 'styled-components';
 import { Button, Typography } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 
@@ -7,6 +6,8 @@ import { Category, Dish, PartialRawCategory } from 'models';
 import { ActionMenuItems } from 'components/ActionMenu';
 import CategoryAssignmentList from 'components/DishList';
 import CategoryAssignmentDialog from 'components/CategoryAssignmentDialog';
+
+import { FlexWrapper } from './styles';
 
 interface CategoryAssignmentProps {
   category: Category;
@@ -17,16 +18,6 @@ interface CategoryAssignmentProps {
   ) => void | Promise<void>;
   getItemActions?: (dishId: string) => ActionMenuItems;
 }
-
-const FlexWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  margin-bottom: 1.5rem;
-
-  button {
-    margin-left: 1rem;
-  }
-`;
 
 const CategoryAssignment: FC<CategoryAssignmentProps> = ({
   category,
