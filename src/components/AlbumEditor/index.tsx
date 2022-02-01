@@ -13,7 +13,12 @@ import compact from 'lodash/fp/compact';
 import isEmpty from 'lodash/fp/isEmpty';
 import isEqual from 'lodash/fp/isEqual';
 
-import { Category, Dish, PartialRawCategory, PartialRawDish } from 'models';
+import {
+  Category,
+  Dish,
+  PartialRawCategory,
+  PartialRawDish
+} from 'models';
 
 import {
   CustomAccordion,
