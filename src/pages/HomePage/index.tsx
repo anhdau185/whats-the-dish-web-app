@@ -25,7 +25,9 @@ const HomePage: FC<EmptyProps> = () => (
     <Grow in>
       <StyledWrapper>
         <Typography variant="h3" color="textPrimary">
-          Welcome to <span>What&apos;s The Dish</span>!
+          <span>Welcome to </span>
+          <span className="app-name">What&apos;s The Dish</span>
+          <span>!</span>
         </Typography>
         <Typography variant="h6" color="textPrimary">
           What are your dishes today?<br />Get started by choosing what you might want to see:

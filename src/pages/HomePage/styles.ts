@@ -7,10 +7,25 @@ export const StyledWrapper = styled.div`
   text-align: center;
 
   h3 {
+    font-size: 2.5rem;
     margin-bottom: 1rem;
 
     span {
-      color: ${APP_ACCENT_COLOR};
+      &:first-child {
+        display: block;
+
+        @media (min-width: 768px) {
+          display: inline;
+        }
+      }
+
+      &.app-name {
+        color: ${APP_ACCENT_COLOR};
+      }
+    }
+
+    @media (min-width: 768px) {
+      font-size: 3rem;
     }
   }
 
