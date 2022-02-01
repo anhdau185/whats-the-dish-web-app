@@ -56,10 +56,10 @@ const DishPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
       )}
       {dataIsReady && (
         <Grid container spacing={4}>
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             <AlbumSlider album={dish.attributes.images} />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             <EditableTitle data={dish} updateData={updateDish} />
             <EditableDescription data={dish} updateData={updateDish} />
             <EditablePlaces places={places} data={dish} updateData={updateDish} />
@@ -71,7 +71,7 @@ const DishPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
               color="textPrimary"
               style={{ marginBottom: '1.5rem' }}
             >
-              Categories this dish is assigned to
+              Categories that the dish is assigned to:
             </Typography>
             <CategoryList
               categories={categories}
