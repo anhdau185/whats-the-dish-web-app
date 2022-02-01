@@ -9,7 +9,7 @@ import {
 
 export const CustomAccordion = styled(Accordion)`
   && {
-    width: 80%;
+    width: 100%;
     border-radius: 8px;
     box-shadow:
       0px 2px 12px -1px rgba(0, 0, 0, 0.2),
@@ -18,6 +18,10 @@ export const CustomAccordion = styled(Accordion)`
 
     &::before {
       content: none;
+    }
+
+    @media (min-width: 768px) {
+      width: 80%;
     }
   }
 `;
