@@ -67,7 +67,7 @@ const CategoryListingPage: FC<EmptyProps> = () => {
                 categories={categories}
                 emptyText={isFetchingCategories ? `We're getting the categories...` : undefined}
                 getItemActions={getItemActions}
-                itemBreakpoints={{ xs: 12, sm: 6 }}
+                itemBreakpoints={{ xs: 12, sm: 6, md: 4, lg: 6 }}
               />
             </Grid>
             <Grid item xs={12} lg={4}>
