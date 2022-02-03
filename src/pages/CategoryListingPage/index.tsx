@@ -1,6 +1,7 @@
 import React, { FC, useCallback, useEffect } from 'react';
 import { Container, Grow, Grid } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
+import styled from 'styled-components';
 
 import { EmptyProps } from 'utils';
 import { useDeleteCategoryApi, useFetchCategoriesApi } from 'hooks';
@@ -8,6 +9,12 @@ import { ActionMenuItems } from 'components/ActionMenu';
 import CategoryList from 'components/CategoryList';
 import CategoryForm from 'components/CategoryForm';
 import ErrorNotice from 'components/ErrorNotice';
+
+const ResponsiveFormWrapper = styled.div<{ loading: boolean }>`
+  @media (max-width: 1279px) {
+    display: ${({ loading }) => loading ? 'none' : 'block'};
+  }
+`;
 
 const CategoryListingPage: FC<EmptyProps> = () => {
   const {
@@ -71,7 +78,9 @@ const CategoryListingPage: FC<EmptyProps> = () => {
               />
             </Grid>
             <Grid item xs={12} lg={4}>
-              <CategoryForm />
+              <ResponsiveFormWrapper loading={isFetchingCategories}>
+                <CategoryForm />
+              </ResponsiveFormWrapper>
             </Grid>
           </Grid>
         </Container>

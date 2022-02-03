@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useCallback } from 'react';
 import { Container, Grow, Grid } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
+import styled from 'styled-components';
 
 import { EmptyProps } from 'utils';
 import { useDeleteDishApi, useFetchDishesApi } from 'hooks';
@@ -8,6 +9,12 @@ import { ActionMenuItems } from 'components/ActionMenu';
 import DishList from 'components/DishList';
 import DishForm from 'components/DishForm';
 import ErrorNotice from 'components/ErrorNotice';
+
+const ResponsiveFormWrapper = styled.div<{ loading: boolean }>`
+  @media (max-width: 1279px) {
+    display: ${({ loading }) => loading ? 'none' : 'block'};
+  }
+`;
 
 const DishListingPage: FC<EmptyProps> = () => {
   const {
@@ -71,7 +78,9 @@ const DishListingPage: FC<EmptyProps> = () => {
               />
             </Grid>
             <Grid item xs={12} lg={4}>
-              <DishForm />
+              <ResponsiveFormWrapper loading={isFetchingDishes}>
+                <DishForm />
+              </ResponsiveFormWrapper>
             </Grid>
           </Grid>
         </Container>
