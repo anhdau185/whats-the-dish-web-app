@@ -54,7 +54,7 @@ const CategoryListingPage: FC<EmptyProps> = () => {
   }, []);
 
   return (
-    <Container maxWidth="lg">
+    <Container maxWidth="lg" style={{ marginBottom: '3rem' }}>
       <Grow in>
         <Container>
           <Grid
