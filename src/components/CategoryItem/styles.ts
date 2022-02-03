@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Card, CardActions } from '@material-ui/core';
+import { Card, CardActions, Typography } from '@material-ui/core';
 
 export const ImageWrapper = styled.div`
   position:relative;
@@ -61,4 +61,10 @@ export const StyledCardActions = styled(CardActions)`
     justify-content: space-between;
     padding: 0 12px 8px 12px;
   }
+`;
+
+export const CategoryDescription = styled(Typography)`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;

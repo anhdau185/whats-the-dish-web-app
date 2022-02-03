@@ -13,7 +13,8 @@ import {
   MoreButtonOverlay,
   StyledCard,
   StyledCardActions,
-  TimeOverlay
+  TimeOverlay,
+  CategoryDescription
 } from './styles';
 
 interface DishItemProps {
@@ -66,9 +67,9 @@ const DishItem: FC<DishItemProps> = ({ dish, itemActions = {} }) => {
         <Typography variant="h5" gutterBottom style={{ marginBottom: '0.2em' }}>
           {dish.attributes.title}
         </Typography>
-        <Typography variant="body2" color="textSecondary">
+        <CategoryDescription variant="body2" color="textSecondary">
           {dish.attributes.description}
-        </Typography>
+        </CategoryDescription>
       </CardContent>
       <StyledCardActions>
         <Button

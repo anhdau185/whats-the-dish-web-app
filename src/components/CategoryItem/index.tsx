@@ -13,7 +13,8 @@ import {
   TimeOverlay,
   MoreButtonOverlay,
   StyledCard,
-  StyledCardActions
+  StyledCardActions,
+  CategoryDescription
 } from './styles';
 
 interface CategoryItemProps {
@@ -66,9 +67,9 @@ const CategoryItem: FC<CategoryItemProps> = ({ category, itemActions }) => {
         <Typography variant="h5" gutterBottom style={{ marginBottom: '0.2em' }}>
           {category.attributes.title}
         </Typography>
-        <Typography variant="body2" color="textSecondary">
+        <CategoryDescription variant="body2" color="textSecondary">
           {category.attributes.description}
-        </Typography>
+        </CategoryDescription>
       </CardContent>
       <StyledCardActions>
         <Button
