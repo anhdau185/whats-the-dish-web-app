@@ -4,7 +4,6 @@ import { Paper, Typography } from '@material-ui/core';
 export const CustomPaper = styled(Paper)`
   && {
     padding: 1rem;
-    margin-bottom: 2rem;
     border-radius: 12px;
     box-shadow: 0px 2px 12px -1px rgba(0, 0, 0, 0.2),
       0px 1px 3px 0px rgba(0, 0, 0, 0.14),
@@ -18,10 +17,6 @@ export const CustomPaper = styled(Paper)`
       width: 50%;
       margin-left: auto;
       margin-right: auto;
-    }
-
-    @media (min-width: 1280px) {
-      margin-bottom: 0;
     }
   }
 `;
