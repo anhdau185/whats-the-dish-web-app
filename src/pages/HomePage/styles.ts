@@ -3,10 +3,14 @@ import styled from 'styled-components';
 import { APP_ACCENT_COLOR } from 'utils/constants';
 
 export const StyledWrapper = styled.div`
-  padding: 3rem 0;
+  padding: 2rem 0;
   text-align: center;
 
   @media (min-width: 768px) {
+    padding: 4rem 0;
+  }
+
+  @media (min-width: 1280px) {
     padding: 5rem 0;
   }
 
