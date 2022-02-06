@@ -35,7 +35,7 @@ const CategoryAssignment: FC<CategoryAssignmentProps> = ({
         </Typography>
         <Button
           color="primary"
-          variant="contained"
+          variant="outlined"
           startIcon={<AddIcon />}
           onClick={() => setOpen(true)}
         >
