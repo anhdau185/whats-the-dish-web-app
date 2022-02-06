@@ -16,7 +16,7 @@ const HOME_ITEMS: HomeItem[] = [
   {
     url: '/dishes',
     title: 'See all dishes',
-    description: 'Find out your favorite food & drink'
+    description: 'Find out your favorite foods and drinks'
   }
 ];
 
