@@ -1,7 +1,7 @@
 import React, { FC, useCallback, useEffect } from 'react';
 import { Container, Grow, Grid } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
-import styled from 'styled-components';
+import AddIcon from '@material-ui/icons/Add';
 
 import { EmptyProps } from 'utils';
 import { useDeleteCategoryApi, useFetchCategoriesApi } from 'hooks';
@@ -10,11 +10,7 @@ import CategoryList from 'components/CategoryList';
 import CategoryForm from 'components/CategoryForm';
 import ErrorNotice from 'components/ErrorNotice';
 
-const ResponsiveFormWrapper = styled.div<{ loading: boolean }>`
-  @media (max-width: 1279px) {
-    display: ${({ loading }) => loading ? 'none' : 'block'};
-  }
-`;
+import { ResponsiveButton, ResponsiveFormWrapper } from './styles';
 
 const CategoryListingPage: FC<EmptyProps> = () => {
   const {
@@ -70,6 +66,14 @@ const CategoryListingPage: FC<EmptyProps> = () => {
                   {error?.message ? ` (${error?.message})` : ''}.
                 </ErrorNotice>
               )}
+              <ResponsiveButton
+                href="#category-form"
+                variant="text"
+                color="primary"
+                startIcon={<AddIcon />}
+              >
+                Create a category
+              </ResponsiveButton>
               <CategoryList
                 categories={categories}
                 emptyText={isFetchingCategories ? `We're getting the categories...` : undefined}

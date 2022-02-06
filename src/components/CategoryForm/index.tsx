@@ -85,7 +85,12 @@ const CategoryForm: FC<EmptyProps> = () => {
 
   return (
     <CustomPaper>
-      <StyledForm noValidate autoComplete="off" onSubmit={handleSubmit}>
+      <StyledForm
+        id="category-form"
+        noValidate
+        autoComplete="off"
+        onSubmit={handleSubmit}
+      >
         <FormHeading variant="h6" align="center">
           {isCreatingCategory ? 'Creating your category...' : 'Create a category'}
         </FormHeading>

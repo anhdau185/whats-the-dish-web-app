@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useCallback } from 'react';
 import { Container, Grow, Grid } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
-import styled from 'styled-components';
+import AddIcon from '@material-ui/icons/Add';
 
 import { EmptyProps } from 'utils';
 import { useDeleteDishApi, useFetchDishesApi } from 'hooks';
@@ -10,11 +10,7 @@ import DishList from 'components/DishList';
 import DishForm from 'components/DishForm';
 import ErrorNotice from 'components/ErrorNotice';
 
-const ResponsiveFormWrapper = styled.div<{ loading: boolean }>`
-  @media (max-width: 1279px) {
-    display: ${({ loading }) => loading ? 'none' : 'block'};
-  }
-`;
+import { ResponsiveButton, ResponsiveFormWrapper } from './styles';
 
 const DishListingPage: FC<EmptyProps> = () => {
   const {
@@ -70,6 +66,14 @@ const DishListingPage: FC<EmptyProps> = () => {
                   {error?.message ? ` (${error?.message})` : ''}.
                 </ErrorNotice>
               )}
+              <ResponsiveButton
+                href="#dish-form"
+                variant="text"
+                color="primary"
+                startIcon={<AddIcon />}
+              >
+                Create a dish
+              </ResponsiveButton>
               <DishList
                 dishes={dishes}
                 emptyText={isFetchingDishes ? `We're getting the dishes...` : undefined}
