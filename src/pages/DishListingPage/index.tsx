@@ -71,6 +71,7 @@ const DishListingPage: FC<EmptyProps> = () => {
                 variant="text"
                 color="primary"
                 startIcon={<AddIcon />}
+                disabled={isFetchingDishes}
               >
                 Create a dish
               </ResponsiveButton>

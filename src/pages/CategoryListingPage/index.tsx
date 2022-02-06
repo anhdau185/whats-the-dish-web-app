@@ -71,6 +71,7 @@ const CategoryListingPage: FC<EmptyProps> = () => {
                 variant="text"
                 color="primary"
                 startIcon={<AddIcon />}
+                disabled={isFetchingCategories}
               >
                 Create a category
               </ResponsiveButton>
