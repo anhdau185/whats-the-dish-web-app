@@ -28,18 +28,26 @@ export const StyledListItem = styled.div`
 
     h2 {
       margin: 0;
-      font-size: 1.5rem;
+      font-size: 1.25rem;
       font-weight: 700;
       transition: color 0.15s ease;
       font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
         Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+
+      @media (min-width: 768px) {
+        font-size: 1.5rem;
+      }
     }
 
     p {
       margin-top: 0.5rem;
-      font-size: 1.25rem;
+      font-size: 1rem;
       line-height: 1.5;
       transition: color 0.15s ease;
+
+      @media (min-width: 768px) {
+        font-size: 1.25rem;
+      }
     }
 
     &:hover,
