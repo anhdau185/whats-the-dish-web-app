@@ -29,7 +29,7 @@ const CategoryList: FC<CategoryListProps> = ({
   const hasItemActions = getItemActions != null;
   
   return isEmpty(categories) ? (
-    <Typography variant="h5" color="textSecondary">
+    <Typography variant="body1" color="textSecondary">
       {emptyText || 'No categories to show.'}
     </Typography>
   ) : (
