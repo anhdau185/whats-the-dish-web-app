@@ -83,7 +83,7 @@ const CategoryAssignmentDialog: FC<CategoryAssignmentDialogProps> = ({
   return (
     <Dialog maxWidth="xs" open={open}>
       <DialogTitle>Assign dishes to the category</DialogTitle>
-      <DialogContent dividers>
+      <DialogContent dividers style={{ maxHeight: 360 }}>
         <FormGroup>
           {isEmpty(dishes) && isFetchingDishes && (
             <Typography variant="body1" color="textSecondary">

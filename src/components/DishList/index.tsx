@@ -29,7 +29,7 @@ const DishList: FC<DishListProps> = ({
   const hasItemActions = getItemActions != null;
 
   return isEmpty(dishes) ? (
-    <Typography variant="h5" color="textSecondary">
+    <Typography variant="body1" color="textSecondary">
       {emptyText || 'No dishes to show.'}
     </Typography>
   ) : (
