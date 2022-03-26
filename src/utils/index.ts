@@ -1,33 +1,20 @@
-import { GridSize } from '@material-ui/core';
 import isEmpty from 'lodash/fp/isEmpty';
 
 import { Category, Dish } from 'models';
 
-export type Nullable<T> = T | null;
+import {
+  Nullable,
+  RouterIdPageProps,
+  BreakpointSet,
+  CategoryImages,
+  DishImages
+} from './types';
 
-export interface RouterIdPageProps {
-  match: {
-    params: { id: string }
-  }
-}
-
-export interface BreakpointSet {
-  xs?: GridSize;
-  sm?: GridSize;
-  md?: GridSize;
-  lg?: GridSize;
-  xl?: GridSize;
-}
-
-interface CategoryImages {
-  categoryImage?: string;
-  categoryAlbum: string[];
-}
-
-interface DishImages {
-  dishImage?: string;
-  dishAlbum: string[];
-}
+export type {
+  Nullable,
+  RouterIdPageProps,
+  BreakpointSet
+};
 
 export const getCategoryImages = (category: Category): CategoryImages => {
   const allImages = category.attributes.images;
