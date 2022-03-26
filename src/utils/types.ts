@@ -2,6 +2,8 @@ import { GridSize } from '@material-ui/core';
 
 export type Nullable<T> = T | null;
 
+export type OneOrMany<T> = T | Array<T>;
+
 export interface RouterIdPageProps {
   match: {
     params: { id: string }

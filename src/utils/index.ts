@@ -4,6 +4,7 @@ import { Category, Dish } from 'models';
 
 import {
   Nullable,
+  OneOrMany,
   RouterIdPageProps,
   BreakpointSet,
   CategoryImages,
@@ -12,6 +13,7 @@ import {
 
 export type {
   Nullable,
+  OneOrMany,
   RouterIdPageProps,
   BreakpointSet
 };
