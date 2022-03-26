@@ -1,9 +1,8 @@
-import React, { FC, useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { Container, Grow, Grid } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
 
-import { EmptyProps } from 'utils';
 import { useDeleteDishApi, useFetchDishesApi } from 'hooks';
 import { ActionMenuItems } from 'components/ActionMenu';
 import DishList from 'components/DishList';
@@ -12,7 +11,7 @@ import ErrorNotice from 'components/ErrorNotice';
 
 import { ResponsiveButton, ResponsiveFormWrapper } from './styles';
 
-const DishListingPage: FC<EmptyProps> = () => {
+const DishListingPage: React.FC = () => {
   const {
     data: dishes,
     error,

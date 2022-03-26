@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Typography } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import CheckIcon from '@material-ui/icons/Check';
@@ -24,7 +24,10 @@ interface EditableDescriptionProps {
   ) => void | Promise<void>;
 }
 
-const EditableDescription: FC<EditableDescriptionProps> = ({ data, updateData }) => {
+const EditableDescription: React.FC<EditableDescriptionProps> = ({
+  data,
+  updateData
+}) => {
   const originalValue = data.attributes.description ?? '';
   const [displayValue, setDisplayValue] = useState<string>(originalValue);
   const [editMode, setEditMode] = useState<boolean>(false);

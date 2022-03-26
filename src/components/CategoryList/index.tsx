@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
 import styled from 'styled-components';
 import isEmpty from 'lodash/fp/isEmpty';
@@ -20,7 +20,7 @@ interface CategoryListProps {
   itemBreakpoints?: BreakpointSet;
 }
 
-const CategoryList: FC<CategoryListProps> = ({
+const CategoryList: React.FC<CategoryListProps> = ({
   categories,
   emptyText,
   getItemActions,

@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { Container, Grid, Typography } from '@material-ui/core';
 
 import { useGetDishApi, useUpdateDishApi } from 'hooks';
@@ -12,7 +12,7 @@ import BackToListButton from 'components/BackToListButton';
 import ErrorNotice from 'components/ErrorNotice';
 import EditablePlaces from 'components/EditablePlaces';
 
-const DishPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
+const DishPage: React.FC<RouterIdPageProps> = ({ match: { params } }) => {
   const {
     data: dish,
     includedData: categories,

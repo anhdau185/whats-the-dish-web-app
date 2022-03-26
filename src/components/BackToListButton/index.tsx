@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { Typography } from '@material-ui/core';
 import styled from 'styled-components';
@@ -22,7 +22,7 @@ const BackToListWrapper = styled.div`
   }
 `;
 
-const BackToListButton: FC<{ href: string }> = ({ href }) => (
+const BackToListButton: React.FC<{ href: string }> = ({ href }) => (
   <BackToListWrapper>
     <Link to={href}>
       <Typography variant="h2" color="textPrimary">

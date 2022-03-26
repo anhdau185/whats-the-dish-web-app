@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { Navigation, Pagination, Autoplay } from 'swiper';
 import { SwiperSlide } from 'swiper/react/swiper-react';
 import isEmpty from 'lodash/fp/isEmpty';
@@ -11,7 +11,7 @@ import 'swiper/swiper.min.css';
 import 'swiper/modules/navigation/navigation.min.css';
 import 'swiper/modules/pagination/pagination.min.css';
 
-const AlbumSlider: FC<{ album: string[] }> = ({ album }) => {
+const AlbumSlider: React.FC<{ album: string[] }> = ({ album }) => {
   return (
     <CustomSwiper
       modules={[Navigation, Pagination, Autoplay]}

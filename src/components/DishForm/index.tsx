@@ -1,8 +1,7 @@
-import React, { FC, useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Button, TextField } from '@material-ui/core';
 import isEmpty from 'lodash/fp/isEmpty';
 
-import { EmptyProps } from 'utils';
 import { RawDish } from 'models';
 import { useCreateDishApi, useFetchDishesApi } from 'hooks';
 
@@ -39,7 +38,7 @@ const validateForm = (formData: DishFormData): boolean => {
   return true;
 };
 
-const DishForm: FC<EmptyProps> = () => {
+const DishForm: React.FC = () => {
   const [formData, setFormData] = useState<DishFormData>({
     name: '',
     title: '',

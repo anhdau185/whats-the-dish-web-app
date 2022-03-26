@@ -1,4 +1,4 @@
-import React, { FC, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button, CardContent, Typography } from '@material-ui/core';
 import moment from 'moment';
@@ -22,7 +22,7 @@ interface CategoryItemProps {
   itemActions?: ActionMenuItems;
 }
 
-const CategoryItem: FC<CategoryItemProps> = ({ category, itemActions }) => {
+const CategoryItem: React.FC<CategoryItemProps> = ({ category, itemActions }) => {
   const history = useHistory();
   const [timeHovered, setTimeHovered] = useState<boolean>(false);
   const hasItemActions = itemActions != null;

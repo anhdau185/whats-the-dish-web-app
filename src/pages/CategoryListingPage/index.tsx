@@ -1,9 +1,8 @@
-import React, { FC, useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { Container, Grow, Grid } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
 
-import { EmptyProps } from 'utils';
 import { useDeleteCategoryApi, useFetchCategoriesApi } from 'hooks';
 import { ActionMenuItems } from 'components/ActionMenu';
 import CategoryList from 'components/CategoryList';
@@ -12,7 +11,7 @@ import ErrorNotice from 'components/ErrorNotice';
 
 import { ResponsiveButton, ResponsiveFormWrapper } from './styles';
 
-const CategoryListingPage: FC<EmptyProps> = () => {
+const CategoryListingPage: React.FC = () => {
   const {
     data: categories,
     error,

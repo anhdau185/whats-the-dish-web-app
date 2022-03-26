@@ -3,10 +3,6 @@ import isEmpty from 'lodash/fp/isEmpty';
 
 import { Category, Dish } from 'models';
 
-export interface EmptyProps {
-  [props: string]: never;
-}
-
 export type Nullable<T> = T | null;
 
 export interface RouterIdPageProps {

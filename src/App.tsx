@@ -1,12 +1,11 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { BrowserRouter, Switch } from 'react-router-dom';
 
-import { EmptyProps } from 'utils';
 import Routes from 'routes';
 import AppBar from 'components/AppBar';
 import AppProgress from 'components/AppProgress';
 
-const App: FC<EmptyProps> = () => (
+const App: React.FC = () => (
   <BrowserRouter>
     <div className="app">
       <AppProgress />

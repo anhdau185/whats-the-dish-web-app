@@ -1,7 +1,5 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { Route } from 'react-router-dom';
-
-import { EmptyProps } from 'utils';
 
 /* Pages */
 import HomePage from 'pages/HomePage';
@@ -10,7 +8,7 @@ import CategoryPage from 'pages/CategoryPage';
 import DishListingPage from 'pages/DishListingPage';
 import DishPage from 'pages/DishPage';
 
-const Routes: FC<EmptyProps> = () => (
+const Routes: React.FC = () => (
   <>
     <Route exact path="/" component={HomePage} />
     <Route exact path="/categories" component={CategoryListingPage} />

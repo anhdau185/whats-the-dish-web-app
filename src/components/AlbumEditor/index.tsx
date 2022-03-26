@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
   AccordionSummary,
   InputAdornment,
@@ -45,7 +45,7 @@ const generateDisplayAlbum = (actualAlbum: string[]): string[] =>
     (emptyValue, index) => actualAlbum[index] || emptyValue
   );
 
-const AlbumEditor: FC<AlbumEditorProps> = ({ data, updateData }) => {
+const AlbumEditor: React.FC<AlbumEditorProps> = ({ data, updateData }) => {
   const actualAlbum = data.attributes.images;
   const [expanded, setExpanded] = useState<boolean>(false);
   const [displayAlbum, setDisplayAlbum] = useState<string[]>(

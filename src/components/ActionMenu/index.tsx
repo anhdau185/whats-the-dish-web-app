@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { useState } from 'react';
 import { IconButton, ListItemIcon, ListItemText, Menu, MenuItem } from '@material-ui/core';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import { SvgIconComponent } from '@material-ui/icons';
@@ -15,7 +15,10 @@ interface ActionMenuProps {
   color?: string;
 }
 
-const ActionMenu: FC<ActionMenuProps> = ({ items, color = 'rgba(0,0,0,1)' }) => {
+const ActionMenu: React.FC<ActionMenuProps> = ({
+  items,
+  color = 'rgba(0,0,0,1)'
+}) => {
   const [anchorElement, setAnchorElement] =
     useState<HTMLButtonElement | null>(null);
 
