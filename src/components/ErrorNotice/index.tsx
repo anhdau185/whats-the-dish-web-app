@@ -1,7 +1,7 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { Button, Typography } from '@material-ui/core';
 
-const ErrorNotice: FC<{ fetchData?: () => void | Promise<void> }> = ({
+const ErrorNotice: React.FC<{ fetchData?: () => void | Promise<void> }> = ({
   children,
   fetchData
 }) => {

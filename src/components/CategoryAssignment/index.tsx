@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { useState } from 'react';
 import { Button, Typography } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 
@@ -19,7 +19,7 @@ interface CategoryAssignmentProps {
   getItemActions?: (dishId: string) => ActionMenuItems;
 }
 
-const CategoryAssignment: FC<CategoryAssignmentProps> = ({
+const CategoryAssignment: React.FC<CategoryAssignmentProps> = ({
   category,
   assignedDishes,
   updateCategory,

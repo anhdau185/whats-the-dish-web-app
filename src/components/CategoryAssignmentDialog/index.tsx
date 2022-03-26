@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import isEmpty from 'lodash/fp/isEmpty';
 import includes from 'lodash/fp/includes';
 import {
@@ -26,7 +26,7 @@ interface CategoryAssignmentDialogProps {
   ) => void | Promise<void>;
 }
 
-const CategoryAssignmentDialog: FC<CategoryAssignmentDialogProps> = ({
+const CategoryAssignmentDialog: React.FC<CategoryAssignmentDialogProps> = ({
   open,
   closeDialog,
   data,

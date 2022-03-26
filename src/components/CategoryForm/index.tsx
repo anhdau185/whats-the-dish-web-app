@@ -1,7 +1,6 @@
-import React, { FC, useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Button, TextField } from '@material-ui/core';
 
-import { EmptyProps } from 'utils';
 import { RawCategory } from 'models';
 import { useCreateCategoryApi, useFetchCategoriesApi } from 'hooks';
 
@@ -38,7 +37,7 @@ const validateForm = (formData: CategoryFormData): boolean => {
   return true;
 };
 
-const CategoryForm: FC<EmptyProps> = () => {
+const CategoryForm: React.FC = () => {
   const [formData, setFormData] = useState<CategoryFormData>({
     name: '',
     title: '',

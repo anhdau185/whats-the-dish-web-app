@@ -1,7 +1,6 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { Container, Grow, Typography } from '@material-ui/core';
 
-import { EmptyProps } from 'utils';
 import { HomeItem } from 'models';
 import HomeList from 'components/HomeList';
 
@@ -20,7 +19,7 @@ const HOME_ITEMS: HomeItem[] = [
   }
 ];
 
-const HomePage: FC<EmptyProps> = () => (
+const HomePage: React.FC = () => (
   <Container maxWidth="lg">
     <Grow in>
       <StyledWrapper>

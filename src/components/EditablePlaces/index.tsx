@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
   IconButton,
   InputAdornment,
@@ -29,7 +29,11 @@ interface EditablePlacesProps {
   ) => void | Promise<void>;
 }
 
-const EditablePlaces: FC<EditablePlacesProps> = ({ places, data, updateData }) => {
+const EditablePlaces: React.FC<EditablePlacesProps> = ({
+  places,
+  data,
+  updateData
+}) => {
   const originalValue = places.join(', ');
   const [displayValue, setDisplayValue] = useState<string>(originalValue);
   const [editMode, setEditMode] = useState<boolean>(false);

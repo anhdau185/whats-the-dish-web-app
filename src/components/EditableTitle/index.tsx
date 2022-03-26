@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Typography } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import CheckIcon from '@material-ui/icons/Check';
@@ -25,7 +25,7 @@ interface EditableTitleProps {
   ) => void | Promise<void>;
 }
 
-const EditableTitle: FC<EditableTitleProps> = ({ data, updateData }) => {
+const EditableTitle: React.FC<EditableTitleProps> = ({ data, updateData }) => {
   const originalValue = data.attributes.title;
   const [displayValue, setDisplayValue] = useState<string>(originalValue);
   const [editMode, setEditMode] = useState<boolean>(false);

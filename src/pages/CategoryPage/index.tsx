@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { Container, Grid, Typography } from '@material-ui/core';
 import RemoveIcon from '@material-ui/icons/RemoveCircleOutline';
 
@@ -14,7 +14,7 @@ import CategoryAssignment from 'components/CategoryAssignment';
 import BackToListButton from 'components/BackToListButton';
 import ErrorNotice from 'components/ErrorNotice';
 
-const CategoryPage: FC<RouterIdPageProps> = ({ match: { params } }) => {
+const CategoryPage: React.FC<RouterIdPageProps> = ({ match: { params } }) => {
   const {
     data: category,
     includedData: assignedDishes,
