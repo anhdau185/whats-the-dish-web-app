@@ -1,8 +1,8 @@
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 
 import { Category, RawCategory, Dish, PartialRawCategory } from 'models';
 
-import { CommonApiResponse, BASE_URL } from '.';
+import { CommonApiResponse, ApiCallPromise, BASE_URL } from '.';
 
 export interface FetchCategoriesApiOptions {
   include_dishes?: boolean;
@@ -14,37 +14,31 @@ export interface GetCategoryApiOptions {
   include_dishes?: boolean;
 }
 
-export interface CategoryCollectionApiResponse extends Omit<CommonApiResponse, 'included'> {
+export interface CategoryCollectionApiResponse extends CommonApiResponse {
   data: Category[];
   included?: Dish[];
 }
 
-export interface SingleCategoryApiResponse extends Omit<CommonApiResponse, 'included'> {
+export interface SingleCategoryApiResponse extends CommonApiResponse {
   data: Category;
   included?: Dish[];
 }
 
-export type FetchCategoriesApiResponse = AxiosResponse<CategoryCollectionApiResponse>;
-export type CreateCategoryApiResponse = AxiosResponse<SingleCategoryApiResponse>;
-export type GetCategoryApiResponse = AxiosResponse<SingleCategoryApiResponse>;
-export type UpdateCategoryApiResponse = AxiosResponse<SingleCategoryApiResponse>;
-export type DeleteCategoryApiResponse = AxiosResponse<CommonApiResponse>;
-
 export const fetchCategories =
-  (params: FetchCategoriesApiOptions = {}): Promise<FetchCategoriesApiResponse> =>
+  (params: FetchCategoriesApiOptions = {}): ApiCallPromise<CategoryCollectionApiResponse> =>
     axios.get(`${BASE_URL}/categories`, { params });
 
 export const createCategory =
-  (category: RawCategory): Promise<CreateCategoryApiResponse> =>
+  (category: RawCategory): ApiCallPromise<SingleCategoryApiResponse> =>
     axios.post(`${BASE_URL}/categories`, category);
 
 export const getCategory =
-  (id: string, params: GetCategoryApiOptions = {}): Promise<GetCategoryApiResponse> =>
+  (id: string, params: GetCategoryApiOptions = {}): ApiCallPromise<SingleCategoryApiResponse> =>
     axios.get(`${BASE_URL}/categories/${id}`, { params });
 
 export const updateCategory =
-  (id: string, category: PartialRawCategory): Promise<UpdateCategoryApiResponse> =>
+  (id: string, category: PartialRawCategory): ApiCallPromise<SingleCategoryApiResponse> =>
     axios.patch(`${BASE_URL}/categories/${id}`, category);
 
 export const deleteCategory =
-  (id: string): Promise<DeleteCategoryApiResponse> => axios.delete(`${BASE_URL}/categories/${id}`);
+  (id: string): ApiCallPromise => axios.delete(`${BASE_URL}/categories/${id}`);

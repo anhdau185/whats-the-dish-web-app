@@ -1,8 +1,8 @@
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 
 import { Dish, RawDish, Category, PartialRawDish } from 'models';
 
-import { CommonApiResponse, BASE_URL } from '.';
+import { CommonApiResponse, ApiCallPromise, BASE_URL } from '.';
 
 export interface FetchDishesApiOptions {
   include_categories?: boolean;
@@ -14,37 +14,31 @@ export interface GetDishApiOptions {
   include_categories?: boolean;
 }
 
-export interface DishCollectionApiResponse extends Omit<CommonApiResponse, 'included'> {
+export interface DishCollectionApiResponse extends CommonApiResponse {
   data: Dish[];
   included?: Category[];
 }
 
-export interface SingleDishApiResponse extends Omit<CommonApiResponse, 'included'> {
+export interface SingleDishApiResponse extends CommonApiResponse {
   data: Dish;
   included?: Category[];
 }
 
-export type FetchDishesApiResponse = AxiosResponse<DishCollectionApiResponse>;
-export type GetDishApiResponse = AxiosResponse<SingleDishApiResponse>;
-export type CreateDishApiResponse = AxiosResponse<SingleDishApiResponse>;
-export type UpdateDishApiResponse = AxiosResponse<SingleDishApiResponse>;
-export type DeleteDishApiResponse = AxiosResponse<CommonApiResponse>;
-
 export const fetchDishes =
-  (params: FetchDishesApiOptions = {}): Promise<FetchDishesApiResponse> =>
+  (params: FetchDishesApiOptions = {}): ApiCallPromise<DishCollectionApiResponse> =>
     axios.get(`${BASE_URL}/dishes`, { params });
 
 export const createDish =
-  (dish: RawDish): Promise<CreateDishApiResponse> =>
+  (dish: RawDish): ApiCallPromise<SingleDishApiResponse> =>
     axios.post(`${BASE_URL}/dishes`, dish);
 
 export const getDish =
-  (id: string, params: GetDishApiOptions = {}): Promise<GetDishApiResponse> =>
+  (id: string, params: GetDishApiOptions = {}): ApiCallPromise<SingleDishApiResponse> =>
     axios.get(`${BASE_URL}/dishes/${id}`, { params });
 
 export const updateDish =
-  (id: string, dish: PartialRawDish): Promise<UpdateDishApiResponse> =>
+  (id: string, dish: PartialRawDish): ApiCallPromise<SingleDishApiResponse> =>
     axios.patch(`${BASE_URL}/dishes/${id}`, dish);
 
 export const deleteDish =
-  (id: string): Promise<DeleteDishApiResponse> => axios.delete(`${BASE_URL}/dishes/${id}`);
+  (id: string): ApiCallPromise => axios.delete(`${BASE_URL}/dishes/${id}`);
