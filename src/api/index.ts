@@ -1,3 +1,8 @@
+import { AxiosResponse } from 'axios';
+
+import { OneOrMany } from 'utils';
+import { Category, Dish } from 'models';
+
 import {
   fetchCategories,
   createCategory,
@@ -5,7 +10,6 @@ import {
   updateCategory,
   deleteCategory
 } from './categories';
-
 import {
   fetchDishes,
   createDish,
@@ -21,9 +25,14 @@ import {
 export const BASE_URL = 'https://whats-the-dish-api.herokuapp.com/api/v1';
 
 export interface CommonApiResponse {
-  included?: unknown;
+  data?: OneOrMany<Category> | OneOrMany<Dish>;
+  included?: Category[] | Dish[];
   [extraProps: string]: unknown;
 }
+
+export type ApiCallPromise<
+  T extends CommonApiResponse = CommonApiResponse
+> = Promise<AxiosResponse<T>>;
 
 export {
   fetchCategories,
