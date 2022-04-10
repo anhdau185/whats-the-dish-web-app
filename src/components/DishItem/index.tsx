@@ -1,7 +1,10 @@
-import React, { useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button, CardContent, Typography } from '@material-ui/core';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import moment from 'moment';
+import * as api from 'api';
 
 import { Dish } from 'models';
 import { getDishImages } from 'utils';
@@ -14,7 +17,8 @@ import {
   StyledCard,
   StyledCardActions,
   TimeOverlay,
-  CategoryDescription
+  CategoryDescription,
+  StyledIconButton
 } from './styles';
 
 interface DishItemProps {
@@ -25,6 +29,7 @@ interface DishItemProps {
 const DishItem: React.FC<DishItemProps> = ({ dish, itemActions = {} }) => {
   const history = useHistory();
   const [timeHovered, setTimeHovered] = useState<boolean>(false);
+  const [liked, setLiked] = useState<boolean>(dish.attributes.likeCount > 0);
   const hasItemActions = itemActions != null;
 
   const dishImage = useMemo(
@@ -36,6 +41,17 @@ const DishItem: React.FC<DishItemProps> = ({ dish, itemActions = {} }) => {
     () => moment(dish.attributes.createdAt).format('MMM D, YYYY h:mm a'),
     [dish.attributes.createdAt]
   );
+
+  const handleClickLikeButton = useCallback(() => {
+    const dishId = dish.id;
+
+    if (liked) {
+      api.unlikeDish(dishId);
+    } else {
+      api.likeDish(dishId);
+    }
+    setLiked(!liked);
+  }, [dish.id, liked]);
 
   return (
     <StyledCard>
@@ -79,6 +95,12 @@ const DishItem: React.FC<DishItemProps> = ({ dish, itemActions = {} }) => {
         >
           View details
         </Button>
+        <StyledIconButton
+          color="secondary"
+          onClick={handleClickLikeButton}
+        >
+          {liked ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+        </StyledIconButton>
       </StyledCardActions>
     </StyledCard>
   );
