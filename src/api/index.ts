@@ -15,7 +15,9 @@ import {
   createDish,
   getDish,
   updateDish,
-  deleteDish
+  deleteDish,
+  likeDish,
+  unlikeDish
 } from './dishes';
 
 // local host for development
@@ -44,5 +46,7 @@ export {
   createDish,
   getDish,
   updateDish,
-  deleteDish
+  deleteDish,
+  likeDish,
+  unlikeDish
 };
