@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Card, CardActions, Typography } from '@material-ui/core';
+import { Card, CardActions, IconButton, Typography } from '@material-ui/core';
 
 export const ImageWrapper = styled.div`
   position:relative;
@@ -67,4 +67,11 @@ export const CategoryDescription = styled(Typography)`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+`;
+
+export const StyledIconButton = styled(IconButton)`
+  && {
+    padding: 6px;
+    height: max-content;
+  }
 `;
