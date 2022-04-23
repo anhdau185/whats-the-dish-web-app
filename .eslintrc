@@ -13,27 +13,28 @@
   },
   "rules": {
     "semi": "off",
-    "@typescript-eslint/semi": "error",
+    "@typescript-eslint/semi": ["error"],
     "no-extra-semi": "off",
-    "@typescript-eslint/no-extra-semi": "error",
+    "@typescript-eslint/no-extra-semi": ["error"],
     "comma-dangle": "off",
-    "@typescript-eslint/comma-dangle": "error",
-    "@typescript-eslint/no-explicit-any": "off",
-    "eol-last": "error",
-    "quotes": [
-      "error",
-      "single",
-      {
-        "allowTemplateLiterals": true
-      }
-    ],
-    "indent": [
-      "warn",
-      2,
-      {
-        "SwitchCase": 1
-      }
-    ]
+    "@typescript-eslint/comma-dangle": ["error"],
+    "@typescript-eslint/no-explicit-any": ["warn"],
+    "eol-last": ["error"],
+    "quotes": ["error", "single", { "allowTemplateLiterals": true }],
+    "indent": ["warn", 2, { "SwitchCase": 1 }],
+    "require-await": ["error"],
+    "@typescript-eslint/no-non-null-assertion": ["error"],
+    "@typescript-eslint/prefer-optional-chain": ["error"],
+    "@typescript-eslint/unified-signatures": ["error"],
+    "@typescript-eslint/type-annotation-spacing": ["error"],
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": ["warn"],
+    "no-use-before-define": "off",
+    "@typescript-eslint/no-use-before-define": ["error"],
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": ["error"],
+    "no-empty-function": "off",
+    "@typescript-eslint/no-empty-function": ["error"]
   },
   "settings": {
     "react": {
