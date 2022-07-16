@@ -41,7 +41,7 @@ const useCreateDishApi =
         setData(createdDish);
         setError(null);
         onSuccess(createdDish);
-      } catch (exception: any) {
+      } catch (exception: unknown) {
         const safeError = exception ?? {};
 
         setError(safeError);

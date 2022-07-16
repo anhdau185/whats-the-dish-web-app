@@ -34,7 +34,7 @@ const useDeleteDishApi =
 
         setError(null);
         onSuccess();
-      } catch (exception: any) {
+      } catch (exception: unknown) {
         const safeError = exception ?? {};
 
         setError(safeError);
