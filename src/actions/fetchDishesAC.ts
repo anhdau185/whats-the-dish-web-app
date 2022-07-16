@@ -51,7 +51,7 @@ const fetchDishesAC: FetchDishesActionCreator =
         }
       });
       onSuccess(apiResponse.data);
-    } catch (error: any) {
+    } catch (error: unknown) {
       const safeError = error ?? {};
 
       dispatch({

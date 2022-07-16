@@ -41,7 +41,7 @@ const useCreateCategoryApi =
         setData(createdCategory);
         setError(null);
         onSuccess(createdCategory);
-      } catch (exception: any) {
+      } catch (exception: unknown) {
         const safeError = exception ?? {};
 
         setError(safeError);

@@ -39,7 +39,7 @@ const useUpdateDishApi =
         setData(apiResponse);
         setError(null);
         onSuccess(apiResponse);
-      } catch (exception: any) {
+      } catch (exception: unknown) {
         const safeError = exception ?? {};
 
         setError(safeError);
