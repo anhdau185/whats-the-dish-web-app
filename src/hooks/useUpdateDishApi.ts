@@ -34,13 +34,13 @@ const useUpdateDishApi =
       setAppLoading(true);
 
       try {
-        const { data: { data } } = await api.updateDish(id, dish);
+        const { data: { data: apiResponse } } = await api.updateDish(id, dish);
 
-        setData(data);
+        setData(apiResponse);
         setError(null);
-        onSuccess(data);
-      } catch (error: any) {
-        const safeError = error ?? {};
+        onSuccess(apiResponse);
+      } catch (exception: any) {
+        const safeError = exception ?? {};
 
         setError(safeError);
         onFailure(safeError);

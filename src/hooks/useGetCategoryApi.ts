@@ -43,13 +43,13 @@ const useGetCategoryApi =
         setAppLoading(true);
 
         try {
-          const { data: response } = await api.getCategory(id, params);
+          const { data: apiResponse } = await api.getCategory(id, params);
 
-          setResponse(response);
+          setResponse(apiResponse);
           setError(null);
-          onSuccess(response);
-        } catch (error: any) {
-          const safeError = error ?? {};
+          onSuccess(apiResponse);
+        } catch (exception: any) {
+          const safeError = exception ?? {};
 
           setError(safeError);
           onFailure(safeError);

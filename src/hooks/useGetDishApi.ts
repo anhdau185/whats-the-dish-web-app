@@ -43,13 +43,13 @@ const useGetDishApi =
         setAppLoading(true);
 
         try {
-          const { data: response } = await api.getDish(id, params);
+          const { data: apiResponse } = await api.getDish(id, params);
 
-          setResponse(response);
+          setResponse(apiResponse);
           setError(null);
-          onSuccess(response);
-        } catch (error: any) {
-          const safeError = error ?? {};
+          onSuccess(apiResponse);
+        } catch (exception: any) {
+          const safeError = exception ?? {};
 
           setError(safeError);
           onFailure(safeError);
