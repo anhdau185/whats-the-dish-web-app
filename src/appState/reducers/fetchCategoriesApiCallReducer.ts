@@ -1,8 +1,9 @@
 import { handleActions } from 'redux-actions';
 
 import { Category, Dish } from 'models';
-import { API_CALL_FETCH_CATEGORIES } from 'actions/constants';
-import { UpdateLocalCategoriesAction } from 'actions/types';
+
+import { API_CALL_FETCH_CATEGORIES } from '../actions/constants';
+import { UpdateLocalCategoriesAction } from '../actions/types';
 
 export interface FetchCategoriesApiCall {
   data: Category[];

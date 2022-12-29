@@ -1,9 +1,8 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { LinearProgress } from '@material-ui/core';
 import styled from 'styled-components';
 
-import { appLoadingSelector } from 'reducers/state';
+import { useAppLoading } from 'hooks';
 
 const StyledProgress = styled(LinearProgress)`
   && {
@@ -17,7 +16,7 @@ const StyledProgress = styled(LinearProgress)`
 `;
 
 const AppProgress: React.FC = () => {
-  const loading = useSelector(appLoadingSelector);
+  const { loading } = useAppLoading();
 
   return (
     <StyledProgress

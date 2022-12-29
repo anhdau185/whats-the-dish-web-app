@@ -1,6 +1,7 @@
 import { Category, Dish } from 'models';
-import { GlobalState } from 'reducers';
-import { FetchDishesApiCall } from 'reducers/fetchDishesApiCallReducer';
+
+import { GlobalState } from '../reducers';
+import { FetchDishesApiCall } from '../reducers/fetchDishesApiCallReducer';
 
 export const apiCallSelector =
   (state: Readonly<GlobalState>): FetchDishesApiCall => state.fetchDishesApiCall;

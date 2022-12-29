@@ -1,8 +1,8 @@
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { appLoadingSelector } from 'reducers/state';
-import { setAppLoadingAC } from 'actions';
+import { appLoadingSelector } from 'appState/selectors';
+import { setAppLoadingAC } from 'appState/actions';
 
 interface AppLoadingHookResult {
   loading: boolean;

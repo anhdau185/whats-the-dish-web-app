@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Button, Container } from '@material-ui/core';
 
-import { pingingSelector } from 'reducers/state';
+import { pingingSelector } from 'appState/selectors';
 
 const Playground: React.FC = () => {
   const isPinging = useSelector(pingingSelector);

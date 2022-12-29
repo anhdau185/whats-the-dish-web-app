@@ -1,8 +1,9 @@
 import { handleActions } from 'redux-actions';
 
 import { Category, Dish } from 'models';
-import { UpdateLocalDishesAction } from 'actions/types';
-import { API_CALL_FETCH_DISHES } from 'actions/constants';
+
+import { UpdateLocalDishesAction } from '../actions/types';
+import { API_CALL_FETCH_DISHES } from '../actions/constants';
 
 export interface FetchDishesApiCall {
   data: Dish[];

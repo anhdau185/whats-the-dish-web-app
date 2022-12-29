@@ -1,14 +1,14 @@
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { fetchCategoriesAC } from 'actions';
-import { FetchCategoriesAction } from 'actions/types';
+import { fetchCategoriesAC } from 'appState/actions';
+import { FetchCategoriesAction } from 'appState/actions/types';
 import {
   dataSelector,
   includedDataSelector,
   errorSelector,
   loadingSelector
-} from 'reducers/state/fetchCategoriesApiCall';
+} from 'appState/selectors/fetchCategoriesApiCall';
 
 type ApiParams = FetchCategoriesAction['payload']['params'];
 

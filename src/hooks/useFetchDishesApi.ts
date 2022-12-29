@@ -1,14 +1,14 @@
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { fetchDishesAC } from 'actions';
-import { FetchDishesAction } from 'actions/types';
+import { fetchDishesAC } from 'appState/actions';
+import { FetchDishesAction } from 'appState/actions/types';
 import {
   dataSelector,
   errorSelector,
   includedDataSelector,
   loadingSelector
-} from 'reducers/state/fetchDishesApiCall';
+} from 'appState/selectors/fetchDishesApiCall';
 
 type ApiParams = FetchDishesAction['payload']['params'];
 

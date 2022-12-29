@@ -4,9 +4,10 @@ import { concat, from, of } from 'rxjs';
 import { catchError, exhaustMap, finalize, mergeMap, pluck, tap } from 'rxjs/operators';
 
 import * as api from 'api';
-import { setAppLoadingAC, updateLocalCategoriesAC } from 'actions';
-import { FETCH_CATEGORIES_API } from 'actions/constants';
-import { FetchCategoriesAction } from 'actions/types';
+
+import { setAppLoadingAC, updateLocalCategoriesAC } from '../actions';
+import { FETCH_CATEGORIES_API } from '../actions/constants';
+import { FetchCategoriesAction } from '../actions/types';
 
 const fetchCategoriesEpic: Epic<
   ReturnType<typeof setAppLoadingAC> | ReturnType<typeof updateLocalCategoriesAC>
