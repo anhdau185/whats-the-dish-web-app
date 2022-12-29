@@ -13,10 +13,10 @@ import { ResponsiveButton, ResponsiveFormWrapper } from './styles';
 
 const CategoryListingPage: React.FC = () => {
   const {
-    data: categories,
-    error,
+    fetchData: fetchCategories,
     loading: isFetchingCategories,
-    fetchData: fetchCategories
+    data: categories,
+    error
   } = useFetchCategoriesApi();
 
   const errorOccurred = error != null;

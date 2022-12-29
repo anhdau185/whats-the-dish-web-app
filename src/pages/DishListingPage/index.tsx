@@ -13,10 +13,10 @@ import { ResponsiveButton, ResponsiveFormWrapper } from './styles';
 
 const DishListingPage: React.FC = () => {
   const {
-    data: dishes,
-    error,
+    fetchData: fetchDishes,
     loading: isFetchingDishes,
-    fetchData: fetchDishes
+    data: dishes,
+    error
   } = useFetchDishesApi();
 
   const errorOccurred = error != null;

@@ -1,13 +1,20 @@
-import { Store, createStore, applyMiddleware } from 'redux';
+import { Store, AnyAction, createStore, applyMiddleware } from 'redux';
+import { createEpicMiddleware, EpicMiddleware } from 'redux-observable';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import thunk from 'redux-thunk';
 
-import reducers, { GlobalState } from 'reducers';
-import { AppAction } from 'actions';
+import rootReducer, { GlobalState } from 'reducers';
+import rootEpic from 'epics';
 
-const store: Store<GlobalState, AppAction> = createStore(
-  reducers,
-  composeWithDevTools(applyMiddleware(thunk))
-);
+const epicMiddleware: EpicMiddleware<AnyAction, AnyAction, GlobalState> = createEpicMiddleware();
 
-export default store;
+const configureStore = (): Store<GlobalState, AnyAction> => {
+  const store = createStore(
+    rootReducer,
+    composeWithDevTools(applyMiddleware(epicMiddleware))
+  );
+  epicMiddleware.run(rootEpic);
+
+  return store;
+};
+
+export default configureStore;

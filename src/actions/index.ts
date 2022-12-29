@@ -1,14 +1,30 @@
-import { SetAppLoadingAction } from './setAppLoadingAC';
-import { ApiCallFetchCategoriesAction } from './fetchCategoriesAC';
-import { ApiCallFetchDishesAction } from './fetchDishesAC';
+import { createAction } from 'redux-actions';
 
-type AppAction = SetAppLoadingAction
-  | ApiCallFetchCategoriesAction
-  | ApiCallFetchDishesAction;
-
-export type {
+import {
+  SET_APP_LOADING,
+  FETCH_DISHES_API,
+  FETCH_CATEGORIES_API,
+  API_CALL_FETCH_DISHES,
+  API_CALL_FETCH_CATEGORIES
+} from './constants';
+import {
   SetAppLoadingAction,
-  ApiCallFetchCategoriesAction,
-  ApiCallFetchDishesAction,
-  AppAction
-};
+  FetchDishesAction,
+  UpdateLocalDishesAction,
+  FetchCategoriesAction,
+  UpdateLocalCategoriesAction
+} from './types';
+
+export const setAppLoadingAC = createAction(SET_APP_LOADING) as ActionCreator<SetAppLoadingAction>;
+
+export const fetchDishesAC = createAction(FETCH_DISHES_API) as ActionCreator<FetchDishesAction>;
+
+export const updateLocalDishesAC = createAction(
+  API_CALL_FETCH_DISHES
+) as ActionCreator<UpdateLocalDishesAction>;
+
+export const fetchCategoriesAC = createAction(FETCH_CATEGORIES_API) as ActionCreator<FetchCategoriesAction>;
+
+export const updateLocalCategoriesAC = createAction(
+  API_CALL_FETCH_CATEGORIES
+) as ActionCreator<UpdateLocalCategoriesAction>;

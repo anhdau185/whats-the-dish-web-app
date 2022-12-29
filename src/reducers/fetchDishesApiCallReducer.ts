@@ -1,8 +1,8 @@
-import { Reducer } from 'redux';
+import { handleActions } from 'redux-actions';
 
 import { Category, Dish } from 'models';
-import { ApiCallFetchDishesAction } from 'actions';
-import { API_CALL_FETCH_DISHES } from 'actions/types';
+import { UpdateLocalDishesAction } from 'actions/types';
+import { API_CALL_FETCH_DISHES } from 'actions/constants';
 
 export interface FetchDishesApiCall {
   data: Dish[];
@@ -11,23 +11,17 @@ export interface FetchDishesApiCall {
   loading: boolean;
 }
 
-type FetchDishesApiCallReducer =
-  Reducer<FetchDishesApiCall, ApiCallFetchDishesAction>;
-
 const initialState: FetchDishesApiCall = {
   data: [],
   error: null,
   loading: false
 };
 
-const fetchDishesApiCallReducer: FetchDishesApiCallReducer =
-  (prevState = initialState, action) => {
-    switch (action.type) {
-      case API_CALL_FETCH_DISHES:
-        return action.payload;
-      default:
-        return prevState;
-    }
-  };
+const fetchDishesApiCallReducer = handleActions<
+  FetchDishesApiCall,
+  UpdateLocalDishesAction['payload']
+>({
+  [API_CALL_FETCH_DISHES]: (state, { payload }) => ({ ...state, ...payload })
+}, initialState);
 
 export default fetchDishesApiCallReducer;

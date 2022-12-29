@@ -1,10 +1,8 @@
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Dish } from 'models';
-import { FetchDishesApiOptions } from 'api/dishes';
-import fetchDishesAC from 'actions/fetchDishesAC';
-import { FetchDishesApiCall } from 'reducers/fetchDishesApiCallReducer';
+import { fetchDishesAC } from 'actions';
+import { FetchDishesAction } from 'actions/types';
 import {
   dataSelector,
   errorSelector,
@@ -12,35 +10,31 @@ import {
   loadingSelector
 } from 'reducers/state/fetchDishesApiCall';
 
-import { ApiHookOptions } from '.';
+type ApiParams = FetchDishesAction['payload']['params'];
 
-export interface FetchDishesHookOptions extends ApiHookOptions {
-  onSuccess?: (data: Dish[]) => void;
-}
+type ApiHookOptions = Pick<
+  FetchDishesAction['payload'],
+  'onSuccess' | 'onFailure' | 'onCompletion'
+>;
 
-interface FetchDishesHookResult extends FetchDishesApiCall {
-  fetchData: (params?: FetchDishesApiOptions) => void;
-}
+const useFetchDishesApi = (options?: ApiHookOptions) => {
+  const dispatch = useDispatch();
+  const data = useSelector(dataSelector);
+  const includedData = useSelector(includedDataSelector);
+  const error = useSelector(errorSelector);
+  const loading = useSelector(loadingSelector);
 
-const useFetchDishesApi =
-  (options?: FetchDishesHookOptions): FetchDishesHookResult => {
-    const dispatch = useDispatch();
-    const data = useSelector(dataSelector);
-    const includedData = useSelector(includedDataSelector);
-    const error = useSelector(errorSelector);
-    const loading = useSelector(loadingSelector);
+  const fetchData = useCallback((params?: ApiParams) => {
+    dispatch(fetchDishesAC({ params, ...options }));
+  }, [options]);
 
-    const fetchData = useCallback((params?: FetchDishesApiOptions) => {
-      dispatch(fetchDishesAC({ ...options, ...params }));
-    }, [options]);
-
-    return {
-      data,
-      includedData,
-      error,
-      loading,
-      fetchData
-    };
+  return {
+    data,
+    includedData,
+    error,
+    loading,
+    fetchData
   };
+};
 
 export default useFetchDishesApi;

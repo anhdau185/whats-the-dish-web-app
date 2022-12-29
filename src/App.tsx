@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Switch } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
 import Routes from 'routes';
 import AppBar from 'components/AppBar';
@@ -11,9 +11,7 @@ const App: React.FC = () => (
       <AppProgress />
       <AppBar />
       <div className="page">
-        <Switch>
-          <Routes />
-        </Switch>
+        <Routes />
       </div>
     </div>
   </BrowserRouter>
