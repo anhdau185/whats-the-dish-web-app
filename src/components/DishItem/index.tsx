@@ -7,8 +7,8 @@ import moment from 'moment';
 import * as api from 'api';
 
 import { Dish } from 'models';
-import { getDishImages } from 'utils';
-import { DEFAULT_IMAGE_URL } from 'utils/constants';
+import { getDishImages } from 'common/utils';
+import { DEFAULT_IMAGE_URL } from 'common/constants';
 import ActionMenu, { ActionMenuItems } from 'components/ActionMenu';
 
 import {

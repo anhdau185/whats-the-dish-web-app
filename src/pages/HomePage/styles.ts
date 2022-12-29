@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { APP_ACCENT_COLOR } from 'utils/constants';
+import { APP_ACCENT_COLOR } from 'common/constants';
 
 export const StyledWrapper = styled.div`
   padding: 2rem 0;

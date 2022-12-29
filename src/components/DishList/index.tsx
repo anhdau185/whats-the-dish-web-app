@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import isEmpty from 'lodash/fp/isEmpty';
 
 import { Dish } from 'models';
-import { BreakpointSet } from 'utils';
+import { BreakpointSet } from 'common/types';
 import { ActionMenuItems } from 'components/ActionMenu';
 import DishItem from 'components/DishItem';
 

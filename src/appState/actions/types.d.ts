@@ -11,9 +11,9 @@ import {
   API_CALL_FETCH_CATEGORIES
 } from './constants';
 
-export type SetAppLoadingAction = Action<typeof SET_APP_LOADING, boolean>;
+export declare type SetAppLoadingAction = Action<typeof SET_APP_LOADING, boolean>;
 
-export type FetchDishesAction = Action<
+export declare type FetchDishesAction = Action<
   typeof FETCH_DISHES_API,
   {
     params?: FetchDishesApiOptions;
@@ -23,12 +23,12 @@ export type FetchDishesAction = Action<
   }
 >;
 
-export type UpdateLocalDishesAction = Action<
+export declare type UpdateLocalDishesAction = Action<
   typeof API_CALL_FETCH_DISHES,
   Partial<FetchDishesApiCall>
 >;
 
-export type FetchCategoriesAction = Action<
+export declare type FetchCategoriesAction = Action<
   typeof FETCH_CATEGORIES_API,
   {
     params?: FetchCategoriesApiOptions;
@@ -38,7 +38,7 @@ export type FetchCategoriesAction = Action<
   }
 >;
 
-export type UpdateLocalCategoriesAction = Action<
+export declare type UpdateLocalCategoriesAction = Action<
   typeof API_CALL_FETCH_CATEGORIES,
   Partial<FetchCategoriesApiCall>
 >;

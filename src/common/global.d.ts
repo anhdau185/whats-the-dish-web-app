@@ -5,6 +5,10 @@ import { Epic as BaseEpic } from 'redux-observable';
 import { AppState } from 'appState/types';
 
 declare global {
+  type Nullable<T> = T | null;
+
+  type OneOrMany<T> = T | Array<T>;
+
   interface AnyAction extends ReduxAnyAction { }
 
   interface Action<

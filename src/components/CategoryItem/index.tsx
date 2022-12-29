@@ -4,8 +4,8 @@ import { Button, CardContent, Typography } from '@material-ui/core';
 import moment from 'moment';
 
 import { Category } from 'models';
-import { getCategoryImages } from 'utils';
-import { DEFAULT_IMAGE_URL } from 'utils/constants';
+import { getCategoryImages } from 'common/utils';
+import { DEFAULT_IMAGE_URL } from 'common/constants';
 import ActionMenu, { ActionMenuItems } from 'components/ActionMenu';
 
 import {

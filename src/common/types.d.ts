@@ -1,16 +1,12 @@
 import { GridSize } from '@material-ui/core';
 
-export type Nullable<T> = T | null;
-
-export type OneOrMany<T> = T | Array<T>;
-
-export interface RouterIdPageProps {
+export declare interface RouterIdPageProps {
   match: {
     params: { id: string }
   }
 }
 
-export interface BreakpointSet {
+export declare interface BreakpointSet {
   xs?: GridSize;
   sm?: GridSize;
   md?: GridSize;
@@ -18,12 +14,12 @@ export interface BreakpointSet {
   xl?: GridSize;
 }
 
-export interface CategoryImages {
+export declare interface CategoryImages {
   categoryImage?: string;
   categoryAlbum: string[];
 }
 
-export interface DishImages {
+export declare interface DishImages {
   dishImage?: string;
   dishAlbum: string[];
 }

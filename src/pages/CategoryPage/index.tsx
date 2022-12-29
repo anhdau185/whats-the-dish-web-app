@@ -3,7 +3,7 @@ import { Container, Grid, Typography } from '@material-ui/core';
 import RemoveIcon from '@material-ui/icons/RemoveCircleOutline';
 
 import { PartialRawCategory } from 'models';
-import { RouterIdPageProps } from 'utils';
+import { RouterIdPageProps } from 'common/types';
 import { useGetCategoryApi, useUpdateCategoryApi } from 'hooks';
 import { ActionMenuItems } from 'components/ActionMenu';
 import AlbumSlider from 'components/AlbumSlider';

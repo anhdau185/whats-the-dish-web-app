@@ -2,7 +2,6 @@ import { useCallback, useState } from 'react';
 import noop from 'lodash/fp/noop';
 
 import * as api from 'api';
-import { Nullable } from 'utils';
 import { Category, Dish } from 'models';
 import {
   GetDishApiOptions,

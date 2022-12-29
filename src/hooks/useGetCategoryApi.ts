@@ -1,7 +1,6 @@
 import { useCallback, useState } from 'react';
 import noop from 'lodash/fp/noop';
 
-import { Nullable } from 'utils';
 import { Category, Dish } from 'models';
 import * as api from 'api';
 import {

@@ -1,22 +1,6 @@
 import isEmpty from 'lodash/fp/isEmpty';
-
 import { Category, Dish } from 'models';
-
-import {
-  Nullable,
-  OneOrMany,
-  RouterIdPageProps,
-  BreakpointSet,
-  CategoryImages,
-  DishImages
-} from './types';
-
-export type {
-  Nullable,
-  OneOrMany,
-  RouterIdPageProps,
-  BreakpointSet
-};
+import { CategoryImages, DishImages } from './types';
 
 export const getCategoryImages = (category: Category): CategoryImages => {
   const allImages = category.attributes.images;

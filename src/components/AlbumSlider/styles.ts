@@ -1,7 +1,7 @@
 import { Swiper } from 'swiper/react/swiper-react';
 import styled from 'styled-components';
 
-import { APP_ACCENT_COLOR } from 'utils/constants';
+import { APP_ACCENT_COLOR } from 'common/constants';
 
 export const CustomSwiper = styled(Swiper)`
 .swiper-button-prev,

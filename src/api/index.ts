@@ -1,6 +1,5 @@
 import { AxiosResponse } from 'axios';
 
-import { OneOrMany } from 'utils';
 import { Category, Dish } from 'models';
 
 import {
