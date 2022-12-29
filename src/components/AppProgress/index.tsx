@@ -2,7 +2,7 @@ import React from 'react';
 import { LinearProgress } from '@material-ui/core';
 import styled from 'styled-components';
 
-import { useAppLoading } from 'hooks';
+import { useAppLoading } from 'common/hooks';
 
 const StyledProgress = styled(LinearProgress)`
   && {

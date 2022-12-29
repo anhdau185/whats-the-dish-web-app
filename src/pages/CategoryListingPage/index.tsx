@@ -3,7 +3,7 @@ import { Container, Grow, Grid } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
 
-import { useDeleteCategoryApi, useFetchCategoriesApi } from 'hooks';
+import { useDeleteCategoryApi, useFetchCategoriesApi } from 'common/hooks';
 import { ActionMenuItems } from 'components/ActionMenu';
 import CategoryList from 'components/CategoryList';
 import CategoryForm from 'components/CategoryForm';

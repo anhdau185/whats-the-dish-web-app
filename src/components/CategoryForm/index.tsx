@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { Button, TextField } from '@material-ui/core';
 
 import { RawCategory } from 'models';
-import { useCreateCategoryApi, useFetchCategoriesApi } from 'hooks';
+import { useCreateCategoryApi, useFetchCategoriesApi } from 'common/hooks';
 
 import { CustomPaper, StyledForm, FormHeading } from './styles';
 

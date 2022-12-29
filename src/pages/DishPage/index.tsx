@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
 import { Container, Grid, Typography } from '@material-ui/core';
 
-import { useGetDishApi, useUpdateDishApi } from 'hooks';
+import { useGetDishApi, useUpdateDishApi } from 'common/hooks';
 import { RouterIdPageProps } from 'common/types';
 import CategoryList from 'components/CategoryList';
 import AlbumSlider from 'components/AlbumSlider';

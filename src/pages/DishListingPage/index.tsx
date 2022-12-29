@@ -3,7 +3,7 @@ import { Container, Grow, Grid } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
 
-import { useDeleteDishApi, useFetchDishesApi } from 'hooks';
+import { useDeleteDishApi, useFetchDishesApi } from 'common/hooks';
 import { ActionMenuItems } from 'components/ActionMenu';
 import DishList from 'components/DishList';
 import DishForm from 'components/DishForm';

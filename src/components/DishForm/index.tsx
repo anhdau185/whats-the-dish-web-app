@@ -3,7 +3,7 @@ import { Button, TextField } from '@material-ui/core';
 import isEmpty from 'lodash/fp/isEmpty';
 
 import { RawDish } from 'models';
-import { useCreateDishApi, useFetchDishesApi } from 'hooks';
+import { useCreateDishApi, useFetchDishesApi } from 'common/hooks';
 
 import { CustomPaper, StyledForm, FormHeading } from './styles';
 

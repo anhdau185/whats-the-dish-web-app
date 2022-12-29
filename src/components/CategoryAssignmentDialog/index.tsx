@@ -14,7 +14,7 @@ import {
 } from '@material-ui/core';
 
 import { Category, PartialRawCategory } from 'models';
-import { useFetchDishesApi } from 'hooks';
+import { useFetchDishesApi } from 'common/hooks';
 
 interface CategoryAssignmentDialogProps {
   open: boolean;
