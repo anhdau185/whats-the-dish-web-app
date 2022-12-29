@@ -1,4 +1,3 @@
-import { AnyAction } from 'redux';
 import { ofType } from 'redux-observable';
 import { concat, from, of } from 'rxjs';
 import { catchError, exhaustMap, finalize, mergeMap, pluck, tap } from 'rxjs/operators';

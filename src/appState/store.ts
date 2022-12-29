@@ -1,8 +1,8 @@
-import { Store, AnyAction, createStore, applyMiddleware } from 'redux';
+import { Store, createStore, applyMiddleware } from 'redux';
 import { createEpicMiddleware, EpicMiddleware } from 'redux-observable';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-import rootReducer, { GlobalState } from './reducers';
+import rootReducer from './reducers';
 import rootEpic from './epics';
 
 const epicMiddleware: EpicMiddleware<AnyAction, AnyAction, GlobalState> = createEpicMiddleware();

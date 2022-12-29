@@ -1,16 +1,8 @@
 import { handleActions } from 'redux-actions';
 
-import { Category, Dish } from 'models';
-
+import { FetchDishesApiCall } from '../types';
 import { UpdateLocalDishesAction } from '../actions/types';
 import { API_CALL_FETCH_DISHES } from '../actions/constants';
-
-export interface FetchDishesApiCall {
-  data: Dish[];
-  includedData?: Category[];
-  error: any;
-  loading: boolean;
-}
 
 const initialState: FetchDishesApiCall = {
   data: [],

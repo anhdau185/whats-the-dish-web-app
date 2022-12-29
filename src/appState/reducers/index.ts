@@ -1,20 +1,9 @@
-import { Reducer, CombinedState, combineReducers, AnyAction } from 'redux';
+import { Reducer, CombinedState, combineReducers } from 'redux';
 
 import appLoadingReducer from './appLoadingReducer';
-import fetchCategoriesApiCallReducer, {
-  FetchCategoriesApiCall
-} from './fetchCategoriesApiCallReducer';
-import fetchDishesApiCallReducer, {
-  FetchDishesApiCall
-} from './fetchDishesApiCallReducer';
+import fetchCategoriesApiCallReducer from './fetchCategoriesApiCallReducer';
+import fetchDishesApiCallReducer from './fetchDishesApiCallReducer';
 import pingingReducer from './pingingReducer';
-
-export interface GlobalState {
-  appLoading: boolean;
-  fetchCategoriesApiCall: FetchCategoriesApiCall;
-  fetchDishesApiCall: FetchDishesApiCall;
-  pinging: boolean;
-}
 
 type RootReducer = Reducer<CombinedState<GlobalState>, AnyAction>;
 

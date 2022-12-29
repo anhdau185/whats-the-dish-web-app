@@ -1,4 +1,3 @@
-import { AnyAction } from 'redux';
 import { ofType } from 'redux-observable';
 import { timer } from 'rxjs';
 import { mapTo, pluck, switchMap } from 'rxjs/operators';
