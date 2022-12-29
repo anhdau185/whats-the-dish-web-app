@@ -2,12 +2,12 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 /* Pages */
-import HomePage from 'pages/HomePage';
-import CategoryListingPage from 'pages/CategoryListingPage';
-import CategoryPage from 'pages/CategoryPage';
-import DishListingPage from 'pages/DishListingPage';
-import DishPage from 'pages/DishPage';
-import Playground from 'pages/Playground';
+import HomePage from './HomePage';
+import CategoryListingPage from './CategoryListingPage';
+import CategoryPage from './CategoryPage';
+import DishListingPage from './DishListingPage';
+import DishPage from './DishPage';
+import Playground from './Playground';
 
 const Routes: React.FC = () => (
   <Switch>

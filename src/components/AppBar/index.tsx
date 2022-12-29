@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Container } from '@material-ui/core';
 
 import { AppBarHeading, AppBarIcon, WTDAppBar } from './styles';
-import dishImage from 'images/dish.png';
+import dishImage from 'common/images/dish.png';
 
 const APP_NAME = `What's The Dish?`;
 
