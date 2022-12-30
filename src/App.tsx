@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
-import Routes from 'pages/Routes';
+import Routes from 'pages';
 import AppBar from 'components/AppBar';
 import AppProgress from 'components/AppProgress';
 
