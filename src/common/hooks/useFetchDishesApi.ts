@@ -12,12 +12,7 @@ import {
 
 type ApiParams = FetchDishesAction['payload']['params'];
 
-type ApiHookOptions = Pick<
-  FetchDishesAction['payload'],
-  'onSuccess' | 'onFailure' | 'onCompletion'
->;
-
-const useFetchDishesApi = (options?: ApiHookOptions) => {
+const useFetchDishesApi = () => {
   const dispatch = useDispatch();
   const data = useSelector(dataSelector);
   const includedData = useSelector(includedDataSelector);
@@ -25,8 +20,8 @@ const useFetchDishesApi = (options?: ApiHookOptions) => {
   const loading = useSelector(loadingSelector);
 
   const fetchData = useCallback((params?: ApiParams) => {
-    dispatch(fetchDishesAC({ params, ...options }));
-  }, [options]);
+    dispatch(fetchDishesAC({ params }));
+  }, []);
 
   return {
     data,

@@ -35,12 +35,7 @@ export declare type FetchFailedAction = Action<
 
 export declare type FetchDishesAction = Action<
   typeof FETCH_DISHES_API,
-  {
-    params?: FetchDishesApiOptions;
-    onSuccess?: (value: FetchDishesApiCall['data']) => void;
-    onFailure?: (value: FetchDishesApiCall['error']) => void;
-    onCompletion?: () => void;
-  }
+  { params?: FetchDishesApiOptions }
 >;
 
 export declare type UpdateLocalDishesAction = Action<
@@ -50,12 +45,7 @@ export declare type UpdateLocalDishesAction = Action<
 
 export declare type FetchCategoriesAction = Action<
   typeof FETCH_CATEGORIES_API,
-  {
-    params?: FetchCategoriesApiOptions;
-    onSuccess?: (value: FetchCategoriesApiCall['data']) => void;
-    onFailure?: (value: FetchCategoriesApiCall['error']) => void;
-    onCompletion?: () => void;
-  }
+  { params?: FetchCategoriesApiOptions }
 >;
 
 export declare type UpdateLocalCategoriesAction = Action<

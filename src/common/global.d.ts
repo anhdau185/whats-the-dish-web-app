@@ -13,10 +13,7 @@ declare global {
     payload: any;
   }
 
-  interface Action<
-    T extends string = string,
-    P = any
-  > extends BaseAction<P> {
+  interface Action<T extends string = string, P = any> extends BaseAction<P> {
     type: T;
   }
 

@@ -12,12 +12,7 @@ import {
 
 type ApiParams = FetchCategoriesAction['payload']['params'];
 
-type ApiHookOptions = Pick<
-  FetchCategoriesAction['payload'],
-  'onSuccess' | 'onFailure' | 'onCompletion'
->;
-
-const useFetchCategoriesApi = (options?: ApiHookOptions) => {
+const useFetchCategoriesApi = () => {
   const dispatch = useDispatch();
   const data = useSelector(dataSelector);
   const includedData = useSelector(includedDataSelector);
@@ -25,8 +20,8 @@ const useFetchCategoriesApi = (options?: ApiHookOptions) => {
   const loading = useSelector(loadingSelector);
 
   const fetchData = useCallback((params?: ApiParams) => {
-    dispatch(fetchCategoriesAC({ params, ...options }));
-  }, [options]);
+    dispatch(fetchCategoriesAC({ params }));
+  }, []);
 
   return {
     data,

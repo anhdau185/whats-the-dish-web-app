@@ -1,6 +1,6 @@
 import { ofType } from 'redux-observable';
 import { concat, from, of } from 'rxjs';
-import { catchError, exhaustMap, finalize, mergeMap, pluck, tap } from 'rxjs/operators';
+import { catchError, exhaustMap, mergeMap, pluck } from 'rxjs/operators';
 
 import * as api from 'api';
 import { setAppLoadingAC, updateLocalDishesAC } from 'appState/actions';
@@ -14,18 +14,14 @@ import {
 const fetchDishesEpic: Epic<SetAppLoadingAction | UpdateLocalDishesAction> = action$ =>
   action$.pipe(
     ofType<AnyAction, FetchDishesAction>(FETCH_DISHES_API),
-    pluck('payload'),
-    exhaustMap(payload => concat(
+    pluck('payload', 'params'),
+    exhaustMap(params => concat(
       of(
         setAppLoadingAC(true),
         updateLocalDishesAC({ loading: true })
       ),
-      from(api.fetchDishes(payload.params)).pipe(
+      from(api.fetchDishes(params)).pipe(
         pluck('data'),
-        tap(
-          res => payload.onSuccess?.(res.data),
-          err => payload.onFailure?.(err ?? {})
-        ),
         mergeMap(res => of(
           updateLocalDishesAC({
             loading: false,
@@ -41,8 +37,7 @@ const fetchDishesEpic: Epic<SetAppLoadingAction | UpdateLocalDishesAction> = act
             error: err ?? {}
           }),
           setAppLoadingAC(false)
-        )),
-        finalize(() => payload.onCompletion?.())
+        ))
       )
     ))
   );
