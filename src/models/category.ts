@@ -1,4 +1,4 @@
-import { Relationship } from '.';
+import { Relationship } from './relationship';
 
 interface RawCategoryAttributes {
   name: string;
