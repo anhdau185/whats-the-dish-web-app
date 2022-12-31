@@ -5,43 +5,46 @@ import { catchError, exhaustMap, finalize, mergeMap, pluck, tap } from 'rxjs/ope
 import * as api from 'api';
 import { setAppLoadingAC, updateLocalCategoriesAC } from 'appState/actions';
 import { FETCH_CATEGORIES_API } from 'appState/actions/constants';
-import { FetchCategoriesAction } from 'appState/actions/types';
+import {
+  FetchCategoriesAction,
+  SetAppLoadingAction,
+  UpdateLocalCategoriesAction
+} from 'appState/actions/types';
 
-const fetchCategoriesEpic: Epic<
-  ReturnType<typeof setAppLoadingAC> | ReturnType<typeof updateLocalCategoriesAC>
-> = action$ => action$.pipe(
-  ofType<AnyAction, FetchCategoriesAction>(FETCH_CATEGORIES_API),
-  pluck('payload'),
-  exhaustMap(payload => concat(
-    of(
-      setAppLoadingAC(true),
-      updateLocalCategoriesAC({ loading: true })
-    ),
-    from(api.fetchCategories(payload.params)).pipe(
-      pluck('data'),
-      tap(
-        res => payload.onSuccess?.(res.data),
-        err => payload.onFailure?.(err ?? {})
+const fetchCategoriesEpic: Epic<SetAppLoadingAction | UpdateLocalCategoriesAction> = action$ =>
+  action$.pipe(
+    ofType<AnyAction, FetchCategoriesAction>(FETCH_CATEGORIES_API),
+    pluck('payload'),
+    exhaustMap(payload => concat(
+      of(
+        setAppLoadingAC(true),
+        updateLocalCategoriesAC({ loading: true })
       ),
-      mergeMap(res => of(
-        updateLocalCategoriesAC({
-          loading: false,
-          data: res.data,
-          includedData: res.included,
-          error: null
-        }),
-        setAppLoadingAC(false)
-      )),
-      catchError(err => of(
-        updateLocalCategoriesAC({
-          loading: false,
-          error: err ?? {}
-        }),
-        setAppLoadingAC(false)
-      )),
-      finalize(() => payload.onCompletion?.())
-    )
-  ))
-);
+      from(api.fetchCategories(payload.params)).pipe(
+        pluck('data'),
+        tap(
+          res => payload.onSuccess?.(res.data),
+          err => payload.onFailure?.(err ?? {})
+        ),
+        mergeMap(res => of(
+          updateLocalCategoriesAC({
+            loading: false,
+            data: res.data,
+            includedData: res.included,
+            error: null
+          }),
+          setAppLoadingAC(false)
+        )),
+        catchError(err => of(
+          updateLocalCategoriesAC({
+            loading: false,
+            error: err ?? {}
+          }),
+          setAppLoadingAC(false)
+        )),
+        finalize(() => payload.onCompletion?.())
+      )
+    ))
+  );
 
 export default fetchCategoriesEpic;
