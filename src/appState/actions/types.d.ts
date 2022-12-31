@@ -9,8 +9,8 @@ import {
   FETCH_FAILED,
   FETCH_DISHES_API,
   FETCH_CATEGORIES_API,
-  UPDATE_API_CALL_FETCH_DISHES,
-  UPDATE_API_CALL_FETCH_CATEGORIES
+  UPDATE_LOCAL_DISHES,
+  UPDATE_LOCAL_CATEGORIES
 } from './constants';
 
 export declare type SetAppLoadingAction = Action<typeof SET_APP_LOADING, boolean>;
@@ -39,7 +39,7 @@ export declare type FetchDishesAction = Action<
 >;
 
 export declare type UpdateLocalDishesAction = Action<
-  typeof UPDATE_API_CALL_FETCH_DISHES,
+  typeof UPDATE_LOCAL_DISHES,
   Partial<FetchDishesApiCall>
 >;
 
@@ -49,6 +49,6 @@ export declare type FetchCategoriesAction = Action<
 >;
 
 export declare type UpdateLocalCategoriesAction = Action<
-  typeof UPDATE_API_CALL_FETCH_CATEGORIES,
+  typeof UPDATE_LOCAL_CATEGORIES,
   Partial<FetchCategoriesApiCall>
 >;

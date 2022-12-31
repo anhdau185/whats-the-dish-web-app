@@ -1,7 +1,7 @@
 // consumed only by reducers
 export const SET_APP_LOADING = '@state/SET_APP_LOADING';
-export const UPDATE_API_CALL_FETCH_CATEGORIES = '@state/UPDATE_API_CALL_FETCH_CATEGORIES';
-export const UPDATE_API_CALL_FETCH_DISHES = '@state/UPDATE_API_CALL_FETCH_DISHES';
+export const UPDATE_LOCAL_CATEGORIES = '@state/UPDATE_LOCAL_CATEGORIES';
+export const UPDATE_LOCAL_DISHES = '@state/UPDATE_LOCAL_DISHES';
 
 // consumed only by epics
 export const FETCH_COMPLETED = '@api/FETCH_COMPLETED'; // generic signal for when an api call is successfully completed
