@@ -6,7 +6,7 @@ import { Category, Dish } from 'models';
 import {
   GetDishApiOptions,
   SingleDishApiResponse
-} from 'api/dishes';
+} from 'api/types';
 
 import { ApiHookOptions, useAppLoading } from '.';
 

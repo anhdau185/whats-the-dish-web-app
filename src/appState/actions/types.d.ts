@@ -1,5 +1,5 @@
-import { FetchDishesApiOptions } from 'api/dishes';
-import { FetchCategoriesApiOptions } from 'api/categories';
+import { FetchDishesApiOptions } from 'api/types';
+import { FetchCategoriesApiOptions } from 'api/types';
 import { FetchDishesApiCall } from 'appState/types';
 import { FetchCategoriesApiCall } from 'appState/types';
 

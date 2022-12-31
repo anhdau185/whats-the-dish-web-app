@@ -1,28 +1,15 @@
 import axios from 'axios';
 
-import { Category, RawCategory, Dish, PartialRawCategory } from 'models';
+import { RawCategory, PartialRawCategory } from 'models';
 
-import { CommonApiResponse, ApiCallPromise, BASE_URL } from '.';
-
-export interface FetchCategoriesApiOptions {
-  include_dishes?: boolean;
-  order_by?: 'name' | 'title' | 'created_at' | 'updated_at';
-  order_direction?: 'asc' | 'desc';
-}
-
-export interface GetCategoryApiOptions {
-  include_dishes?: boolean;
-}
-
-export interface CategoryCollectionApiResponse extends CommonApiResponse {
-  data: Category[];
-  included?: Dish[];
-}
-
-export interface SingleCategoryApiResponse extends CommonApiResponse {
-  data: Category;
-  included?: Dish[];
-}
+import { BASE_URL } from './constants';
+import {
+  ApiCallPromise,
+  FetchCategoriesApiOptions,
+  GetCategoryApiOptions,
+  CategoryCollectionApiResponse,
+  SingleCategoryApiResponse
+} from './types';
 
 export const fetchCategories =
   (params: FetchCategoriesApiOptions = {}): ApiCallPromise<CategoryCollectionApiResponse> =>

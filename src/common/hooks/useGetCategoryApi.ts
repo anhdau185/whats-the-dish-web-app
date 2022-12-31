@@ -6,7 +6,7 @@ import * as api from 'api';
 import {
   GetCategoryApiOptions,
   SingleCategoryApiResponse
-} from 'api/categories';
+} from 'api/types';
 
 import { ApiHookOptions, useAppLoading } from '.';
 
