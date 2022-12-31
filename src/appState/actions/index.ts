@@ -2,6 +2,8 @@ import { createAction } from 'redux-actions';
 
 import {
   SET_APP_LOADING,
+  FETCH_COMPLETED,
+  FETCH_FAILED,
   FETCH_DISHES_API,
   FETCH_CATEGORIES_API,
   UPDATE_API_CALL_FETCH_DISHES,
@@ -9,6 +11,8 @@ import {
 } from './constants';
 import {
   SetAppLoadingAction,
+  FetchCompletedAction,
+  FetchFailedAction,
   FetchDishesAction,
   UpdateLocalDishesAction,
   FetchCategoriesAction,
@@ -16,6 +20,10 @@ import {
 } from './types';
 
 export const setAppLoadingAC = createAction(SET_APP_LOADING) as ActionCreator<SetAppLoadingAction>;
+
+export const fetchCompletedAC = createAction(FETCH_COMPLETED) as ActionCreator<FetchCompletedAction>;
+
+export const fetchFailedAC = createAction(FETCH_FAILED) as ActionCreator<FetchFailedAction>;
 
 export const fetchDishesAC = createAction(FETCH_DISHES_API) as ActionCreator<FetchDishesAction>;
 
