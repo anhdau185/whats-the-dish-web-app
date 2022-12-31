@@ -1,8 +1,8 @@
 import { handleActions } from 'redux-actions';
 
-import { FetchCategoriesApiCall } from '../types';
-import { API_CALL_FETCH_CATEGORIES } from '../actions/constants';
-import { UpdateLocalCategoriesAction } from '../actions/types';
+import { FetchCategoriesApiCall } from 'appState/types';
+import { UpdateLocalCategoriesAction } from 'appState/actions/types';
+import { API_CALL_FETCH_CATEGORIES } from 'appState/actions/constants';
 
 const initialState: FetchCategoriesApiCall = {
   data: [],
@@ -10,11 +10,11 @@ const initialState: FetchCategoriesApiCall = {
   loading: false
 };
 
-const fetchCategoriesApiCallReducer = handleActions<
+const fetchCategoriesReducer = handleActions<
   FetchCategoriesApiCall,
   UpdateLocalCategoriesAction['payload']
 >({
   [API_CALL_FETCH_CATEGORIES]: (state, { payload }) => ({ ...state, ...payload })
 }, initialState);
 
-export default fetchCategoriesApiCallReducer;
+export default fetchCategoriesReducer;

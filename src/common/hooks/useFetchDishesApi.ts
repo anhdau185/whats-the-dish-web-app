@@ -8,7 +8,7 @@ import {
   errorSelector,
   includedDataSelector,
   loadingSelector
-} from 'appState/selectors/fetchDishesApiCall';
+} from 'appState/selectors/apiCalls/fetchDishes';
 
 type ApiParams = FetchDishesAction['payload']['params'];
 

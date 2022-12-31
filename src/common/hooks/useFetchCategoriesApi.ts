@@ -8,7 +8,7 @@ import {
   includedDataSelector,
   errorSelector,
   loadingSelector
-} from 'appState/selectors/fetchCategoriesApiCall';
+} from 'appState/selectors/apiCalls/fetchCategories';
 
 type ApiParams = FetchCategoriesAction['payload']['params'];
 

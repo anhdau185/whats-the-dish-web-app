@@ -9,7 +9,9 @@ declare global {
 
   type OneOrMany<T> = T | Array<T>;
 
-  interface AnyAction extends ReduxAnyAction { }
+  interface AnyAction extends ReduxAnyAction {
+    payload: any;
+  }
 
   interface Action<
     T extends string = string,

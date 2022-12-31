@@ -1,18 +1,8 @@
-import { Action, Reducer } from 'redux';
+import { handleActions } from 'redux-actions';
 
-type PingingReducer = Reducer<boolean, Action<'PING' | 'PONG'>>;
-
-const initialState = false;
-
-const pingingReducer: PingingReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case 'PING':
-      return true;
-    case 'PONG':
-      return false;
-    default:
-      return state;
-  }
-};
+const pingingReducer = handleActions<boolean, undefined>({
+  PING: () => true,
+  PONG: () => false
+}, false);
 
 export default pingingReducer;

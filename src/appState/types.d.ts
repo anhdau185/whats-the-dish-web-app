@@ -14,9 +14,13 @@ export declare interface FetchDishesApiCall {
   loading: boolean;
 }
 
+export declare interface ApiCallsState {
+  fetchCategories: FetchCategoriesApiCall;
+  fetchDishes: FetchDishesApiCall;
+}
+
 export declare interface AppState {
   appLoading: boolean;
-  fetchCategoriesApiCall: FetchCategoriesApiCall;
-  fetchDishesApiCall: FetchDishesApiCall;
+  apiCalls: ApiCallsState;
   pinging: boolean;
 }
