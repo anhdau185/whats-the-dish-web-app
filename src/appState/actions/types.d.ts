@@ -1,8 +1,8 @@
 import { FetchDishesApiOptions } from 'api/dishes';
 import { FetchCategoriesApiOptions } from 'api/categories';
+import { FetchDishesApiCall } from 'appState/types';
+import { FetchCategoriesApiCall } from 'appState/types';
 
-import { FetchDishesApiCall } from '../types';
-import { FetchCategoriesApiCall } from '../types';
 import {
   SET_APP_LOADING,
   FETCH_DISHES_API,

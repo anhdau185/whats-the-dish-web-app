@@ -3,10 +3,9 @@ import { concat, from, of } from 'rxjs';
 import { catchError, exhaustMap, finalize, mergeMap, pluck, tap } from 'rxjs/operators';
 
 import * as api from 'api';
-
-import { setAppLoadingAC, updateLocalDishesAC } from '../actions';
-import { FETCH_DISHES_API } from '../actions/constants';
-import { FetchDishesAction } from '../actions/types';
+import { setAppLoadingAC, updateLocalDishesAC } from 'appState/actions';
+import { FETCH_DISHES_API } from 'appState/actions/constants';
+import { FetchDishesAction } from 'appState/actions/types';
 
 const fetchDishesEpic: Epic<
   ReturnType<typeof setAppLoadingAC> | ReturnType<typeof updateLocalDishesAC>
