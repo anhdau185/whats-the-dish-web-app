@@ -4,8 +4,8 @@ import {
   SET_APP_LOADING,
   FETCH_DISHES_API,
   FETCH_CATEGORIES_API,
-  API_CALL_FETCH_DISHES,
-  API_CALL_FETCH_CATEGORIES
+  UPDATE_API_CALL_FETCH_DISHES,
+  UPDATE_API_CALL_FETCH_CATEGORIES
 } from './constants';
 import {
   SetAppLoadingAction,
@@ -20,11 +20,11 @@ export const setAppLoadingAC = createAction(SET_APP_LOADING) as ActionCreator<Se
 export const fetchDishesAC = createAction(FETCH_DISHES_API) as ActionCreator<FetchDishesAction>;
 
 export const updateLocalDishesAC = createAction(
-  API_CALL_FETCH_DISHES
+  UPDATE_API_CALL_FETCH_DISHES
 ) as ActionCreator<UpdateLocalDishesAction>;
 
 export const fetchCategoriesAC = createAction(FETCH_CATEGORIES_API) as ActionCreator<FetchCategoriesAction>;
 
 export const updateLocalCategoriesAC = createAction(
-  API_CALL_FETCH_CATEGORIES
+  UPDATE_API_CALL_FETCH_CATEGORIES
 ) as ActionCreator<UpdateLocalCategoriesAction>;
