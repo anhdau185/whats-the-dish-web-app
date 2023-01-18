@@ -39,7 +39,7 @@ The app is served at `localhost:3000`. Happy coding!
 
 ## Workflows
 
-Check out [this doc](https://github.com/anhdau185/application-infrastructure/blob/main/docs/whats-the-dish-web-app/workflows.md) for how to develop the web app locally as well as how to deploy it to a production server.
+Check out [this doc](https://github.com/anhdau185/application-infrastructure/blob/main/docs/whats-the-dish/workflows-frontend.md) for how to develop the web app locally as well as how to deploy it to a production server.
 
 ## Usage
 
