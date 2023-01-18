@@ -41,19 +41,19 @@ The app is served at `localhost:3000`. Happy coding!
 
 Check out [this doc](https://github.com/anhdau185/application-infrastructure/blob/main/docs/whats-the-dish-web-app/workflows.md) for how to develop the web app locally as well as how to deploy it to a production server.
 
-<!-- ## Usage
+## Usage
 
-Show demo videos of how to use the app...
+There will be usage demos here soon...
 
 ## Roadmap
 
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-    - [ ] Nested Feature
+- [x] Dishes & Categories - CRUD actions
+- [x] Dish Details with Images & Places
+- [ ] Dish Recipes
+- [ ] User Authentication & Authorization
 
-See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues).
+See [open issues](https://github.com/anhdau185/whats-the-dish-web-app/issues) for a full list of proposed features (and known issues).
 
 ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - anhdau185@gmail.com -->
+Hi I'm Anh Dau, author of this repo. You can reach out to me with the contact info at [thecodinglad.com/about](https://thecodinglad.com/about).
