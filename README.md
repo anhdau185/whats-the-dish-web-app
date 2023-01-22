@@ -1,6 +1,12 @@
 # What's The Dish?
 
-React app to set aside your favorite dishes and recipes. Browse your collections everywhere every time you don't know what to eat or cook!
+<p align="center">
+  <a href="http://dish.thecodinglad.com" target="_blank">
+    <img src="https://dl.dropboxusercontent.com/s/n7efpzxni2u1avb/dish.png" width="150" alt="Dish Logo">
+  </a>
+</p>
+
+A React app to set aside your favorite dishes and recipes. Browse your collections everywhere every time you don't know what to eat or cook!
 
 ## Getting Started
 
