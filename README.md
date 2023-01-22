@@ -1,7 +1,7 @@
 # What's The Dish?
 
 <p align="center">
-  <a href="http://dish.thecodinglad.com" target="_blank">
+  <a href="https://dish.thecodinglad.com" target="_blank">
     <img src="https://dl.dropboxusercontent.com/s/n7efpzxni2u1avb/dish.png" width="180" alt="Dish Logo">
   </a>
 </p>
