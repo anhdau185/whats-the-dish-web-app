@@ -57,6 +57,7 @@ Take a look at [this quick demo](https://github.com/anhdau185/application-infras
 - [x] Dish Details with Images & Places
 - [x] Like/Unlike a Dish
 - [ ] Dish Recipes
+- [ ] Upload images from local machine
 - [ ] User Authentication & Authorization
 
 See [open issues](https://github.com/anhdau185/whats-the-dish-web-app/issues) for a full list of proposed features (and known issues).
